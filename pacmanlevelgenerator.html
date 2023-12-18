@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>John Lundström | Pac-Man Level Generator</title>
+    <link rel="stylesheet" href="pacmanlevelgenerator.css" />
+    <link rel="icon" type="img/x-icon" href="img/Jonicles_Favicon.png" />
+  </head>
+  <body>
+    <header id="top">
+      <div class="header-flex default-margin">
+        <div class="header-left">
+          <img
+            class="logo"
+            src="img/Jonicles_Favicon.png"
+            alt="Jonicles Logo"
+          />
+          <h1>
+            <a class="header-title">John Lundström</a>
+            <a class="header-paragraph"><em>Game</em> Programmer</a>
+          </h1>
+        </div>
+        <nav class="header-nav">
+          <ul class="navigation-links">
+            <li class="navigation-link" id="Home">
+              <a class="nav-link-content" href="index.html">Home</a>
+            </li>
+            <li class="navigation-link" id="About">
+              <a class="nav-link-content" href="about.html">About</a>
+            </li>
+            <li class="navigation-link" id="Resume">
+              <a
+                class="resume-button"
+                href="Resume-John_Lundström.pdf"
+                target="_blank"
+                >Resume</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="default-margin">
+        <a class="secondary-links" href="index.html#featuredprojects"
+          >&lt; Back to Featured Projects</a
+        >
+        <article class="project">
+          <div class="link-flex">
+            <iframe
+              class="project-video"
+              src="vid/Pacman-Project_Video.mp4"
+            ></iframe>
+            <div class="project-links-container">
+              <ul class="project-links">
+                <li>
+                  <a
+                    target="_blank"
+                    class="project-link"
+                    href="https://github.com/Jonicles/Pacman_Level_Generator"
+                    ><img src="img/Misc/Logo-Github.png" alt="Github logo"
+                  /></a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    class="project-link"
+                    href="https://sir-jonicles.itch.io/pac-man-level-generator"
+                    ><img src="img/Misc/Logo-Itch.io.png" alt="Itch.io logo"
+                  /></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="info-flex">
+            <div class="info-box">
+              <h4>Info</h4>
+              <div class="no-break"><em>Platform</em> | WebGL</div>
+              <div class="no-break"><em>Engine</em> | Unity</div>
+              <div class="no-break"><em>Language</em> | C#</div>
+              <div class="no-break"><em>Time frame</em> | 1 month</div>
+              <div class="no-break"><em>Team size</em> | Solo</div>
+            </div>
+            <div class="info-box">
+              <h4>Pac-Man Level Generator</h4>
+              <p>
+                A <em>level generator</em> for the arcade classic Pac-Man! With
+                this project I wanted to challenge myself by exploring the
+                <em>Wave Function Collapse algorithm</em>. I also tried to hone
+                my skills in <em>time complexity</em> and make a efficient
+                algorithm.
+              </p>
+            </div>
+          </div>
+          <section>
+            <h3>Introduction</h3>
+            <p class="project-paragraph">
+              I while back I had this idea of combining
+              <em>Pac-Man with a roguelike setup</em>. This means that you must
+              generate the levels somehow. I thought about it a lot and I
+              couldn't come up with an easy solution. So naturally this excited
+              me, and I started researching the topic.
+            </p>
+            <p class="project-paragraph">
+              I found some other level generators for Pac-Man, particularly
+              <a
+                class="project-text-link"
+                href="https://shaunlebron.github.io/pacman-mazegen/"
+                target="_blank"
+                >Shaun LeBron's generator</a
+              >
+              was of great inspiration. Although the generator was very
+              sophisticated it felt a bit… <em>boring</em>.
+            </p>
+            <p class="project-paragraph">
+              The generated levels felt <em>too similar</em> to the original
+              Pac-Man level and not very exciting. LeBron outlined some
+              constraints that they found in the original Pac-Man level and Ms.
+              Pac-Man levels. I decided to follow some of hese constraints while
+              ignoring others to make the levels more exciting.
+            </p>
+            <p class="project-paragraph"><em>Constraints I followed:</em></p>
+            <ul class="project-bullet-list">
+              <li>“Paths are only 1 tile thick.”</li>
+              <li>“Intersections are separated by at least 2 tiles.”</li>
+              <li>“No dead-ends.”</li>
+              <li>
+                This was never mentioned by LeBron, but the right side has to be
+                a mirror of the left side.
+              </li>
+            </ul>
+            <p class="project-paragraph">
+              <em>Constraints I deliberately ignored:</em>
+            </p>
+            <ul class="project-bullet-list">
+              <li>
+                “Level is 28x31 tiles.” I wanted to have various sizes of the
+                levels to create <em>more variation</em> (like a roguelike
+                should).
+              </li>
+              <li>
+                “There are 1 or 2 tunnels.” Although fun, I don't believe
+                tunnels are necessary to capture the essence of Pac-Man.
+              </li>
+              <li>
+                “Only I, L, T, or + wall shapes are allowed, including the
+                occasional rectangular wall.” I think this is a bit restrictive,
+                and we can create more exciting levels by ignoring this
+                constraint!
+              </li>
+              <li>
+                “Any non-rectangular wall pieces must only be 2 tiles thick.” We
+                ignore this for the same reason as above! Instead, we will
+                change it so that walls have to be at least 2 tiles thick for
+                the sprites to work correctly.
+              </li>
+            </ul>
+            <p class="project-paragraph">
+              Having outlined a <em>plan</em>, we can now take a crack at the
+              problem!
+            </p>
+          </section>
+          <section>
+            <h3>TileGroups and TileShapes</h3>
+            <p class="project-paragraph">
+              Originally, I fiddled around with loops and
+              <em>random walks</em> to try and create the level. This proved to
+              be unsuccessful. My algorithm would spit out levels that did not
+              follow the constraints too well, it was hard to write them out in
+              this way. I thought that there must be <em>another way</em>.
+            </p>
+            <img
+              class="in-text-image"
+              src="img/Pacman_Level_Generator/Pacman-Random_Walks.PNG"
+              alt="Initial prototype"
+            />
+            <p class="project-paragraph">
+              After staring at the original Pac-Man level for an unhealthy
+              amount of time I started to notice <em>a pattern</em>. I decided
+              to call it a <em>TileGroup, a group of 3x3 tiles</em>. The
+              original Pac-Man level followed this pattern followed this pattern
+              closely, only occasionally breaking from it. I thought it would do
+              the trick! There is a finite amount of allowed shapes a group can
+              take on.
+            </p>
+            <img
+              src="img/Pacman_Level_Generator/Pacman-Patterns.png"
+              alt="Pacman TileGroups patterns"
+              class="in-text-image"
+            />
+            <p class="project-paragraph">
+              If we put two of these groups next to each other there will always
+              be two tiles between intersections! This became the base of how
+              the levels were going to be cobbled together. The
+              <a
+                target="_blank"
+                href="https://github.com/Jonicles/Pacman_Level_Generator/blob/main/Pac-Rogue/Assets/Scripts/TileGridGenerator.cs"
+                class="project-text-link"
+                >TileGridGenerator Script</a
+              >
+              does the cobbling and it is quite large, let's step through what
+              it actually does!
+            </p>
+          </section>
+          <section>
+            <h3>Wave Function Collapse</h3>
+            <p class="project-paragraph">
+              I had heard a bit about the
+              <em>Wave Function Collapse algorithm</em> and thought it would fit
+              my needs well. Particularly I foun
+              <a
+                target="_blank"
+                href="https://pvs-studio.com/en/blog/posts/csharp/1027/"
+                class="project-text-link"
+                >PVS-Studio's explanation</a
+              >
+              very helpful.
+            </p>
+            <p class="project-paragraph">
+              We can simply create an <em>enum</em> with the
+              <em>possible shapes</em>. Then each instance of the
+              <a
+                target="_blank"
+                href="https://github.com/Jonicles/Pacman_Level_Generator/blob/main/Pac-Rogue/Assets/Scripts/TileGroup.cs"
+                class="project-text-link"
+                >TileGroup class</a
+              >
+              can hold a list of the shapes available. Then when we perform the
+              Wave Function Collapse algorithm, we can remove shapes that do not
+              fit with the neighboring tiles.
+            </p>
+            <p class="project-paragraph">
+              Now we need to define what shapes fit together with each other. To
+              do this I created the static class called
+              <a
+                target="_blank"
+                href="https://github.com/Jonicles/Pacman_Level_Generator/blob/main/Pac-Rogue/Assets/Scripts/TileShapeRules.cs"
+                class="project-text-link"
+                >TileShapeRules</a
+              >. The class keeps track of which shapes have and don't have a
+              connection in each direction (north, east, south, west). In the
+              class, we have a dictionary that has a Tuple of TileGroupShape and
+              Direction as a key and
+              <em>returns an array of shapes to remove</em> from the TileGroup
+              instance.
+            </p>
+            <p class="project-paragraph">
+              Now let's get to cobbling! When creating a new level, we need to
+              translate the height and width into
+              <em>how many TileGroups we need to fill the space</em>. If we want
+              a level that is 28 tiles in width we can fit a maximum of 8
+              groups, <em>3x8 = 27 tiles</em>. This means that we will not be
+              able to fill the entire space, I address the solution to his the
+              <em>Adding missing pellets section</em> but for now let's keep
+              moving!
+            </p>
+            <p class="project-paragraph">
+              We only want to generate TileGroups for
+              <em>half of the grid</em> since we will later <em>copy</em> over
+              the tiles to the other side. Firs, we want to remove shapes from
+              the TileGroups on the <em>border</em> of the grid. For example, we
+              know that TileGroups on the west border need to remove all shapes
+              that have a connection to the west side such as HorizontalLine,
+              CornerSouthWest etc... and we get these shapes from
+              TileShapeRules. Then per the
+              <em>Wave Function Collapse algorithm</em>, we update the
+              neighboring TileGroups.
+            </p>
+            <p class="project-paragraph">
+              For each direction, we <em>compare</em> the shapes between the
+              updated group vs the neighboring group. Using the TileShapeRules
+              we look at the shapes to remove for the neighboring groups given
+              the shape of the updated group. For example, if our updated group
+              is the shape <em>“HorizontalLine”</em> and we are comparing the
+              shapes to the north TileGroup we need to
+              <em
+                >remove all the shapes from that group that has a connection
+                that goes south</em
+              >
+              (Plus, CornerDownLeft, VerticalLine etc…).
+            </p>
+            <p class="project-paragraph">
+              We must look at <em>all</em> the available shapes for the updated
+              group. Then we will only remove the shapes for the neighboring
+              group if that particular shape doesn't have a connection to any of
+              the available shapes in that direction. Otherwise, we would be
+              <em>assuming</em> that the updated group has a definite shape when
+              it does <em>not</em>.
+            </p>
+            <p class="project-paragraph">
+              After removing shapes from the TileGroups on the border and
+              updating their neighbors we will start to go through all the
+              TileGroups <em>randomly</em>, set their definite shape to a random
+              shape of those available, and update their neighboring groups
+              until we have set a shape for <em>each</em> TileGroup. Now we got
+              the base for our level!
+            </p>
+          </section>
+          <section>
+            <h3>Creating the TileGrid</h3>
+            <p class="project-paragraph">
+              Now that we have set a definite shape for each TileGroup we can
+              create <em>the full TileGrid</em>. TileShapeRules has a
+              <em>definition</em>
+              of every shape inthe form of a <em>bool array</em>, true
+              represents a <em>pellet tile</em> and false represents a
+              <em>wall tile</em>. For example, the empty shape will have an
+              array full of falses. Using the definition for all the different
+              TileGroups we create instances of the
+              <a
+                target="_blank"
+                href="https://github.com/Jonicles/Pacman_Level_Generator/blob/main/Pac-Rogue/Assets/Scripts/Tile.cs"
+                class="project-text-link"
+                >Tile class</a
+              >
+              and <em>transform their states</em> according to the
+              TileShapeRules.
+            </p>
+            <p class="project-paragraph">
+              Of course, this will only work for half of the grid. We copy each
+              Tile's state from the left side over to the right side. The grid
+              is now <em>perfectly</em> mirrored!
+            </p>
+          </section>
+          <section>
+            <h3>Ghost Box</h3>
+            <p class="project-paragraph">
+              Now we need to place the <em>Ghost Box</em>. Originally, I had
+              planned to use an <em>iterative method</em> to place the Ghost
+              Box, but then I realized that the Ghost Box would look the same no
+              matter what. So I made the
+              <a
+                target="_blank"
+                href="https://github.com/Jonicles/Pacman_Level_Generator/blob/main/Pac-Rogue/Assets/Scripts/GhostBox.cs"
+                class="project-text-link"
+                >Ghost Box Class</a
+              >
+              where each coordinate has a <em>definition</em> for what type of
+              tile should be there. Then we set a start coordinate and iterate
+              through all the coordinates needed and change the tiles to the
+              defined tile in the <em>Ghost Box definition</em>.
+            </p>
+            <p class="project-paragraph">
+              Around the Ghost Box there is an <em>empty path</em>. I wanted the
+              pellet path leading into this path to feel <em>natural</em>. In
+              the Ghost Box definition, I added a two-tile thick border of wall
+              tiles. Then I check for spots where I should
+              <em>remove the wall tiles</em>. The way I do this is by checking
+              in each direction if there is a line of two pellets in that same
+              direction outside of the border. If there is, we will remove the
+              wall separating the empty path and the pellet path.
+            </p>
+          </section>
+          <section>
+            <h3>Adding missing pellets</h3>
+            <p class="project-paragraph">
+              The level is not perfectly generated, several factors can
+              contribute to a level that does not complete such as: the tile
+              groups <em>do not fit</em> within the width of the level, the Wave
+              Function Collapse algorithm might have
+              <em>generated illegal connections</em> due to the order of
+              generation, and the ghost box might have
+              <em>removed neede tiles</em>. It might look something like this:
+            </p>
+            <img
+              src="img/Pacman_Level_Generator/Pacman-Missing_Pellets.PNG"
+              alt="Missing pellets example"
+              class="in-text-image"
+            />
+            <div class="paragraph-flex">
+              <p class="project-paragraph">
+                To fix this we need to add pellets so there are
+                <em>no incomplete paths</em>. To do this I will iterate over
+                each tile in the grid and check its <em>Tile Code</em>. I
+                determine the Tile Code by checking all the surrounding tiles.
+                If a tile is occupied it will be represented by a <em>0</em>,
+                otherwise it will be represented by a <em>1</em>. The indexes
+                are as follows:
+              </p>
+              <img
+                src="img/Pacman_Level_Generator/Pacman-Tile_Code_Indexes.png"
+                alt="TileCode Indexes"
+                class="in-text-image paragraph-image"
+              />
+            </div>
+            <div class="paragraph-flex">
+              <p class="project-paragraph">
+                Then I can look at the value and <em>compare</em> it to specific
+                values represented by a <em>const string</em>. For example, if
+                there is a tile with the <em>Tile Code “111110111”</em> it means
+                that we should transform this tile into a pellet because it's a
+                <em>dead end</em>. I check for a couple of specific cases and
+                continue checking until there are no such cases left.
+              </p>
+              <img
+                src="img/Pacman_Level_Generator/Pacman-Incorrect_Example.png"
+                alt="Example of incorrect pattern"
+                class="in-text-image paragraph-image"
+              />
+            </div>
+          </section>
+          <section>
+            <h3>Removing incorrect tiles</h3>
+            <p class="project-paragraph">
+              The Ghost Box and TileGroups not fitting in the full width might
+              also cause another problem,
+              <em>walls that are only 1 tile thick</em>. Since our tile sprites
+              will not work with this type of <em>pattern</em> we have to do
+              something else.
+            </p>
+            <img
+              src="img/Pacman_Level_Generator/Pacman-Incorrect_Tiles.PNG"
+              alt="Incorrect tiles"
+              class="in-text-image"
+            />
+            <p class="project-paragraph">
+              We use the tile's <em>Tile Code</em> to determine if the tile
+              should be <em>set to empty</em> instead of occupied. This breaks
+              the constraint of having paths that are only one tile thick. I
+              think it's fine since the tiles are empty, but ideally, I would
+              like to fix this <em>in the future</em>.
+            </p>
+          </section>
+          <section>
+            <h3>Connecting paths</h3>
+            <p class="project-paragraph">
+              We now run into our next problem. Since we have a TileGroup shape
+              that is empty we might get
+              <em>paths that are disconnected</em> from each other. This is
+              obviously an <em>unplayable</em> level:
+            </p>
+            <img
+              src="img/Pacman_Level_Generator/Pacman-Disconnected_Paths.PNG"
+              alt="Disconnected paths"
+              class="in-text-image"
+            />
+            <p class="project-paragraph">
+              So we need to <em>connect the paths</em> somehow. The first
+              challenge is <em>finding</em> the connected path. I iterate over
+              the coordinates until we find a coordinate that isn't occupied,
+              this is the start of the first path. We find all the connected
+              coordinates to that coordinate using a <em>recursive</em> method
+              that adds all neighboring coordinates that are pellets or empty to
+              the connected coordinates. I specifically use a
+              <em>Hashset</em> for this because
+              <em>its Contains() method is an O(1) operation</em> and we will
+              have to compare many coordinates many times.
+            </p>
+            <p class="project-paragraph">
+              Now we want to continue iterating over the coordinates and try to
+              find a coordinate that is a pellet or empty that is
+              <em>not connected</em>
+              to the previously fond coordinates. If we find a coordinate that
+              matches this condition it means we have a
+              <em>disconnected path</em>. Then we will find the coordinates for
+              the disconnected path so we can pass them to a method and
+              <em>connect the two paths</em>.
+            </p>
+            <p class="project-paragraph">
+              We are looking for a <em>specific type</em> of coordinate. The
+              coordinate has to be on the edge of the path and it also has to be
+              a coordinate that has once been the center of a TileGroup, which
+              is why we make sure that we only look at the coordinates less than
+              half of the grid. If a coordinate meets all these conditions, it
+              means it's an <em>eligible coordinate</em> for a connection.
+            </p>
+            <p class="project-paragraph">
+              Since the paths are entirely disconnected it would be good if we
+              could connect it in <em>as many ways as possible</em>. For every
+              eligible coordinate, we will check for the
+              <em>closest possible connection</em> to the previous path. If
+              there is no connection, we will do nothing. Otherwise, we will
+              place pellets until we have gone the entire length which means we
+              have now <em>connected</em> these paths. We will also place
+              pellets on the mirrored coordinate.
+            </p>
+            <p class="project-paragraph">
+              We will check for a connected path for as long as… well… the paths
+              are <em>disconnected</em> from each other. We will also remove
+              incorrect tiles after each iteration since they could create
+              problems.
+            </p>
+          </section>
+          <section>
+            <h3>Changing occupied sprites</h3>
+            <p class="project-paragraph">
+              So now we have our final level… <em>kinda</em>. See
+              <em>I've been deceiving you, dear reader</em>, in the previous
+              sections. For clarity, I made sure that this method was executed.
+              In reality <em>this is what our level looks like right now</em>:
+            </p>
+            <img
+              src="img/Pacman_Level_Generator/Pacman-Occupied_Sprites.PNG"
+              alt="Level without occupied sprites"
+              class="in-text-image"
+            />
+            <p class="project-paragraph">
+              Now we need to actually
+              <em>change the sprites into the right ones</em>. I made the
+              singleton class
+              <a
+                target="_blank"
+                href="https://github.com/Jonicles/Pacman_Level_Generator/blob/main/Pac-Rogue/Assets/Scripts/TileSpriteHolder.cs"
+                class="project-text-link"
+                >TileSpriteHolder</a
+              >
+              that holds all the sprites. I also made an enum called
+              <em>TileSprite</em>
+              with a value for every kind of sprite. The class has one method
+              called <em>GetSprite</em> and takes TileSprite as an argument and
+              then <em>returns the corresponding sprite</em>.
+            </p>
+            <p class="project-paragraph">
+              I iterate over all tiles and if the tile is <em>occupied</em>, we
+              will determine its Tile Code and then pass it to
+              <em>TryGetTileSprite()</em>
+              method. The method returns true if the Tile Code is a valid one
+              and a <em>TileSprite as an out parameter</em>. Then we simply
+              update the display of the tile with the new sprite.
+            </p>
+            <p class="project-paragraph">
+              <em>BOOM</em>, a level has been generated!!
+            </p>
+          </section>
+          <section>
+            <h3>Finding the border</h3>
+            <p class="project-paragraph">
+              <em>Okay so we are not done quite yet</em>. In the original
+              Pac-Man the levels have a border that is thicker than the border
+              of wall tiles inside the level.
+            </p>
+            <img
+              src="img/Pacman_Level_Generator/Pacman-Original_Level.png"
+              alt="Original Pac-Man Level"
+              class="in-text-image"
+            />
+            <p class="project-paragraph">
+              I can't simply change the sprite based on the tile's Tile Code
+              because
+              <em
+                >wall tiles within the maze might have the same Tile Code as a
+                border tile</em
+              >. So first of all we need to establish which tiles are on the
+              border so we later can change their sprite into a border sprite.
+            </p>
+            <p class="project-paragraph">
+              I began by simply iterating over the grid. If we are on the border
+              of the Tile Matrix we will go in the opposite direction and try to
+              find the first tile that does not have the Tile Code
+              <em>“111111111”</em>, which means that the tile is entirely
+              surrounded by other occupied tiles. <em>So to clarify</em>, if we
+              for example are on the west border when iterating over the
+              coordinates, we will begin iterating over all the coordinates in
+              that row in the east direction until we find a coordinate that has
+              a <em>pellet tile or empty tile</em> as a neighboring tile. That
+              coordinate is then added as a <em>border coordinate</em>.
+            </p>
+            <p class="project-paragraph">
+              This will <em>almost</em> give us all border coordinates, but we
+              are <em>far</em> from done. For example, these tiles will not have
+              been added to the border coordinates (highlighted in red):
+            </p>
+            <img
+              src="img/Pacman_Level_Generator/Pacman-Not_Found_Border.png"
+              alt="Border coordinates not found"
+              class="in-text-image"
+            />
+            <p class="project-paragraph">
+              For each of the found border coordinates, we will try to find
+              <em>additional coordinates</em> that are part of the border using
+              the recursive <em>FindBorderCoordinates()</em> method. I will try
+              checking the coordinate in each direction and if the coordinate is
+              within the Tile Matrix, is not in the border coordinates, is
+              occupied and does not have the Tile Code <em>“111111111”</em>, we
+              will
+              <em>add</em>
+              it as a border coordinate and call the
+              <em>FindBorderCoordinates()</em> for that coordinate.
+            </p>
+            <p class="project-paragraph">
+              This will also help us get border coordinates that look like this
+              (took a while to figure that one out):
+            </p>
+            <img
+              src="img/Pacman_Level_Generator/Pacman-Nightmare_Corner.PNG"
+              alt="Nighmare border corner"
+              class="in-text-image"
+            />
+            <p class="project-paragraph">
+              But we also have to be wary of something else.
+              <em>Divots</em> (highlighted in red).
+            </p>
+            <img
+              src="img/Pacman_Level_Generator/Pacman-Divot.png"
+              alt="Border divot"
+              class="in-text-image"
+            />
+            <p class="project-paragraph">
+              <em>We do not want to add the divots to our border</em>. They
+              stretch into the level and should only be one line thick. To solve
+              this, I made a method called <em>CheckForDivot()</em>, depending
+              on the Tile Code of the current coordinate I would check for
+              divots in different directions. Basically, if any of the tiles in
+              those particular directions had a particular Tile Code it would be
+              divot.
+            </p>
+            <p class="project-paragraph">
+              Then that direction will be <em>removed</em> from the
+              <em>available directions</em> when checking for coordinates to add
+              to the border
+            </p>
+            <p class="project-paragraph">
+              When we have found all possible border coordinates all we have to
+              do is determine the <em>Tile Code</em> for each the coordinate and
+              call <em>TryGetBorderSprite()</em>, which works pretty much
+              exactly the same as the <em>TryGetTileSprite()</em>. The only
+              difference is we also use the <em>CheckForDivot()</em> method to
+              determine what sprite we should pick depending on the
+              <em>divot direction</em>. Then all we have to do is update the
+              tile's display with the new sprite!
+            </p>
+            <p class="project-paragraph">
+              <em>Voila! We have our level!</em> (I also have a method to place
+              power pellets but it is really not that interesting)
+            </p>
+            <img
+              src="img/Pacman_Level_Generator/Pacman-Final_Level.PNG"
+              alt="Final Iteration of Level Generator"
+              class="in-text-image"
+            />
+            <p class="project-paragraph">
+              I also implemented basic
+              <a
+                target="_blank"
+                href="https://github.com/Jonicles/Pacman_Level_Generator/blob/main/Pac-Rogue/Assets/Scripts/PlayerController.cs"
+                class="project-text-link"
+                >Pac-Man controls</a
+              >
+              and slapped some PostFX on the final product.
+            </p>
+          </section>
+          <section>
+            <h3>Shortcomings</h3>
+            <p class="project-paragraph">
+              I wanted to make the maps <em>more dynamic</em> by being able to
+              control their width and height. Due to the way Wave Function
+              Collapse is implemented, levels may vary in size but it
+              <em>isn't controllable</em>. Right now, the level is set to a
+              28x31 grid no matter what, even though the level may be smaller
+              than that. The Ghost Box created many problems when trying to
+              change size, making <em>misaligned paths</em>. I would need to
+              iterate more on its implementation to achieve better control.
+            </p>
+            <p class="project-paragraph">
+              Now, I haven't implemented any ghosts, power pellets functionality
+              and the actual game loop but, it is pretty apparent that some of
+              the generated levels would be <em>very VERY hard to play</em>.
+              Levels that have very <em>long paths</em> with no intersections or
+              levels that technically don't lead to a <em>dead end</em> but in
+              reality, is kind of a dead end.
+            </p>
+            <div class="paragraph-flex">
+              <img
+                src="img/Pacman_Level_Generator/Pacman-Long_Path.PNG"
+                alt="Long path example"
+                class="in-text-image double-image"
+              />
+              <img
+                src="img/Pacman_Level_Generator/Pacman-Long_Path-2.PNG"
+                alt="Dead end example"
+                class="in-text-image double-image"
+              />
+            </div>
+            <p class="project-paragraph">
+              I think one solution could be making the algorithm
+              <em>prioritizing</em>
+              certain TileGroup Shapes over others or somehow
+              <em>detecting</em> a long path and then trying to add more
+              pellets.
+            </p>
+          </section>
+          <section>
+            <h3>Learning outcomes</h3>
+            <p class="project-paragraph">
+              I got a much better understanding of procedural generation and the
+              <em>Wave Function Collapse algorithm</em>. This has me excited to
+              continue experimenting with it and trying to make more “designed”
+              levels with a slew of randomness for a <em>better experience</em>.
+            </p>
+            <p class="project-paragraph">
+              I also learned more about <em>optimization</em>; it was very
+              important for me that the levels could be generated quickly. I
+              have now started to think much more <em>critically</em> about what
+              data structures to choose.
+            </p>
+            <p class="project-paragraph">
+              I also learned to <em>not overcomplicate</em> when you don't have
+              to. Sometimes you have to think about if what you are writing is
+              too complicated for what it is you actually want to do. For
+              example, with the <em>Ghost Box</em> where I tried an iterative
+              approach and then realized that it would be much
+              <em>easier and readable</em> if I just wrote out the exact
+              definition for it.
+            </p>
+          </section>
+        </article>
+      </div>
+    </main>
+    <footer>
+      <div class="default-margin">
+        <div class="footer-flex-container">
+          <img
+            src="img/Jonicles_Favicon.png"
+            alt="Jonicles logo"
+            class="logo footer-logo"
+          />
+          <nav class="footer-page-nav">
+            <ul class="page-list">
+              <li><a href="#top" class="footer-link">Back to top</a></li>
+              <li><a href="about.html" class="footer-link">About me</a></li>
+              <li>
+                <a href="index.html#featuredprojects" class="footer-link"
+                  >Featured projects</a
+                >
+              </li>
+              <li>
+                <a href="index.html#skills" class="footer-link">Traits</a>
+              </li>
+              <li>
+                <a href="index.html#referrals" class="footer-link">Referrals</a>
+              </li>
+            </ul>
+          </nav>
+          <!-- <nav class="footer-website-nav">
+            <ul class="website-list">
+            </ul>
+          </nav> -->
+          <div class="social-media">
+            <h4 class="socials-title">Socials</h4>
+            <nav class="socials-nav">
+              <ul class="socials-list">
+                <li>
+                  <a
+                    href="https://github.com/Jonicles"
+                    class="social-link"
+                    target="_blank"
+                    ><img
+                      class="social-icon"
+                      src="img/Misc/Logo-Github.png"
+                      alt="Github logo"
+                  /></a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/johnlundstrom/"
+                    class="social-link"
+                    target="_blank"
+                    ><img
+                      class="social-icon"
+                      src="img/Misc/Logo-Linkedin.png"
+                      alt="Linkedin logo"
+                  /></a>
+                </li>
+                <li>
+                  <a
+                    href="https://sir-jonicles.itch.io/"
+                    class="social-link"
+                    target="_blank"
+                    ><img
+                      class="social-icon"
+                      src="img/Misc/Logo-Itch.io.png"
+                      alt="Itch.io logo"
+                  /></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <span class="no-break">© 2023 John Lundström.</span>
+        <span class="no-break">All rights reserved</span>
+      </div>
+    </footer>
+  </body>
+</html>

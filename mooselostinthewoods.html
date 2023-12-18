@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>John Lundström | Moose Lost in the Woods</title>
+    <link rel="stylesheet" href="mooselostinthewoods.css" />
+    <link rel="icon" type="img/x-icon" href="img/Jonicles_Favicon.png" />
+  </head>
+  <body>
+    <header id="top">
+      <div class="header-flex default-margin">
+        <div class="header-left">
+          <img
+            class="logo"
+            src="img/Jonicles_Favicon.png"
+            alt="Jonicles Logo"
+          />
+          <h1>
+            <a class="header-title">John Lundström</a>
+            <a class="header-paragraph"><em>Game</em> Programmer</a>
+          </h1>
+        </div>
+        <nav class="header-nav">
+          <ul class="navigation-links">
+            <li class="navigation-link" id="Home">
+              <a class="nav-link-content" href="index.html">Home</a>
+            </li>
+            <li class="navigation-link" id="About">
+              <a class="nav-link-content" href="about.html">About</a>
+            </li>
+            <li class="navigation-link" id="Resume">
+              <a
+                class="resume-button"
+                href="Resume-John_Lundström.pdf"
+                target="_blank"
+                >Resume</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="default-margin">
+        <a class="secondary-links" href="index.html#featuredprojects"
+          >&lt; Back to Featured Projects</a
+        >
+        <article class="project">
+          <div class="link-flex">
+            <iframe
+              class="project-video"
+              src="https://www.youtube.com/embed/MNwkSWg0Jnk"
+            ></iframe>
+            <div class="project-links-container">
+              <ul class="project-links">
+                <li>
+                  <a
+                    target="_blank"
+                    class="project-link"
+                    href="https://store.steampowered.com/app/2455180/Moose_Lost_in_the_Woods/"
+                    ><img src="img/Misc/Logo-Steam.png" alt="Steam logo"
+                  /></a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    class="project-link"
+                    href="https://zantrish.itch.io/mooselostinthewoods"
+                    ><img src="img/Misc/Logo-Itch.io.png" alt="Itch.io logo"
+                  /></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="info-flex">
+            <div class="info-box">
+              <h4>Info</h4>
+              <div class="no-break"><em>Platform</em> | PC / Mac</div>
+              <div class="no-break"><em>Engine</em> | Unity</div>
+              <div class="no-break"><em>Language</em> | C#</div>
+              <div class="no-break"><em>Tools</em> | FMOD</div>
+              <div class="no-break"><em>Time frame</em> | 3 months</div>
+              <div class="no-break"><em>Team size</em> | 8</div>
+            </div>
+            <div class="info-box">
+              <h4>Moose Lost in the Woods</h4>
+              <p>
+                Moose Lost in the Woods is a cute and cozy 3D-platformer
+                <em>without a language barrier</em>. The project was an
+                assignment at Södertörn University but my team and I's
+                <em>goals</em> was creating a portfolio project that had a
+                chance of being nominated for the <em>Swedish Game Awards</em>.
+              </p>
+            </div>
+          </div>
+          <section>
+            <h3>My role</h3>
+            <p class="project-paragraph">
+              I was mainly responsible for all programming relating to the
+              character. I had never made a <em>character controller</em> before
+              and wanted to <em>challenge myself</em>. This also led to me being
+              responsible for programming navigation within <em>menus</em> for
+              the gamepad since I became familiar with Unity's New Input System.
+            </p>
+            <p class="project-paragraph">
+              I was interested in sound design at the time and wanted to explore
+              sound design and implementation on this project. I had designed
+              sounds for a couple of games before and felt confident I could
+              accomplish the task. In previous projects, sound implementation
+              was a bit sub-par, and this time I wanted to explore
+              <em>implementation with FMOD</em>, a common firmware for the task.
+            </p>
+            <p class="project-paragraph">
+              I also had the role as <em>scrum master</em>. I had been scrum
+              master in several projects before and felt very comfortable in the
+              role. To make sure I did as good a job as possible I took an
+              online course in scrum and consulted with a contact within the
+              tech industry on best practices for a good scrum.
+            </p>
+          </section>
+          <section>
+            <h3>Character Controller</h3>
+            <h4>Analog input</h4>
+            <p class="project-paragraph">
+              Using <em>Unity's Input System</em>, I could easily read the
+              magnitudes of the vector, or how much the player was pushing the
+              stick in any given direction, and then multiply those values into
+              the relative direction of the camera. Then I could simply use
+              <em>AddForce()</em> on the rigidbody to move the player in the
+              desired direction.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">private</span> <span style="color: #f8f8f2">Vector3</span> <span style="color: #a6e22e">ReadMovementInput</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">Vector2</span> <span style="color: #f8f8f2">inputDirection</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">playerInputActions.Player.Move.ReadValue&lt;Vector2&gt;();</span>
+      
+  <span style="color: #75715e">//Wont do any further calculation if the player is not currently inputting anything</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(inputDirection.magnitude</span> <span style="color: #f8f8f2">&lt;</span> <span style="color: #ae81ff">0.4f</span><span style="color: #f8f8f2">)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">latestMoveDirection;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">horizontalInput</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">inputDirection.x;</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">verticalInput</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">inputDirection.y;</span>
+
+  <span style="color: #f8f8f2">Vector3</span> <span style="color: #f8f8f2">movementDirection</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">GetRelativeCameraVector(horizontalInput,</span> <span style="color: #f8f8f2">verticalInput);</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">movementDirection;</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <p class="project-paragraph">
+              One Issue I encountered with gamepad movement was
+              <em>snapback</em>. When you let go of the stick it will snap back
+              in the other direction, causing the player to move in the opposite
+              direction briefly. With how rotation was set up this also caused
+              the player to always rotate forwards after you let go of the
+              stick. To combat this, I implemented a <em>dead zone check</em>.
+              If the vector's magnitude is below a certain value, the method
+              will just return the latest move direction. When letting go the
+              player will now keep moving in the direction they were going
+              previously.
+            </p>
+            <div class="paragraph-flex">
+              <p class="project-paragraph">
+                Analog input of course also needs to be
+                <em>reflected in the animation</em> of the character. To
+                accomplish this, the script checks the <em>magnitude</em> of the
+                latest move direction and then sets the
+                <em>Animation Controller</em> speed variable to that amount. The
+                sprintMultiplier variable is a set value, it represents how much
+                faster the player will mov when sprinting in
+                <em>relation</em> to their walking speed. The animator needs to
+                account for this as well which is why we multiply the magnitude
+                with the currentMultiplier.
+              </p>
+              <!-- HTML generated using hilite.me -->
+              <div
+                class="in-text-code"
+                style="
+                  background: #272822;
+                  overflow: auto;
+                  border: solid gray;
+                  border-width: 0.1em 0.1em 0.1em 0.8em;
+                  padding: 0.2em 0.6em;
+                "
+              >
+                <pre
+                  style="margin: 0; line-height: 125%"
+                ><span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">currentMultiplier</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">isSprinting</span> <span style="color: #f8f8f2">?</span> <span style="color: #f8f8f2">sprintMultiplier</span> <span style="color: #f8f8f2">:</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+
+<span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(currentSpeed</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #ae81ff">0.5f</span><span style="color: #f8f8f2">)</span>
+<span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">playerAnimator.SetFloat(speedString,</span> <span style="color: #f8f8f2">latestMoveDirection.magnitude</span> <span style="color: #f8f8f2">*</span> <span style="color: #f8f8f2">currentMultiplier);</span>
+<span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">else</span>
+<span style="color: #f8f8f2">{</span>
+    <span style="color: #f8f8f2">playerAnimator.SetFloat(speedString,</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+              </div>
+            </div>
+            <video
+              class="feature-video"
+              autoplay
+              muted
+              loop
+              src="vid/Moose-Analog_Input.mp4"
+            ></video>
+            <h4>Acceleration and deceleration</h4>
+            <div class="paragraph-flex">
+              <p class="project-paragraph">
+                It would feel like the character moves too <em>abruptly</em> if
+                there is no acceleration or deceleration. In the beginning, I
+                had made one coroutine that would handle both acceleration and
+                deceleration. But in the end, I made two coroutines, one for
+                acceleration and one for deceleration. This was because we
+                wanted the <em>acceleration time and curve</em> to be different
+                from the deceleration time and curve. This could definitively be
+                done in the same coroutine but, it was
+                <em>faster to modify and more readable</em> to have the code
+                this way.
+              </p>
+              <img
+                class="in-text-image"
+                src="img/Moose_Lost_in_the_Woods/Moose-AccelDecel-Editor.PNG"
+                alt="Character controller editor"
+              />
+            </div>
+            <div class="paragraph-flex">
+              <p class="project-paragraph">
+                When the player rapidly turned around, we still wanted to keep
+                the characters <em>momentum</em>. I made two methods that would
+                handle the starting and stopping of the acceleration coroutine.
+                Using Unity's Input System these methods subscribed to the
+                InputAction of movement starting and stopping respectively. Then
+                I could simply <em>lerp the value</em> of currentSpeed from its
+                starting speed to the desired speed using the different curves
+                and times. This way we would not have to accelerate from 0 each
+                time, making movement <em>smoother</em>.
+              </p>
+              <!-- HTML generated using hilite.me -->
+              <div
+                class="in-text-code"
+                style="
+                  background: #272822;
+                  overflow: auto;
+                  border: solid gray;
+                  border-width: 0.1em 0.1em 0.1em 0.8em;
+                  padding: 0.2em 0.6em;
+                "
+              >
+                <pre
+                  style="margin: 0; line-height: 125%"
+                ><span style="color: #66d9ef">private</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">DecelerationStart</span><span style="color: #f8f8f2">(InputAction.CallbackContext</span> <span style="color: #f8f8f2">context)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(accelerationRoutine</span> <span style="color: #f8f8f2">!=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">StopCoroutine(accelerationRoutine);</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #f8f8f2">accelerationRoutine</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">StartCoroutine(Decelerate(</span><span style="color: #ae81ff">0.0f</span><span style="color: #f8f8f2">));</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">IEnumerator</span> <span style="color: #a6e22e">Decelerate</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">desiredSpeed)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">currentDecelerationTime</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">decelerationTime;</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(currentState</span> <span style="color: #f8f8f2">==</span> <span style="color: #f8f8f2">PlayerState.Swimming)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">currentDecelerationTime</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">waterDecelerationTime;</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">elapsedTime</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">startSpeed</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">currentSpeed;</span>
+
+  <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">(currentDecelerationTime</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #f8f8f2">elapsedTime)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">currentSpeed</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">Mathf.Lerp(startSpeed,</span> <span style="color: #f8f8f2">desiredSpeed,</span> <span style="color: #f8f8f2">decelerationCurve.Evaluate(elapsedTime</span> <span style="color: #f8f8f2">/</span> <span style="color: #f8f8f2">currentDecelerationTime));</span>
+      <span style="color: #f8f8f2">elapsedTime</span> <span style="color: #f8f8f2">+=</span> <span style="color: #f8f8f2">Time.deltaTime;</span>
+      <span style="color: #66d9ef">yield</span> <span style="color: #66d9ef">return</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">SetSpeedToZero();</span>
+  <span style="color: #f8f8f2">accelerationRoutine</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">private</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">AccelerationStart</span><span style="color: #f8f8f2">(InputAction.CallbackContext</span> <span style="color: #f8f8f2">context)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">latestMoveDirection</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">Vector3.zero;</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(accelerationRoutine</span> <span style="color: #f8f8f2">!=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">StopCoroutine(accelerationRoutine);</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #f8f8f2">accelerationRoutine</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">StartCoroutine(Accelerate(maxWalkSpeed));</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">IEnumerator</span> <span style="color: #a6e22e">Accelerate</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">desiredSpeed)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">elapsedTime</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">startSpeed</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">currentSpeed;</span>
+
+  <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">(accelerationTime</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #f8f8f2">elapsedTime)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">currentSpeed</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">Mathf.Lerp(startSpeed,</span> <span style="color: #f8f8f2">desiredSpeed,</span> <span style="color: #f8f8f2">accelerationCurve.Evaluate(elapsedTime</span> <span style="color: #f8f8f2">/</span> <span style="color: #f8f8f2">accelerationTime));</span>
+      <span style="color: #f8f8f2">elapsedTime</span> <span style="color: #f8f8f2">+=</span> <span style="color: #f8f8f2">Time.deltaTime;</span>
+      <span style="color: #66d9ef">yield</span> <span style="color: #66d9ef">return</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #f8f8f2">currentSpeed</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">desiredSpeed;</span>
+  <span style="color: #f8f8f2">accelerationRoutine</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+              </div>
+            </div>
+            <video
+              class="feature-video"
+              autoplay
+              muted
+              loop
+              src="vid/Moose-Accel_Decel.mp4"
+            ></video>
+            <h4>Jump buffering and coyote time</h4>
+            <p class="project-paragraph">
+              It often felt like <em>the game ate your inputs</em> and you would
+              miss jumps. To remedy the problem, I implemented
+              <em>jump buffering</em> and <em>coyote time</em>, two staples of
+              great platforming games. I separated the jump into two methods;
+              <em>JumpPress()</em> and <em>JumpExecute()</em>. I also introduced
+              the variables timeSinceLastPlatform, hasJumped, and
+              timeSinceInput. JumpPress() subscribed to the InputAction of, you
+              guessed it, pressing the jump button, and JumpExecute() executes
+              the jump if the right conditions are met.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                width: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">void</span> <span style="color: #a6e22e">JumpPress</span><span style="color: #f8f8f2">(InputAction.CallbackContext</span> <span style="color: #f8f8f2">context)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(currentState</span> <span style="color: #f8f8f2">==</span> <span style="color: #f8f8f2">PlayerState.Airborne)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">timeSinceInput</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(!hasJumped</span> <span style="color: #f8f8f2">&amp;&amp;</span> <span style="color: #f8f8f2">timeSinceLastPlatform</span> <span style="color: #f8f8f2">&lt;</span> <span style="color: #f8f8f2">coyoteTime)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">JumpExecute();</span>
+      <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(currentState</span> <span style="color: #f8f8f2">!=</span> <span style="color: #f8f8f2">PlayerState.Grounded</span> <span style="color: #f8f8f2">&amp;&amp;</span> <span style="color: #f8f8f2">currentState</span> <span style="color: #f8f8f2">!=</span> <span style="color: #f8f8f2">PlayerState.Swimming)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #75715e">//This is to prevent &quot;Super jumping&quot;, or the jump executing multiple times cause you stay grounded too long</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(timeSinceLastJump</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #f8f8f2">jumpCooldownTime)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">JumpExecute();</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+<span style="color: #66d9ef">void</span> <span style="color: #a6e22e">JumpExecute</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(((isOnSlope</span> <span style="color: #f8f8f2">||</span> <span style="color: #f8f8f2">hasJumped)</span> <span style="color: #f8f8f2">&amp;&amp;</span> <span style="color: #f8f8f2">currentState</span> <span style="color: #f8f8f2">!=</span> <span style="color: #f8f8f2">PlayerState.Swimming)</span> <span style="color: #f8f8f2">||</span> <span style="color: #f8f8f2">isBouncing)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #f8f8f2">hasJumped</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">timeSinceLastPlatform</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">coyoteTime;</span>
+  <span style="color: #f8f8f2">timeSinceLastJump</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">playerRigidbody.velocity</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">new</span> <span style="color: #f8f8f2">Vector3(playerRigidbody.velocity.x,</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">playerRigidbody.velocity.z);</span>
+
+  <span style="color: #75715e">//Actual jump force being applied</span>
+  <span style="color: #f8f8f2">playerRigidbody.AddForce(Vector3.up</span> <span style="color: #f8f8f2">*</span> <span style="color: #f8f8f2">jumpForce,</span> <span style="color: #f8f8f2">ForceMode.Impulse);</span>
+
+  <span style="color: #75715e">//Different sound depending on if you jump in water or on land</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(currentState</span> <span style="color: #f8f8f2">!=</span> <span style="color: #f8f8f2">PlayerState.Swimming)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">FMODUnity.RuntimeManager.PlayOneShotAttached(</span><span style="color: #e6db74">&quot;event:/Player/Player_Jump&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">gameObject);</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">else</span>
+      <span style="color: #f8f8f2">FMODUnity.RuntimeManager.PlayOneShotAttached(</span><span style="color: #e6db74">&quot;event:/Player/Player_Water_Exit_Jump&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">gameObject);</span>
+
+  <span style="color: #f8f8f2">timeSinceInput</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">jumpBufferTime;</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <p class="project-paragraph">
+              If the player is airborne when pressing the jump button, we will
+              begin counting the time since the input. If timeSinceInput is
+              lower than the set value of jumpBufferTime when the player lands
+              we will <em>execute the jump</em>.
+            </p>
+            <video
+              class="feature-video"
+              autoplay
+              muted
+              loop
+              src="vid/Moose-Jump_Buffer.mp4"
+            ></video>
+            <p class="project-paragraph">
+              When the jump is executed, we set the hasJumped value to true and
+              when the player lands we set it to false. Using Unity's built-in
+              method <em>OnCollisionExit()</em> we can start counting the
+              timeSinceLastPlatform if the player has not jumped. Then if the
+              value of <em>timeSinceLastPlatform</em> is <em>lower</em> than the
+              set value of <em>coyote time</em> we will still
+              <em>execute the jump</em>, even though the player state is
+              <em>not grounded</em>.
+            </p>
+            <video
+              class="feature-video"
+              autoplay
+              muted
+              loop
+              src="vid/Moose-Jump_Coyote.mp4"
+            ></video>
+          </section>
+          <section>
+            <h3>Camera</h3>
+            <p class="project-paragraph">
+              In <em>pre-production</em> we conducted a survey, asking our
+              demographic several questions about games including whether they
+              thought it was <em>difficult</em> when a game made them
+              <em>control the camera</em>. Expectedly, this was very
+              <em>divisive</em>. A kid who plays Fortnite all day might think it
+              is easy while someone who doesn't might think it's difficult.
+            </p>
+            <p class="project-paragraph">
+              We decided to try tackling the problem somewhere in the middle by
+              creating a <em>simple camera</em>. The camera only allows the
+              player to rotate to the left and right. The player cannot zoom,
+              and neither can they look up and down. We also added other
+              <em>assistive elements</em> such camera switching view
+              automatically when bouncing on mushrooms.
+            </p>
+            <h4>Rotation</h4>
+            <div class="paragraph-flex">
+              <p class="project-paragraph">
+                I used a <em>Cinemachine virtual camera</em> to target and
+                follow the player. The camera rotation script finds the player
+                transform and then caches it. Then in Update I use
+                <em>transform.RotateAround</em> to rotate around the player
+                transform.
+              </p>
+              <!-- HTML generated using hilite.me -->
+              <div
+                class="in-text-code"
+                style="
+                  background: #272822;
+                  overflow: auto;
+                  border: solid gray;
+                  border-width: 0.1em 0.1em 0.1em 0.8em;
+                  padding: 0.2em 0.6em;
+                "
+              >
+                <pre
+                  style="margin: 0; line-height: 125%"
+                ><span style="color: #66d9ef">void</span> <span style="color: #a6e22e">RotateCamera</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(currentRotationSpeed</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #ae81ff">0.05</span><span style="color: #f8f8f2">)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">transform.RotateAround(playerTransform.position,</span> <span style="color: #66d9ef">new</span> <span style="color: #f8f8f2">Vector3(</span><span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">rotationDirection),</span> <span style="color: #f8f8f2">currentRotationSpeed</span> <span style="color: #f8f8f2">*</span> <span style="color: #f8f8f2">Time.deltaTime);</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+              </div>
+            </div>
+            <p class="project-paragraph">
+              Of course, we need to control when this rotation occurs.
+              Originally, I tried using <em>InputAction.Started</em> when
+              looking either left or right. This was <em>unreliable</em>, if the
+              right stick is already moved slightly to one side and then you
+              push it all the way to that same side it will have counted as the
+              action starting 2 times. If the player moves the stick around a
+              lot <em>the action will start multiple times</em>.
+            </p>
+            <div class="paragraph-flex">
+              <p class="project-paragraph">
+                Instead, I read the value from Update. The previous input is
+                also stored to do a <em>condition check</em>. If the previous
+                Input was set to 0 and the new input is more than zero it means
+                that we want to start rotating. Likewise, if the previous input
+                was more than 0 and the new input is less than zero it means
+                that we should stop rotating.
+              </p>
+              <!-- HTML generated using hilite.me -->
+              <div
+                class="in-text-code"
+                style="
+                  background: #272822;
+                  overflow: auto;
+                  border: solid gray;
+                  border-width: 0.1em 0.1em 0.1em 0.8em;
+                  padding: 0.2em 0.6em;
+                "
+              >
+                <pre
+                  style="margin: 0; line-height: 125%"
+                ><span style="color: #66d9ef">private</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">Update</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">previousInput</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">horizontalInput;</span>
+  <span style="color: #f8f8f2">Vector2</span> <span style="color: #f8f8f2">input</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">playerInputActions.Player.Look.ReadValue&lt;Vector2&gt;();</span>
+  <span style="color: #f8f8f2">input.Normalize();</span>
+  <span style="color: #f8f8f2">horizontalInput</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">input.x;</span>
+
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">((previousInput</span> <span style="color: #f8f8f2">&lt;=</span> <span style="color: #ae81ff">0</span> <span style="color: #f8f8f2">&amp;&amp;</span> <span style="color: #f8f8f2">horizontalInput</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span> <span style="color: #f8f8f2">||</span> <span style="color: #f8f8f2">(previousInput</span> <span style="color: #f8f8f2">&gt;=</span> <span style="color: #ae81ff">0</span> <span style="color: #f8f8f2">&amp;&amp;</span> <span style="color: #f8f8f2">horizontalInput</span> <span style="color: #f8f8f2">&lt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">))</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">isRotating</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">false</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #75715e">//Own coded &quot;Deadzone&quot; check, inputs strength must go over a certain threshold before even registering</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(!isRotating</span> <span style="color: #f8f8f2">&amp;&amp;</span> <span style="color: #f8f8f2">Math.Abs(horizontalInput)</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #f8f8f2">deadzoneSize)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">isRotating</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">true</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">StartRotation();</span>
+
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(horizontalInput</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+      <span style="color: #f8f8f2">{</span>
+          <span style="color: #f8f8f2">rotationDirection</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">}</span>
+      <span style="color: #66d9ef">else</span>
+          <span style="color: #f8f8f2">rotationDirection</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">-</span><span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+              </div>
+            </div>
+            <p class="project-paragraph">
+              I also have to be wary of <em>snapback</em> for this which is why
+              I use <em>Math.Abs</em> to check if the absolute value of the
+              horizontal input is bigger than the <em>dead zone</em>. I utilized
+              the same technique as with the player controller by creating
+              acceleration and deceleration for a <em>smoother experience</em>.
+            </p>
+            <video
+              class="feature-video"
+              autoplay
+              muted
+              loop
+              src="vid/Moose-Camera_Rotation.mp4"
+            ></video>
+            <h4>Camera switching</h4>
+            <p class="project-paragraph">
+              We wanted to be able to switch to different camera perspectives
+              while talking to characters to <em>frame the dialogue</em> better
+              and to <em>help players land their jumps</em> better when jumping
+              on mushrooms. To accomplish this, I used the Cinemachine package.
+              The CameraManager script is a <em>singleton pattern</em>, any
+              script can always access it. There are two main methods to switch
+              cameras, <em>ActivateCamera()</em> and
+              <em>DeactivateCamera()</em>.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">ActivateCamera</span><span style="color: #f8f8f2">(CinemachineVirtualCamera</span> <span style="color: #f8f8f2">cameraToActivate)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #75715e">//Safe proof so priority in cameras is not messed with </span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(cameraToActivate</span> <span style="color: #f8f8f2">==</span> <span style="color: #f8f8f2">currentCamera)</span>
+      <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(cameraToActivate</span> <span style="color: #f8f8f2">!=</span> <span style="color: #f8f8f2">bounceCamera)</span>
+      <span style="color: #f8f8f2">SCR_PlayerInputManager.Instance.Player.Look.Disable();</span>
+
+  <span style="color: #f8f8f2">cameraToActivate.m_Priority</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">highPriority;</span>
+  <span style="color: #f8f8f2">DeactivateCamera(currentCamera);</span>
+  <span style="color: #f8f8f2">currentCamera</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">cameraToActivate;</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">DeactivateCamera</span><span style="color: #f8f8f2">(CinemachineVirtualCamera</span> <span style="color: #f8f8f2">cameraToDeactivate)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">cameraToDeactivate.m_Priority</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">basePriority;</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <p class="project-paragraph">
+              The methods each take a Cinemachine Virtual Camera as an argument
+              and then change the <em>priority</em> of that Virtual Camera. The
+              current camera is passed as an argument to DeactivateCamera() and
+              then the current camera value is set to the new camera. Using
+              Cinemachine and <em>changing camera priority</em> makes the
+              cameras <em>smoothly interpolate</em> between one another instead
+              of abruptly changing.
+            </p>
+            <video
+              class="feature-video"
+              autoplay
+              muted
+              loop
+              src="vid/Moose-Camera_Bounce.mp4"
+            ></video>
+            <p class="project-paragraph">
+              Other scripts communicate with the Camera Manager using the
+              methods <em>ResetToWorldCamera()</em>,
+              <em>ActivateBounceCamera()</em>, and <em>ChooseCamera()</em>.
+              ActivateBounceCamera() and ResetToWorldCamera() are dead simple,
+              using the ActivateCameraMethod() and then passing the stored value
+              for each respective camera.
+            </p>
+            <p class="project-paragraph">
+              <em>ChooseCamera()</em> is used for the NPC dialogue cameras.
+              <em>Two Virtual Cameras</em> are placed on the NPC, when dialogue
+              is started the dialogue script will pass its Virtual Cameras as an
+              argument to ChooseCamera(). Then ChooseCamera will
+              <em>evaluate</em> which of the cameras are <em>closer</em> to the
+              player and then choose the closest one to activate.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">ActivateBounceCamera</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">ActivateCamera(bounceCamera);</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">ResetToWorldCamera</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">ActivateCamera(worldCamera);</span>
+  <span style="color: #f8f8f2">SCR_PlayerInputManager.Instance.Player.Look.Enable();</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">ChooseCamera</span><span style="color: #f8f8f2">(CinemachineVirtualCamera[]</span> <span style="color: #f8f8f2">possibleCameras)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #75715e">//Set to world camera to safe proof</span>
+  <span style="color: #f8f8f2">CinemachineVirtualCamera</span> <span style="color: #f8f8f2">cameraToActivate</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">worldCamera;</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">currentShortestDistance</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">500</span><span style="color: #f8f8f2">;</span>
+
+  <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">i</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span> <span style="color: #f8f8f2">i</span> <span style="color: #f8f8f2">&lt;</span> <span style="color: #f8f8f2">possibleCameras.Length;</span> <span style="color: #f8f8f2">i++)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(Vector3.Distance(possibleCameras[i].transform.position,</span> <span style="color: #f8f8f2">worldCamera.transform.position)</span> <span style="color: #f8f8f2">&lt;</span> <span style="color: #f8f8f2">currentShortestDistance)</span>
+      <span style="color: #f8f8f2">{</span>
+          <span style="color: #f8f8f2">currentShortestDistance</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">Vector3.Distance(possibleCameras[i].transform.position,</span> <span style="color: #f8f8f2">worldCamera.transform.position);</span>
+          <span style="color: #f8f8f2">cameraToActivate</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">possibleCameras[i];</span>
+      <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #f8f8f2">ActivateCamera(cameraToActivate);</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <p class="project-paragraph">
+              If there were only one camera that was on the opposite side of the
+              NPC the <em>interpolation</em> between cameras would look very
+              <em>weird</em>, which is the reason for the implementation.
+            </p>
+            <video
+              class="feature-video"
+              autoplay
+              muted
+              loop
+              src="vid/Moose-Camera_NPC.mp4"
+            ></video>
+          </section>
+          <section>
+            <h3>Menus</h3>
+            <h4>Menu items</h4>
+            <p class="project-paragraph">
+              Different menu options have <em>different functionality</em>. One
+              option might open up a submenu, another will allow the player to
+              exit the game and another will allow the player to start the game.
+              Yet, they all still need the <em>same</em> hover and unhover
+              functionality. To solve this, I created the base class
+              <em>MenuItem</em>. MenuItem has virtual the virtual methods
+              <em>Select()</em> and <em>Deselect()</em>. It also has the virtual
+              methods <em>Hover()</em> and <em>Leave()</em> which are
+              implemented but may also be overridden.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">virtual</span> <span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">Select</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">virtual</span> <span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">Deselect</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">virtual</span> <span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">Hover</span><span style="color: #f8f8f2">(Color</span> <span style="color: #f8f8f2">hoverColor)</span>
+<span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(buttonImage</span> <span style="color: #f8f8f2">!=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">)</span>
+    <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">Color</span> <span style="color: #f8f8f2">buttonColor</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">buttonImage.color;</span>
+        <span style="color: #f8f8f2">buttonImage.color</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">new</span> <span style="color: #f8f8f2">Color(buttonColor.r,</span> <span style="color: #f8f8f2">buttonColor.g,</span> <span style="color: #f8f8f2">buttonColor.b,</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">);</span>
+    <span style="color: #f8f8f2">}</span>
+
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(TryGetComponent(</span><span style="color: #66d9ef">out</span> <span style="color: #f8f8f2">TMP_Text</span> <span style="color: #f8f8f2">text))</span>
+        <span style="color: #f8f8f2">text.color</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">hoverColor;</span>
+
+    <span style="color: #f8f8f2">FMODUnity.RuntimeManager.PlayOneShot(</span><span style="color: #e6db74">&quot;event:/UI/UI_Move&quot;</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #66d9ef">virtual</span> <span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">Leave</span><span style="color: #f8f8f2">(Color</span> <span style="color: #f8f8f2">defaultColor)</span>
+<span style="color: #f8f8f2">{</span>
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(buttonImage</span> <span style="color: #f8f8f2">!=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">)</span>
+    <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">Color</span> <span style="color: #f8f8f2">buttonColor</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">buttonImage.color;</span>
+        <span style="color: #f8f8f2">buttonImage.color</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">new</span> <span style="color: #f8f8f2">Color(buttonColor.r,</span> <span style="color: #f8f8f2">buttonColor.g,</span> <span style="color: #f8f8f2">buttonColor.b,</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">);</span>
+    <span style="color: #f8f8f2">}</span>
+
+    <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(TryGetComponent(</span><span style="color: #66d9ef">out</span> <span style="color: #f8f8f2">TMP_Text</span> <span style="color: #f8f8f2">text))</span>
+        <span style="color: #f8f8f2">text.color</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">defaultColor;</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <p class="project-paragraph">
+              Then we can
+              <em>easily implement MenuItems with different functionality</em>.
+              For example, MenuItemPanel is very short. It only overrides
+              Select() and Deselect() and only activates and deactivates a panel
+              respectively.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">using</span> <span style="color: #f8f8f2">UnityEngine;</span>
+
+<span style="color: #66d9ef">public</span> <span style="color: #66d9ef">class</span> <span style="color: #a6e22e">SCR_MenuItemPanel</span> <span style="color: #f8f8f2">:</span> <span style="color: #f8f8f2">SCR_MenuItem</span>
+<span style="color: #f8f8f2">{</span>
+<span style="color: #a6e22e">    [SerializeField]</span> <span style="color: #f8f8f2">GameObject</span> <span style="color: #f8f8f2">panel;</span>
+
+    <span style="color: #66d9ef">public</span> <span style="color: #66d9ef">override</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">Select</span><span style="color: #f8f8f2">()</span>
+    <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">panel.SetActive(</span><span style="color: #66d9ef">true</span><span style="color: #f8f8f2">);</span>
+    <span style="color: #f8f8f2">}</span>
+
+    <span style="color: #66d9ef">public</span> <span style="color: #66d9ef">override</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">Deselect</span><span style="color: #f8f8f2">()</span>
+    <span style="color: #f8f8f2">{</span>
+        <span style="color: #f8f8f2">panel.SetActive(</span><span style="color: #66d9ef">false</span><span style="color: #f8f8f2">);</span>
+    <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <h4>Menu input</h4>
+            <p class="project-paragraph">
+              Input is handled through the MenuInput script. The MoveCursor
+              method subscribes to the <em>MoveMenu.Started InputAction</em>. We
+              read the value and then check whether it is bigger than a set
+              amount. The reason for this is to <em>avoid snapback</em>.
+            </p>
+            <p class="project-paragraph">
+              We will also make sure that the absolute y value is greater than
+              the absolute x value. This is to make sure that the cursor does
+              <em>not move</em> when the player is pressing in a
+              <em>horizontal direction</em>
+              since our menus are strictly vertical.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">private</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">MoveCursor</span><span style="color: #f8f8f2">(InputAction.CallbackContext</span> <span style="color: #f8f8f2">context)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">Vector2</span> <span style="color: #f8f8f2">inputDirection</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">playerInputActions.MenuUI.MoveMenu.ReadValue&lt;Vector2&gt;();</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(Mathf.Abs(inputDirection.y)</span> <span style="color: #f8f8f2">&lt;</span> <span style="color: #ae81ff">0.125f</span> <span style="color: #f8f8f2">&amp;&amp;</span> <span style="color: #f8f8f2">Mathf.Abs(inputDirection.y)</span> <span style="color: #f8f8f2">&lt;</span> <span style="color: #f8f8f2">Mathf.Abs(inputDirection.x))</span>
+      <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+
+  
+  <span style="color: #f8f8f2">inputDirection.Normalize();</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(inputDirection.y</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #75715e">//Up</span>
+      <span style="color: #75715e">//If we are in a submenu we will look at the subitems indexes, if not we will go to through the main menu indexes</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(IsInSubMenu)</span>
+      <span style="color: #f8f8f2">{</span>
+          <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(subItemIndex</span> <span style="color: #f8f8f2">==</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+              <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+
+          <span style="color: #f8f8f2">List&lt;SCR_MenuItem&gt;</span> <span style="color: #f8f8f2">subMenuItems</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">menuItemList[menuItemIndex].GetSubItems();</span>
+
+          <span style="color: #75715e">//If the submenu does not have any sub items, like for example the credits screen we will just return</span>
+          <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(subMenuItems.Count</span> <span style="color: #f8f8f2">==</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+              <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+
+          <span style="color: #f8f8f2">subMenuItems[subItemIndex].Leave(defaultColor);</span>
+          <span style="color: #f8f8f2">subItemIndex</span> <span style="color: #f8f8f2">-=</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+          <span style="color: #f8f8f2">subMenuItems[subItemIndex].Hover(hoverColor);</span>
+
+          <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">}</span>
+
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(menuItemIndex</span> <span style="color: #f8f8f2">==</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+          <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+
+      <span style="color: #f8f8f2">menuItemList[menuItemIndex].Leave(defaultColor);</span>
+      <span style="color: #f8f8f2">menuItemIndex</span> <span style="color: #f8f8f2">-=</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">menuItemList[menuItemIndex].Hover(hoverColor);</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">else</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #75715e">//Down</span>
+      <span style="color: #75715e">//If we are in a submenu we will look at the subitems indexes, if not we will go to through the main menu indexes</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(IsInSubMenu)</span>
+      <span style="color: #f8f8f2">{</span>
+          <span style="color: #f8f8f2">List&lt;SCR_MenuItem&gt;</span> <span style="color: #f8f8f2">subMenuItems</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">menuItemList[menuItemIndex].GetSubItems();</span>
+
+          <span style="color: #75715e">//If the submenu does not have any sub items, like for example the credits screen we will just return</span>
+          <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(subMenuItems.Count</span> <span style="color: #f8f8f2">==</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+              <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+
+          <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(subItemIndex</span> <span style="color: #f8f8f2">==</span> <span style="color: #f8f8f2">subMenuItems.Count</span> <span style="color: #f8f8f2">-</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)</span>
+              <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+
+          <span style="color: #f8f8f2">subMenuItems[subItemIndex].Leave(defaultColor);</span>
+          <span style="color: #f8f8f2">subItemIndex</span> <span style="color: #f8f8f2">+=</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+          <span style="color: #f8f8f2">subMenuItems[subItemIndex].Hover(hoverColor);</span>
+
+          <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">}</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(menuItemIndex</span> <span style="color: #f8f8f2">==</span> <span style="color: #f8f8f2">menuItemList.Count</span> <span style="color: #f8f8f2">-</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">)</span>
+          <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+
+      <span style="color: #f8f8f2">menuItemList[menuItemIndex].Leave(defaultColor);</span>
+      <span style="color: #f8f8f2">menuItemIndex</span> <span style="color: #f8f8f2">+=</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #f8f8f2">menuItemList[menuItemIndex].Hover(hoverColor);</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <video
+              class="feature-video"
+              autoplay
+              muted
+              loop
+              src="vid/Moose-Menu.mp4"
+            ></video>
+          </section>
+          <section>
+            <h3>Audio Implementation</h3>
+            <p class="project-paragraph">
+              I designed all the sounds in the game using free sound libraries
+              as well as recording my own <em>sound layers</em>. I used Reaper
+              to edit the sounds and then I exported each layer of the sound
+              <em>separately</em>. I also created multiple variations for each
+              layer to create variety. Then using <em>FMOD</em> I could
+              randomize which sound of which layer should play, effectively
+              creating even <em>more variations</em>. For example, If I had 3
+              layers which each had 3 variations, I would end up with
+              <em>3^3 = 27 unique sounds for a single action</em>.
+            </p>
+            <div class="paragraph-flex">
+              <p class="project-paragraph">
+                In the code, all we have to do is access the
+                <em>FMODUnity library</em>
+                and its runtime manager. Then we can simply call the method
+                <em>PlayOneShot()</em> and pass in the name of the sound event.
+              </p>
+              <!-- HTML generated using hilite.me -->
+              <div
+                class="in-text-code"
+                style="
+                  background: #272822;
+                  overflow: auto;
+                  border: solid gray;
+                  border-width: 0.1em 0.1em 0.1em 0.8em;
+                  padding: 0.2em 0.6em;
+                "
+              >
+                <pre
+                  style="margin: 0; line-height: 125%"
+                ><span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">PlayStepSound</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(player.IsSprinting)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">dustParticle.Play();</span>
+      <span style="color: #f8f8f2">RuntimeManager.PlayOneShotAttached(</span><span style="color: #e6db74">&quot;event:/Player/Player_Step_Sprint&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">gameObject);</span>
+  <span style="color: #f8f8f2">}</span>
+  <span style="color: #66d9ef">else</span>
+      <span style="color: #f8f8f2">RuntimeManager.PlayOneShotAttached(</span><span style="color: #e6db74">&quot;event:/Player/Player_Step&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">gameObject);</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+              </div>
+            </div>
+            <h4>VCAs and volume</h4>
+            <p class="project-paragraph">
+              Most games nowadays have the option to higher and lower the
+              <em>volumes of different types of sound</em>. We also wanted to
+              implement this type of solution. To do this, different types of
+              sounds were separated into four different <em>VCAs in FMOD</em>:
+              Master, Ambience, SFX, and music. Using a Slider and the
+              <em>MenuItemSlider</em> script we increment the value of the
+              slider and then set the related VCAs volume to that Slider's
+              value.
+            </p>
+            <p class="project-paragraph">
+              We also make sure that the slider has a min value of 0 and a max
+              value of 2. By default, the <em>VCA</em> volume is set to 1. This
+              makes sure the <em>slider starts in the middle</em> and that we
+              can both lower and raise the volume.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">ChangeValue</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">strength)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(slider.</span><span style="color: #66d9ef">value</span> <span style="color: #f8f8f2">+</span> <span style="color: #f8f8f2">increment</span> <span style="color: #f8f8f2">*</span> <span style="color: #f8f8f2">strength</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #f8f8f2">slider.maxValue)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">slider.</span><span style="color: #66d9ef">value</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">slider.maxValue;</span>
+      <span style="color: #f8f8f2">vca.setVolume(slider.</span><span style="color: #66d9ef">value</span><span style="color: #f8f8f2">);</span>
+      <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(slider.</span><span style="color: #66d9ef">value</span> <span style="color: #f8f8f2">+</span> <span style="color: #f8f8f2">increment</span> <span style="color: #f8f8f2">*</span> <span style="color: #f8f8f2">strength</span> <span style="color: #f8f8f2">&lt;</span> <span style="color: #f8f8f2">slider.minValue)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">slider.</span><span style="color: #66d9ef">value</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">slider.minValue;</span>
+      <span style="color: #f8f8f2">vca.setVolume(slider.</span><span style="color: #66d9ef">value</span><span style="color: #f8f8f2">);</span>
+      <span style="color: #66d9ef">return</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #f8f8f2">slider.</span><span style="color: #66d9ef">value</span> <span style="color: #f8f8f2">+=</span> <span style="color: #f8f8f2">increment</span> <span style="color: #f8f8f2">*</span> <span style="color: #f8f8f2">strength;</span>
+  <span style="color: #f8f8f2">vca.setVolume(slider.</span><span style="color: #66d9ef">value</span><span style="color: #f8f8f2">);</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <h4>Bus manipulation</h4>
+            <p class="project-paragraph">
+              <em>Busses</em> in <em>FMOD</em> are mainly used to add effects to
+              a sound. For example, if the player enters a cave a bus might be
+              used to add more reverb to the SFX, but not the music.
+            </p>
+            <p class="project-paragraph">
+              In our game, there is a small party at the end of the game. We
+              want to <em>transition to the party music seamlessly</em> when the
+              player enters the party and transition back to the normal music
+              when they exit. I used a <em>bus</em> to accomplish this. All we
+              do is lower and raise the volume of the bus using a coroutine when
+              the player enters and exits the collider. Using a coroutine and
+              <em>lerp</em> will transition the music <em>smoothly</em>.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #f8f8f2">IEnumerator</span> <span style="color: #a6e22e">ChangeVolume</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">desiredVolume)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">elapsedTime</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">startVolume;</span>
+  <span style="color: #f8f8f2">musicBus.getVolume(</span><span style="color: #66d9ef">out</span> <span style="color: #f8f8f2">startVolume);</span>
+
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">currentVolume</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+
+  <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">(volumeChangeTime</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #f8f8f2">elapsedTime)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">currentVolume</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">Mathf.Lerp(startVolume,</span> <span style="color: #f8f8f2">desiredVolume,</span> <span style="color: #f8f8f2">volumeChangeCurve.Evaluate(elapsedTime</span> <span style="color: #f8f8f2">/</span> <span style="color: #f8f8f2">volumeChangeTime));</span>
+      <span style="color: #f8f8f2">musicBus.setVolume(currentVolume);</span>
+
+      <span style="color: #f8f8f2">elapsedTime</span> <span style="color: #f8f8f2">+=</span> <span style="color: #f8f8f2">Time.deltaTime;</span>
+      <span style="color: #66d9ef">yield</span> <span style="color: #66d9ef">return</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #f8f8f2">musicBus.setVolume(desiredVolume);</span>
+  <span style="color: #f8f8f2">volumeRoutine</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+          </section>
+          <section>
+            <h3>Additional Programming</h3>
+            <h4>Save system</h4>
+            <p class="project-paragraph">
+              Initially, I was not tasked with creating the save system for the
+              game. However, due to some <em>complications</em>, it became my
+              resonsibility. We needed a save system and we needed it
+              <em>fast</em>. I had created simple saving using
+              <em>Unity PlayerPrefs</em>
+              before. Although not ideal for larger projects, I just had to get
+              a <em>simple implementation</em> working fast.
+            </p>
+            <p class="project-paragraph">
+              I needed to save the number of pinecones the player had collected,
+              the number of planks, and which hats the player had in their
+              inventory. Saving pinecones and planks was dead simple, just
+              creating an <em>Int PlayerPref</em> for each. Then all I had to do
+              was run a loop and use the already implemented<em> Add()</em>
+              function to add the data to the inventory
+            </p>
+            <p class="project-paragraph">
+              The hats were a bit more complicated. When saving I got all the
+              hat data from the inventory. Then I made a
+              <em>string PlayerPref</em> for each hat name.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">Save</span><span style="color: #f8f8f2">()</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">PlayerPrefs.DeleteAll();</span>
+  <span style="color: #f8f8f2">List&lt;SCR_InventoryItem&gt;</span> <span style="color: #f8f8f2">hats</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">inventory.hatInventoryList;</span>
+
+  <span style="color: #66d9ef">foreach</span> <span style="color: #f8f8f2">(SCR_InventoryItem</span> <span style="color: #f8f8f2">hat</span> <span style="color: #66d9ef">in</span> <span style="color: #f8f8f2">hats)</span>
+  <span style="color: #f8f8f2">{</span>
+     <span style="color: #f8f8f2">PlayerPrefs.SetString(hat.itemData.displayName,</span> <span style="color: #f8f8f2">hat.itemData.displayName);</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #f8f8f2">PlayerPrefs.SetInt(</span><span style="color: #e6db74">&quot;Cone&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">SCR_Inventory.coneAmount);</span>
+  <span style="color: #f8f8f2">PlayerPrefs.SetInt(</span><span style="color: #e6db74">&quot;Planks&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">SCR_Inventory.planksAmount);</span>
+  <span style="color: #f8f8f2">PlayerPrefs.SetString(</span><span style="color: #e6db74">&quot;CurrentHatPlayerPref&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">inventoryInput.GetCurrentHat());</span>
+
+  <span style="color: #f8f8f2">PlayerPrefs.Save();</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <p class="project-paragraph">
+              In the Load method, I then loaded in the <em>hat resources</em> to
+              add their names to a list. Then I would loop through all the hat
+              names in the list and
+              <em>if there was a PlayerPref with that name</em> as a key, I
+              would load that resource and then
+              <em>add it to the inventory</em>.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">private</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">FindPlayerPrefs</span><span style="color: #f8f8f2">(List&lt;</span><span style="color: #66d9ef">string</span><span style="color: #f8f8f2">&gt;</span> <span style="color: #f8f8f2">hatAssetNames)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">foreach</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">string</span> <span style="color: #f8f8f2">hatName</span> <span style="color: #66d9ef">in</span> <span style="color: #f8f8f2">hatAssetNames)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(PlayerPrefs.HasKey(hatName))</span>
+      <span style="color: #f8f8f2">{</span>
+          <span style="color: #f8f8f2">SCR_ItemData</span> <span style="color: #f8f8f2">hatData;</span>
+          <span style="color: #f8f8f2">hatData</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">(SCR_ItemData)Resources.Load(</span><span style="color: #960050; background-color: #1e0010">$</span><span style="color: #e6db74">&quot;Hats/{hatName}&quot;</span><span style="color: #f8f8f2">);</span>
+          <span style="color: #f8f8f2">inventory.Add(hatData);</span>
+      <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(PlayerPrefs.HasKey(</span><span style="color: #e6db74">&quot;Cone&quot;</span><span style="color: #f8f8f2">))</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">i</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span> <span style="color: #f8f8f2">i</span> <span style="color: #f8f8f2">&lt;</span> <span style="color: #f8f8f2">PlayerPrefs.GetInt(</span><span style="color: #e6db74">&quot;Cone&quot;</span><span style="color: #f8f8f2">);</span> <span style="color: #f8f8f2">i++)</span>
+      <span style="color: #f8f8f2">{</span>
+          <span style="color: #f8f8f2">SCR_ItemData</span> <span style="color: #f8f8f2">coneData;</span>
+          <span style="color: #f8f8f2">coneData</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">(SCR_ItemData)Resources.Load(</span><span style="color: #e6db74">&quot;Cone&quot;</span><span style="color: #f8f8f2">);</span>
+          <span style="color: #f8f8f2">inventory.Add(coneData);</span>
+      <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(PlayerPrefs.HasKey(</span><span style="color: #e6db74">&quot;Planks&quot;</span><span style="color: #f8f8f2">))</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">for</span> <span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">i</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span> <span style="color: #f8f8f2">i</span> <span style="color: #f8f8f2">&lt;</span> <span style="color: #f8f8f2">PlayerPrefs.GetInt(</span><span style="color: #e6db74">&quot;Planks&quot;</span><span style="color: #f8f8f2">);</span> <span style="color: #f8f8f2">i++)</span>
+      <span style="color: #f8f8f2">{</span>
+          <span style="color: #f8f8f2">SCR_ItemData</span> <span style="color: #f8f8f2">plankData;</span>
+          <span style="color: #f8f8f2">plankData</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">(SCR_ItemData)Resources.Load(</span><span style="color: #e6db74">&quot;Planks&quot;</span><span style="color: #f8f8f2">);</span>
+          <span style="color: #f8f8f2">inventory.Add(plankData);</span>
+       <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <p class="project-paragraph">
+              This means that each name must have the <em>exact</em> name in the
+              scenes as the ones in the folder. This, of course, is very
+              unhelpful if you ever want to rename them in the folder, since you
+              must manually go through all the hats in each scene and give them
+              the corresponding names. It was <em>manageable</em> for this small
+              game, given <em>more time</em> however I would try to implement it
+              differently.
+            </p>
+            <h4>Rumble system</h4>
+            <p class="project-paragraph">
+              The rumble system was a very VERY <em>late addition</em> to the
+              game. I took an old audio manager script and <em>adapted</em> it
+              to work with rumble instead. The script is in a
+              <em>singleton pattern</em> so any script can access it.
+            </p>
+            <p class="project-paragraph">
+              In the script, there is a public enum called <em>RumbleType</em>.
+              We can define as many different types of rumblings as we want.
+              Then in the editor, we can define these different rumblings. We
+              choose the rumble type and then define its <em>low frequency</em>,
+              <em>high frequency</em>, <em>rumble time</em>, and
+              <em>shake curve</em>. These are all serialized fields of the
+              Rumble class.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">public</span> <span style="color: #66d9ef">enum</span> <span style="color: #f8f8f2">RumbleType</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #f8f8f2">ControllerConnect,</span>
+  <span style="color: #f8f8f2">Mushroom,</span>
+  <span style="color: #f8f8f2">Pickup,</span>
+  <span style="color: #f8f8f2">Build</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #a6e22e">[System.Serializable]</span>
+<span style="color: #66d9ef">public</span> <span style="color: #66d9ef">class</span> <span style="color: #a6e22e">Rumble</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">public</span> <span style="color: #66d9ef">string</span> <span style="color: #f8f8f2">Name</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">get</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">name;</span> <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">private</span> <span style="color: #66d9ef">set</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">name</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">value</span><span style="color: #f8f8f2">;</span> <span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">}</span>
+<span style="color: #a6e22e">    [SerializeField]</span> <span style="color: #66d9ef">string</span> <span style="color: #f8f8f2">name;</span>
+
+  <span style="color: #66d9ef">public</span> <span style="color: #f8f8f2">RumbleType</span> <span style="color: #f8f8f2">RumbleType</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">get</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">rumbleType;</span> <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">private</span> <span style="color: #66d9ef">set</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">rumbleType</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">value</span><span style="color: #f8f8f2">;</span> <span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">}</span>
+<span style="color: #a6e22e">    [SerializeField]</span> <span style="color: #f8f8f2">RumbleType</span> <span style="color: #f8f8f2">rumbleType;</span>
+
+  <span style="color: #66d9ef">public</span> <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">LowFrequency</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">get</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">lowFrequency;</span> <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">private</span> <span style="color: #66d9ef">set</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">lowFrequency</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">value</span><span style="color: #f8f8f2">;</span> <span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">}</span>
+<span style="color: #a6e22e">    [SerializeField]</span> <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">lowFrequency;</span>
+
+  <span style="color: #66d9ef">public</span> <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">HighFrequency</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">get</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">highFrequency;</span> <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">private</span> <span style="color: #66d9ef">set</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">highFrequency</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">value</span><span style="color: #f8f8f2">;</span> <span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">}</span>
+<span style="color: #a6e22e">    [SerializeField]</span> <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">highFrequency;</span>
+
+  <span style="color: #66d9ef">public</span> <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">RumbleTime</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">get</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">rumbleTime;</span> <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">private</span> <span style="color: #66d9ef">set</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">rumbleTime</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">value</span><span style="color: #f8f8f2">;</span> <span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">}</span>
+<span style="color: #a6e22e">    [SerializeField]</span> <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">rumbleTime;</span>
+
+  <span style="color: #66d9ef">public</span> <span style="color: #f8f8f2">AnimationCurve</span> <span style="color: #f8f8f2">RumbleCurve</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">get</span> <span style="color: #f8f8f2">{</span> <span style="color: #66d9ef">return</span> <span style="color: #f8f8f2">shakeCurve;</span> <span style="color: #f8f8f2">}</span> <span style="color: #66d9ef">private</span> <span style="color: #66d9ef">set</span> <span style="color: #f8f8f2">{</span> <span style="color: #f8f8f2">shakeCurve</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">value</span><span style="color: #f8f8f2">;</span> <span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">}</span>
+<span style="color: #a6e22e">    [SerializeField]</span> <span style="color: #f8f8f2">AnimationCurve</span> <span style="color: #f8f8f2">shakeCurve;</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <p class="project-paragraph">
+              Then, any script can call <em>StartRumble()</em> and pass in an
+              enum value as an argument. In the method, we access all the values
+              of that particular rumble using
+              <em>a dictionary that has RumbleType as a key</em>. Then we simply
+              start the coroutine that sets the <em>motor speeds</em> over some
+              time.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">public</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">StartRumble</span><span style="color: #f8f8f2">(RumbleType</span> <span style="color: #f8f8f2">rumbleType)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(rumbleRoutine</span> <span style="color: #f8f8f2">!=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(Gamepad.current</span> <span style="color: #f8f8f2">!=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">)</span>
+          <span style="color: #f8f8f2">Gamepad.current.ResetHaptics();</span>
+
+      <span style="color: #f8f8f2">StopCoroutine(rumbleRoutine);</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">lowFrequency</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">rumbleTypeDictionary[rumbleType].LowFrequency;</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">highFrequency</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">rumbleTypeDictionary[rumbleType].HighFrequency;</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">rumbleTime</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">rumbleTypeDictionary[rumbleType].RumbleTime;</span>
+  <span style="color: #f8f8f2">AnimationCurve</span> <span style="color: #f8f8f2">curve</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">rumbleTypeDictionary[rumbleType].RumbleCurve;</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(Gamepad.current</span> <span style="color: #f8f8f2">!=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">)</span>
+      <span style="color: #f8f8f2">rumbleRoutine</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">StartCoroutine(RumbleController(lowFrequency,</span> <span style="color: #f8f8f2">highFrequency,</span> <span style="color: #f8f8f2">rumbleTime,</span> <span style="color: #f8f8f2">curve));</span>
+<span style="color: #f8f8f2">}</span>
+
+<span style="color: #f8f8f2">IEnumerator</span> <span style="color: #a6e22e">RumbleController</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">lowFrequency,</span> <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">highFrequency,</span> <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">rumbleTime,</span> <span style="color: #f8f8f2">AnimationCurve</span> <span style="color: #f8f8f2">curve)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">elapsedTime</span> <span style="color: #f8f8f2">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">startLowFrequency</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">lowFrequency;</span>
+  <span style="color: #66d9ef">float</span> <span style="color: #f8f8f2">startHighFrequency</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">highFrequency;</span>
+
+  <span style="color: #66d9ef">while</span> <span style="color: #f8f8f2">(rumbleTime</span> <span style="color: #f8f8f2">&gt;</span> <span style="color: #f8f8f2">elapsedTime)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">lowFrequency</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">Mathf.Lerp(startLowFrequency,</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">curve.Evaluate(elapsedTime</span> <span style="color: #f8f8f2">/</span> <span style="color: #f8f8f2">rumbleTime));</span>
+      <span style="color: #f8f8f2">highFrequency</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">Mathf.Lerp(startHighFrequency,</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">curve.Evaluate(elapsedTime</span> <span style="color: #f8f8f2">/</span> <span style="color: #f8f8f2">rumbleTime));</span>
+
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(Gamepad.current</span> <span style="color: #f8f8f2">!=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">)</span>
+          <span style="color: #f8f8f2">Gamepad.current.SetMotorSpeeds(lowFrequency,</span> <span style="color: #f8f8f2">highFrequency);</span>
+
+      <span style="color: #f8f8f2">elapsedTime</span> <span style="color: #f8f8f2">+=</span> <span style="color: #f8f8f2">Time.deltaTime;</span>
+      <span style="color: #66d9ef">yield</span> <span style="color: #66d9ef">return</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #f8f8f2">}</span>
+
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(Gamepad.current</span> <span style="color: #f8f8f2">!=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">)</span>
+      <span style="color: #f8f8f2">Gamepad.current.ResetHaptics();</span>
+
+  <span style="color: #f8f8f2">rumbleRoutine</span> <span style="color: #f8f8f2">=</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+  <span style="color: #66d9ef">yield</span> <span style="color: #66d9ef">return</span> <span style="color: #66d9ef">null</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+
+            <h4>Button adaption system</h4>
+            <p class="project-paragraph">
+              We wanted the buttons to <em>adapt</em> to whichever controller
+              the player is using. This was especially important to us since our
+              <em>demographic is very young</em> and might need to look down at
+              the controller for the corresponding button. We were not sure we
+              would have time to allocate to this, but we managed it in the end.
+            </p>
+            <p class="project-paragraph">
+              To begin with we need to be able to <em>detect</em> which type of
+              controller is being used. We wanted <em>support for XBOX</em>,
+              <em>Playstation</em>, <em>Nintendo Switch</em>, and of course
+              <em>keyboard</em>. I define an
+              <em>enum called ControlType</em> with the different control types.
+              We subscribe to the <em>onDeviceChange</em> input action and call
+              the <em>UpdateCurrentDevice</em> method. The method checks which
+              type of gamepad is currently being used and returns the
+              corresponding controls.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">private</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">OnDeviceChange</span><span style="color: #f8f8f2">(InputDevice</span> <span style="color: #f8f8f2">arg1,</span> <span style="color: #f8f8f2">InputDeviceChange</span> <span style="color: #f8f8f2">arg2)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(arg2</span> <span style="color: #f8f8f2">==</span> <span style="color: #f8f8f2">InputDeviceChange.Added</span> <span style="color: #f8f8f2">||</span> <span style="color: #f8f8f2">arg2</span> <span style="color: #f8f8f2">==</span> <span style="color: #f8f8f2">InputDeviceChange.Removed)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #f8f8f2">ControlType</span> <span style="color: #f8f8f2">previousControls</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">currentControls;</span>
+      <span style="color: #f8f8f2">ControlType</span> <span style="color: #f8f8f2">newControls</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">UpdateCurrentDevice();</span>
+
+      <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(previousControls</span> <span style="color: #f8f8f2">!=</span> <span style="color: #f8f8f2">newControls)</span>
+      <span style="color: #f8f8f2">{</span>
+          <span style="color: #f8f8f2">UpdateCurrentSprites(currentControls);</span>
+
+          <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">(listeners.Count</span> <span style="color: #f8f8f2">!=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">)</span>
+          <span style="color: #f8f8f2">{</span>
+              <span style="color: #66d9ef">foreach</span> <span style="color: #f8f8f2">(SCR_IButtonListener</span> <span style="color: #f8f8f2">listener</span> <span style="color: #66d9ef">in</span> <span style="color: #f8f8f2">listeners)</span>
+                  <span style="color: #f8f8f2">listener.ChangeSprites(currentSprites);</span>
+          <span style="color: #f8f8f2">}</span>
+
+          <span style="color: #f8f8f2">print(</span><span style="color: #e6db74">&quot;New controls: &quot;</span> <span style="color: #f8f8f2">+</span> <span style="color: #f8f8f2">currentControls);</span>
+          <span style="color: #f8f8f2">SCR_RumbleManager.Instance.StartRumble(RumbleType.ControllerConnect);</span>
+      <span style="color: #f8f8f2">}</span>
+  <span style="color: #f8f8f2">}</span>
+<span style="color: #f8f8f2">}</span>
+</pre>
+            </div>
+            <p class="project-paragraph">
+              Then we call <em>UpdateCurrentSprites()</em> and set all the
+              current sprites to the sprites of the new controls using a switch.
+            </p>
+            <!-- HTML generated using hilite.me -->
+            <div
+              class="in-text-code"
+              style="
+                background: #272822;
+                overflow: auto;
+                border: solid gray;
+                border-width: 0.1em 0.1em 0.1em 0.8em;
+                padding: 0.2em 0.6em;
+              "
+            >
+              <pre
+                style="margin: 0; line-height: 125%"
+              ><span style="color: #66d9ef">private</span> <span style="color: #66d9ef">void</span> <span style="color: #a6e22e">UpdateCurrentSprites</span><span style="color: #f8f8f2">(ControlType</span> <span style="color: #f8f8f2">newControls)</span>
+<span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">switch</span> <span style="color: #f8f8f2">(newControls)</span>
+  <span style="color: #f8f8f2">{</span>
+      <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">ControlType.XBOX:</span>
+          <span style="color: #f8f8f2">CurrentJump</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXJump;</span>
+          <span style="color: #f8f8f2">CurrentInteract</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXInteract;</span>
+          <span style="color: #f8f8f2">CurrentInteractPressed</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXInteractPressed;</span>
+          <span style="color: #f8f8f2">CurrentMoveForward</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXMoveForward;</span>
+          <span style="color: #f8f8f2">CurrentMoveLeft</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXMoveLeft;</span>
+          <span style="color: #f8f8f2">CurrentMoveRight</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXMoveRight;</span>
+          <span style="color: #f8f8f2">CurrentMoveBackward</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXMoveBackward;</span>
+          <span style="color: #f8f8f2">CurrentMoveCamera</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXMoveCamera;</span>
+          <span style="color: #f8f8f2">CurrentInventory</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXInventory;</span>
+          <span style="color: #f8f8f2">CurrentBack</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXBack;</span>
+          <span style="color: #f8f8f2">CurrentResetCamera</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXResetCamera;</span>
+          <span style="color: #f8f8f2">CurrentSprint</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">XBOXSprint;</span>
+          <span style="color: #66d9ef">break</span><span style="color: #f8f8f2">;</span>
+      <span style="color: #66d9ef">case</span> <span style="color: #f8f8f2">ControlType.Playstation:</span>
+          <span style="color: #f8f8f2">CurrentJump</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">PlaystationJump;</span>
+          <span style="color: #f8f8f2">CurrentInteract</span> <span style="color: #f8f8f2">=</span> <span style="color: #f8f8f2">PlaystationInteract;</span>
+<span style="color: #75715e">//And so on for each control type...</span>
+</pre>
+            </div>
+            <p class="project-paragraph">
+              The controller adaption script has a list of
+              <em>IButtonListeners</em>. We
+              <em>call ChangeSprites() on all listeners</em> and pass in the
+              currentSprites list as an argument. All the listener has to do is
+              find the right index in the list and update their corresponding
+              sprite.
+            </p>
+            <p class="project-paragraph">
+              This is all pretty hard-coded, and not very scalable. Looking
+              back, a <em>simple change</em> you could do is make an
+              <em>enum that represented the different button actions</em> and
+              pass a dictionary to the listeners that held all the sprites with
+              enum values as the keys. This way it is a lot
+              <em>clearer</em> when working in different scripts.
+            </p>
+            <video
+              class="feature-video"
+              autoplay
+              muted
+              loop
+              src="vid/Moose-Adaption.mp4"
+            ></video>
+          </section>
+          <section>
+            <h3>Swedish Game Awards</h3>
+            <p class="project-paragraph">
+              From the start, getting nominated for <em>SGA</em> was one of our
+              <em>goals</em>. We analyzed previous winners of SGA, analyzed
+              previous SGA winners' trailers, and consulted with our teacher
+              about what elements would give us the best shot at being nominated
+              for SGA.
+              <em>From our analysis, we planned out the features of the game</em
+              >.
+            </p>
+            <p class="project-paragraph">
+              We saw the fruits of our labor, being <em>nominated</em> in not
+              only one but <em>four categories</em>. We were nominated for
+              <em>Best Narrative</em>, <em>Best Design</em>, <em>Best Art</em>,
+              and <em>Game of the Year</em>. At the gala, we managed to
+              <em>snag two awards</em>, <em>Best Narrative</em> for our
+              illustrative dialogue system and <em>Gamers' Choice</em>, an award
+              voted for by the public and other contestants at the SGA showcase.
+            </p>
+            <img
+              class="in-text-image sga-pic"
+              src="img/Moose_Lost_in_the_Woods/SGA-Winner.png"
+              alt="Accepting an award on stage at the Swedish Game Awards"
+            />
+            <div class="sga-prizes">
+              <div class="sga-winners">
+                <img
+                  src="img/Misc/SGA-Gamers_Choice_Win.png"
+                  alt="Gamers Choice Diploma"
+                  class="sga-winner sga1"
+                />
+                <img
+                  src="img/Misc/SGA-Best_Narrative_Win.png"
+                  alt="Best Narrative Diploma"
+                  class="sga-winner sga2"
+                />
+              </div>
+              <div class="sga-nominees">
+                <img
+                  src="img/Misc/SGA-Game_of_the_Year_Nom.png"
+                  alt="Game of the Year Diploma"
+                  class="sga-nominee"
+                />
+                <img
+                  src="img/Misc/SGA-Best_Design_Nom.png"
+                  alt="Best Design Diploma"
+                  class="sga-nominee"
+                />
+                <img
+                  src="img/Misc/SGA-Best_Art_Nom.png"
+                  alt="Best Art Diploma"
+                  class="sga-nominee"
+                />
+              </div>
+            </div>
+          </section>
+          <section>
+            <h3>Learning outcomes</h3>
+            <p class="project-paragraph">
+              One of the <em>main takeaways</em> was learning how to size my
+              scripts and methods. Working with certain scripts was sometimes
+              cumbersome because they had <em>too much functionality</em>. It
+              would make it unclear what script actually did what. At the end of
+              the project, I got a lot better at keeping the script size to its
+              <em>core functionality</em>.
+            </p>
+            <p class="project-paragraph">
+              <em>Scope management</em> was also a big takeaway. Even though we
+              had bigger plans for the game, we were
+              <em>fast at adapting</em> to our circumstances, whether it be a
+              deadline that needed to be met, prioritizing important
+              functionality over a feature, and more. As a scrum master, this
+              was something I always kept my eye on and something I got a lot
+              better at as the project went on.
+            </p>
+            <p class="project-paragraph">
+              <em>Designing for a demographic and playtesting</em> has been
+              instrumental to the creation of this game. Being able to detach
+              and
+              <em>focus on the product instead of personal preferences</em>
+              helped us immensely, it put us in a <em>professional mindest</em>.
+              Many hard decisions were made simple by testing our game on the
+              intended audience. They would see things that we didn't. Also, it
+              was a joy to see the kid's reactions to the game!
+            </p>
+          </section>
+        </article>
+      </div>
+    </main>
+    <footer>
+      <div class="default-margin">
+        <div class="footer-flex-container">
+          <img
+            src="img/Jonicles_Favicon.png"
+            alt="Jonicles logo"
+            class="logo footer-logo"
+          />
+          <nav class="footer-page-nav">
+            <ul class="page-list">
+              <li><a href="#top" class="footer-link">Back to top</a></li>
+              <li><a href="about.html" class="footer-link">About me</a></li>
+              <li>
+                <a href="index.html#featuredprojects" class="footer-link"
+                  >Featured projects</a
+                >
+              </li>
+              <li>
+                <a href="index.html#skills" class="footer-link">Traits</a>
+              </li>
+              <li>
+                <a href="index.html#referrals" class="footer-link">Referrals</a>
+              </li>
+            </ul>
+          </nav>
+          <!-- <nav class="footer-website-nav">
+            <ul class="website-list">
+            </ul>
+          </nav> -->
+          <div class="social-media">
+            <h4 class="socials-title">Socials</h4>
+            <nav class="socials-nav">
+              <ul class="socials-list">
+                <li>
+                  <a
+                    href="https://github.com/Jonicles"
+                    class="social-link"
+                    target="_blank"
+                    ><img
+                      class="social-icon"
+                      src="img/Misc/Logo-Github.png"
+                      alt="Github logo"
+                  /></a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/johnlundstrom/"
+                    class="social-link"
+                    target="_blank"
+                    ><img
+                      class="social-icon"
+                      src="img/Misc/Logo-Linkedin.png"
+                      alt="Linkedin logo"
+                  /></a>
+                </li>
+                <li>
+                  <a
+                    href="https://sir-jonicles.itch.io/"
+                    class="social-link"
+                    target="_blank"
+                    ><img
+                      class="social-icon"
+                      src="img/Misc/Logo-Itch.io.png"
+                      alt="Itch.io logo"
+                  /></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <span class="no-break">© 2023 John Lundström.</span>
+        <span class="no-break">All rights reserved</span>
+      </div>
+    </footer>
+  </body>
+</html>
