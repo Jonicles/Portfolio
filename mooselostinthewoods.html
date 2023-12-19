@@ -1057,25 +1057,27 @@
             <h3>Additional Programming</h3>
             <h4>Save system</h4>
             <p class="project-paragraph">
-              Initially, I was not tasked with creating the save system for the
-              game. However, due to some <em>complications</em>, it became my
-              resonsibility. We needed a save system and we needed it
+              Initially, I was not tasked with creating the save system.
+              However, this was a bit outside of both our programmers comfort
+              zone so we decided to collaborate on the save system. We needed a
+              save system and we needed it
               <em>fast</em>. I had created simple saving using
               <em>Unity PlayerPrefs</em>
-              before. Although not ideal for larger projects, I just had to get
-              a <em>simple implementation</em> working fast.
+              before and suggested we use that. Although not ideal for larger
+              projects, we just had to get a
+              <em>simple implementation</em> working fast.
             </p>
             <p class="project-paragraph">
-              I needed to save the number of pinecones the player had collected,
-              the number of planks, and which hats the player had in their
-              inventory. Saving pinecones and planks was dead simple, just
-              creating an <em>Int PlayerPref</em> for each. Then all I had to do
-              was run a loop and use the already implemented<em> Add()</em>
+              We needed to save the number of pinecones the player had
+              collected, the number of planks, and which hats the player had in
+              their inventory. Saving pinecones and planks was dead simple, just
+              creating an <em>Int PlayerPref</em> for each. Then all we had to
+              do was run a loop and use the already implemented<em> Add()</em>
               function to add the data to the inventory
             </p>
             <p class="project-paragraph">
-              The hats were a bit more complicated. When saving I got all the
-              hat data from the inventory. Then I made a
+              The hats were a bit more complicated. When saving we got all the
+              hat data from the inventory. Then we made a
               <em>string PlayerPref</em> for each hat name.
             </p>
             <!-- HTML generated using hilite.me -->
@@ -1110,10 +1112,10 @@
 </pre>
             </div>
             <p class="project-paragraph">
-              In the Load method, I then loaded in the <em>hat resources</em> to
-              add their names to a list. Then I would loop through all the hat
-              names in the list and
-              <em>if there was a PlayerPref with that name</em> as a key, I
+              In the Load method, we then loaded in the
+              <em>hat resources</em> to add their names to a list. Then we would
+              loop through all the hat names in the list and
+              <em>if there was a PlayerPref with that name</em> as a key, we
               would load that resource and then
               <em>add it to the inventory</em>.
             </p>
@@ -1170,8 +1172,8 @@
               unhelpful if you ever want to rename them in the folder, since you
               must manually go through all the hats in each scene and give them
               the corresponding names. It was <em>manageable</em> for this small
-              game, given <em>more time</em> however I would try to implement it
-              differently.
+              game, given <em>more time</em> however we would try to implement
+              it differently.
             </p>
             <h4>Rumble system</h4>
             <p class="project-paragraph">
