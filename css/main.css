@@ -1,0 +1,794 @@
+/*
+============================================================== 
+IMPORTS 
+==============================================================
+*/
+@import url("https://fonts.googleapis.com/css2?family=Days+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+/*
+============================================================== 
+RESET 
+==============================================================
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/*
+============================================================== 
+VARIABLES 
+==============================================================
+*/
+:root {
+  --color-header-footer: #010a2d;
+  --color-text: #f7f8fd;
+  --color-text-emphasis: #fdc82f;
+  --color-primary: #0039ff;
+  --color-primary-shade: #0024a1;
+  --color-secondary: #565d81;
+  --color-background: #000e40;
+
+  --margin-techincal-exp: 65px;
+
+  --max-width: 950px;
+
+  --default-transition-time: 250ms;
+
+  --fs-2: clamp(0.63rem, calc(0.83rem + -0.22vw), 0.78rem);
+  --fs-1: clamp(0.88rem, calc(0.95rem + -0.08vw), 0.94rem);
+  --fs0: clamp(1.13rem, calc(1.09rem + 0.18vw), 1.25rem);
+  --fs1: clamp(1.35rem, calc(1.23rem + 0.6vw), 1.77rem);
+  --fs2: clamp(1.62rem, calc(1.37rem + 1.26vw), 2.5rem);
+  --fs3: clamp(1.94rem, calc(1.49rem + 2.27vw), 3.53rem);
+  --fs4: clamp(2.33rem, calc(1.57rem + 3.81vw), 5rem);
+  --fs5: clamp(2.8rem, calc(1.58rem + 6.09vw), 7.07rem);
+}
+
+/* 
+==============================================================
+DEFAULT FORMATTING 
+==============================================================
+*/
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  color: var(--color-text);
+  font-size: var(--fs0);
+  background-color: var(--color-background);
+  line-height: 1.4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Days One", sans-serif;
+  font-weight: 200;
+  letter-spacing: 0.8px;
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: var(--fs2);
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+h4 {
+  font-size: var(--fs1);
+}
+
+em {
+  font-style: normal;
+  color: #fdc82f;
+}
+
+a {
+  text-decoration: none;
+  color: #f7f8fd;
+}
+
+section {
+  margin-bottom: 75px;
+}
+
+.default-margin {
+  width: var(--max-width);
+  margin-inline: auto;
+}
+
+.secondary-links {
+  color: #565d81;
+  transition: all var(--default-transition-time);
+}
+
+.secondary-links:hover {
+  color: var(--color-primary);
+  transition: all var(--default-transition-time);
+}
+
+.backup-name,
+.backup-title {
+  font-size: var(--fs-1);
+  white-space: nowrap;
+  display: none;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.3rem;
+  color: var(--color-text-emphasis);
+  text-transform: uppercase;
+}
+
+.backup-name {
+  margin-top: 20px;
+}
+
+.backup-title {
+  margin-bottom: 20px;
+}
+
+/*
+============================================================== 
+HEADER 
+==============================================================
+*/
+h1 {
+  margin: 16px;
+  line-height: 1;
+}
+
+.navigation-links {
+  white-space: nowrap;
+}
+
+.navigation-link {
+  list-style: none;
+  display: inline-block;
+  margin: 14px;
+  margin-left: 28px;
+  margin-right: 0px;
+}
+
+.nav-link-content {
+  transition: all var(--default-transition-time);
+}
+
+.nav-link-content:hover {
+  color: #565d81;
+  transition: all var(--default-transition-time);
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header {
+  background-color: var(--color-header-footer);
+  margin-top: 0;
+  width: 100%;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: var(--fs3);
+}
+
+.header-title {
+  font-size: var(--fs1);
+  white-space: nowrap;
+  display: block;
+}
+
+.header-paragraph {
+  font-family: "Roboto", sans-serif;
+  font-size: var(--fs0);
+  display: block;
+}
+
+.resume-button {
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  padding: 11px 32px;
+  transition: all var(--default-transition-time);
+}
+
+.resume-button:hover {
+  background-color: var(--color-primary-shade);
+  color: var(--color-text);
+  transition: all var(--default-transition-time);
+}
+
+/* 
+==============================================================
+HERO SECTION
+==============================================================
+*/
+
+h2 {
+  font-size: var(--fs3);
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+
+.main-value-words {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.hero-section {
+  display: flex;
+  align-items: center;
+  height: clamp(650px, 82vh, 775px);
+  margin-bottom: 0;
+  background-image: radial-gradient(#0024a1, #000e40 60%);
+}
+
+.hero-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.hero-paragraph {
+  text-wrap: balance;
+  max-width: 65ch;
+}
+
+.headshot {
+  height: 300px;
+  width: auto;
+  margin-left: 10px;
+}
+
+/* 
+==============================================================
+FEATURED PROJECTS SECTION
+==============================================================
+*/
+
+.project-list {
+  list-style: none;
+}
+
+.project {
+  position: relative;
+  margin-bottom: 25px;
+  transition: all var(--default-transition-time);
+  .project-info {
+    transition: all var(--default-transition-time);
+  }
+}
+
+.moose {
+  margin-bottom: 75px;
+}
+
+.project:hover {
+  outline: 5px dashed var(--color-primary);
+  transition: all var(--default-transition-time);
+  scale: 1.03;
+  .project-info {
+    background-color: var(--color-primary-shade);
+    transition: all var(--default-transition-time);
+    top: 0;
+    left: 0;
+  }
+}
+
+.project-info {
+  padding: 10px 16px;
+  padding-right: 32px;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background-color: var(--color-primary);
+  border-width: 10px;
+  border-bottom-style: solid;
+  border-right-style: solid;
+  border-color: var(--color-background);
+  border-bottom-right-radius: 60px;
+}
+
+.project-tools {
+  color: var(--color-text-emphasis);
+}
+
+.sga-prizes {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sga-winners {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  gap: 115px;
+}
+
+.sga-nominees {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sga-winner,
+.sga-nominee {
+  display: inline-block;
+  width: 250px;
+  background-image: radial-gradient(
+    var(--color-primary-shade),
+    var(--color-background) 70%
+  );
+}
+
+.sga-nominee {
+  width: 200px;
+}
+
+.featured-project-video {
+  width: var(--max-width);
+  object-fit: cover;
+  overflow: hidden;
+}
+
+/* 
+==============================================================
+TECHNICAL EXPERIENCE SECTION
+==============================================================
+*/
+
+.technical-experience {
+  background-image: linear-gradient(
+      to bottom,
+      var(--color-background) -5%,
+      rgba(0, 0, 0, 0) 80%,
+      var(--color-background) 100%
+    ),
+    url("img/Misc/Background-Code.png");
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.top-exp-margin {
+  margin-bottom: var(--margin-techincal-exp);
+  visibility: hidden;
+}
+.bottom-exp-margin {
+  margin-top: var(--margin-techincal-exp);
+  visibility: hidden;
+}
+
+.tech-exp-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  align-items: center;
+  gap: 20px;
+}
+
+.tech-exp-sub-header {
+  margin-bottom: 15px;
+}
+
+.tech-exp-paragraph {
+  max-width: 40ch;
+  margin-bottom: 15px;
+}
+
+.tech-exp-picture {
+  background-color: gray;
+  width: 40ch;
+  height: 250px;
+  object-fit: cover;
+}
+
+.tech-exp-unit {
+  font-size: var(--fs0);
+  display: inline-block;
+  white-space: nowrap;
+  background-color: var(--color-background);
+  border-radius: 10px;
+  border-color: var(--color-primary-shade);
+  border-width: 2px;
+  border-style: solid;
+  padding: 5px 15px;
+  margin: 4px;
+}
+
+/* 
+==============================================================
+REFERRAL SECTION
+==============================================================
+*/
+
+.referral-section {
+  margin-top: 160px;
+  margin-bottom: 0;
+}
+
+.referral-list {
+  list-style-type: none;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.referral-card {
+  background-color: var(--color-primary-shade);
+}
+
+.referral-padding {
+  padding: 20px;
+}
+
+.referral-header {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.referral-pic {
+  height: 70px;
+  width: auto;
+  border-radius: 500px;
+  filter: grayscale(100%);
+}
+
+.referral-occupation {
+  margin-bottom: 15px;
+}
+
+.referral-paragraph {
+  max-width: 65ch;
+}
+
+/* 
+==============================================================
+CALL TO ACTION SECTION
+==============================================================
+*/
+
+.call-to-action {
+  height: 750px;
+
+  background-image: linear-gradient(
+    var(--color-background),
+    var(--color-primary-shade)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.call-to-action-container {
+  text-align: center;
+  position: relative;
+}
+
+.call-to-action-pic {
+  object-fit: cover;
+  width: calc(100% - 100px);
+}
+
+.hire-me-button {
+  font-size: var(--fs1);
+  white-space: nowrap;
+  position: absolute;
+  left: 80%;
+  bottom: 10px;
+  transform: translate(-50%, 0);
+  padding: 12px 30px;
+  background-color: #2e50fa;
+  margin-bottom: 25px;
+  border-radius: 10px;
+
+  transition: all var(--default-transition-time);
+}
+
+.hire-me-button:hover {
+  background-color: var(--color-primary-shade);
+  padding: 18px 40px;
+  transition: all var(--default-transition-time);
+}
+
+/* 
+==============================================================
+FOOTER
+==============================================================
+*/
+
+footer {
+  background-color: var(--color-header-footer);
+  bottom: 0;
+}
+
+.footer-flex-container {
+  padding-top: 90px;
+  padding-bottom: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-list,
+.website-list,
+.socials-list {
+  list-style-type: none;
+}
+
+.socials-list li {
+  display: inline-block;
+  padding: 10px;
+}
+
+.website-list li,
+.page-list li {
+  margin-bottom: 20px;
+}
+
+.footer-link {
+  transition: all var(--default-transition-time);
+}
+
+.footer-link:hover {
+  color: var(--color-secondary);
+  transition: all var(--default-transition-time);
+}
+
+.social-link:hover {
+  filter: invert(37%) sepia(43%) saturate(359%) hue-rotate(192deg)
+    brightness(87%) contrast(87%);
+  transition: all var(--default-transition-time);
+}
+
+.footer-copyright {
+  color: var(--color-secondary);
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.no-break {
+  white-space: nowrap;
+}
+
+/* 
+==============================================================
+MEDIA QUERIES
+==============================================================
+*/
+
+@media screen and (max-width: 1000px) {
+  .default-margin {
+    width: auto;
+    margin: auto 1.5rem;
+  }
+
+  .technical-experience {
+    margin-top: 75px;
+  }
+
+  .hero-section {
+    margin-top: 0;
+  }
+
+  /* -------HERO------- */
+
+  .hero-flex {
+    align-content: center;
+  }
+
+  h2,
+  .hero-paragraph {
+    margin-right: 0;
+  }
+
+  .featured-project-screenshot {
+    width: 100%;
+  }
+
+  /* -------FEATURED PROJECTS------- */
+
+  .featured-project-video {
+    min-height: 350px;
+    width: 100%;
+  }
+
+  .project-info {
+    border-width: 8px;
+  }
+
+  .sga-winners {
+    gap: 0;
+    justify-content: space-evenly;
+  }
+
+  .sga-nominee {
+    display: none;
+  }
+
+  /* -------CALL TO ACTION------- */
+
+  .call-to-action-pic {
+    width: 100%;
+    min-height: 300px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* -------HEADER------- */
+
+  h1 {
+    margin-left: 0;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  /* -------HERO------- */
+
+  .headshot {
+    margin: 20px;
+    height: 200px;
+  }
+
+  .skills-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-flex {
+    flex-direction: column-reverse;
+  }
+
+  .tech-exp-units {
+    display: inline-block;
+    max-width: 700px;
+    text-wrap: balance;
+    text-align: center;
+  }
+
+  .tech-exp-unit {
+    font-size: var(--fs-1);
+  }
+  /* -------TECH EXP------- */
+
+  .tech-exp-picture {
+    display: none;
+  }
+
+  .tech-exp-paragraph {
+    max-width: none;
+  }
+}
+
+@media screen and (max-width: 624px) {
+  /* -------HEADER------- */
+
+  .header-left {
+    display: none;
+  }
+
+  .navigation-link {
+    margin-inline: auto;
+    display: inline;
+    margin-inline: 0;
+  }
+
+  .header-nav {
+    width: 100%;
+  }
+
+  .navigation-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .resume-button {
+    padding: 8px 24px;
+  }
+  .navigation-link:nth-of-type(1) {
+    order: 1;
+  }
+  .navigation-link:nth-of-type(2) {
+    order: 3;
+  }
+  .navigation-link:nth-of-type(3) {
+    order: 2;
+  }
+
+  /* -------HERO------- */
+
+  .backup-name,
+  .backup-title {
+    display: inline-block;
+  }
+
+  .hero-paragraph {
+    display: none;
+  }
+
+  /* -------FEATURED PROJECTS------- */
+
+  .sga-prizes {
+    margin-top: 5px;
+  }
+  .sga-winner {
+    width: 175px;
+  }
+
+  .moose {
+    margin-bottom: 40px;
+  }
+
+  /* -------CALL TO ACTION------- */
+
+  .hire-me-button {
+    left: 50%;
+    font-size: var(--fs0);
+    padding: 8px 25px;
+  }
+
+  .hire-me-button:hover {
+    padding: 14px 35px;
+  }
+
+  /* -------FOOTER------- */
+
+  .footer-flex-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  /* -------HEADER------- */
+
+  .navigation-links {
+    font-size: var(--fs-1);
+  }
+
+  /* -------HERO------- */
+
+  .backup-name,
+  .backup-title {
+    font-size: var(--fs-1);
+  }
+
+  h2 {
+    font-size: var(--fs1);
+  }
+
+  .tech-exp-unit {
+    font-size: var(--fs-1);
+  }
+
+  /* -------FEATURED PROJECTS------- */
+
+  .sga-winner {
+    width: 110px;
+  }
+}
