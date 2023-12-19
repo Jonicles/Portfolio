@@ -234,7 +234,7 @@ h2 {
 .hero-section {
   display: flex;
   align-items: center;
-  height: clamp(600px, 82vh, 775px);
+  height: clamp(650px, 82vh, 775px);
   margin-bottom: 0;
   background-image: radial-gradient(#0024a1, #000e40 60%);
 }
@@ -775,7 +775,7 @@ MEDIA QUERIES
 
   .backup-name,
   .backup-title {
-    font-size: var(--fs-2);
+    font-size: var(--fs-1);
   }
 
   h2 {
@@ -783,7 +783,7 @@ MEDIA QUERIES
   }
 
   .tech-exp-unit {
-    font-size: var(--fs-2);
+    font-size: var(--fs-1);
   }
 
   /* -------FEATURED PROJECTS------- */
