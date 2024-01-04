@@ -434,11 +434,18 @@ REFERRAL SECTION
 }
 
 .referral-card {
+  --border-radius: 100px;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  background-image: radial-gradient(
+    var(--color-primary-shade),
+    var(--color-background) 140%
+  );
   background-color: var(--color-primary-shade);
 }
 
 .referral-padding {
-  padding: 20px;
+  padding: 40px;
 }
 
 .referral-header {
@@ -790,5 +797,15 @@ MEDIA QUERIES
 
   .sga-winner {
     width: 110px;
+  }
+
+  /* -------REFERRAL------- */
+
+  .referral-card {
+    border-radius: 20px;
+  }
+
+  .referral-padding {
+    padding: 25px;
   }
 }
