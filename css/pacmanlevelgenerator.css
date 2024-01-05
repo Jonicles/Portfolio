@@ -220,6 +220,7 @@ PROJECT
     var(--color-primary-shade),
     var(--color-background)
   );
+  border-radius: 20px;
 }
 
 .project-links {
@@ -246,9 +247,10 @@ PROJECT
 
 .info-box {
   padding: 25px;
+  border-radius: 20px;
   background-image: radial-gradient(
     var(--color-primary-shade),
-    var(--color-background) 130%
+    var(--color-background) 140%
   );
 }
 

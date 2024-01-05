@@ -441,7 +441,6 @@ REFERRAL SECTION
     var(--color-primary-shade),
     var(--color-background) 140%
   );
-  background-color: var(--color-primary-shade);
 }
 
 .referral-padding {
