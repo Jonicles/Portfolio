@@ -14,7 +14,7 @@
       Unity Developer, Godot, Godot Developer, GDScript"
     />
     <title>John Lundström - Game Programmer | Portfolio</title>
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/project.css" />
     <link rel="icon" type="img/x-icon" href="img/Jonicles_Favicon.png" />
   </head>
   <body>
@@ -46,25 +46,150 @@
     </header>
     <main>
       <article>
-        <section class="project-info-section top-section">
+        <section class="piece-info-section top-section">
           <div class="default-wrapper ">
             <div>
               <div>
                 <a href="./#featuredprojects">&lt; 
                 Back to Featured Projects</a>
               </div>
-              <h1 class="spacing-small">Moose Lost in the Woods</h1>
-              <video
+              <h1>Tower Builder/Validator</h1>
+              <video class="spacing-small"
                 autoplay
                 muted
                 loop
                 src="vid/Moose-Analog_Input.mp4"
               ></video>
+                <h3>Info</h3>
+                <ul class = "piece-info-list">
+                  <li><strong>Engine:</strong> Custom C++ Engine</li>
+                  <li><strong>Language:</strong> C++</li>
+                  <li><strong>Tools:</strong> None</li>
+                  <li><strong>Time frame:</strong> 3 weeks</li>
+                  <li><strong>Team Size:</strong> Solo</li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
         <section class="default-wrapper">
-          <h3>beginning</h3>
+          <h3>About</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta magnam quidem consequuntur. Necessitatibus obcaecati tempora optio officiis possimus omnis nobis quis iusto quisquam, praesentium, labore natus, ipsam quos. Ratione, reprehenderit.</p>
+          <!-- HTML generated using hilite.me --><div style="background: #0d1117; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%;"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49</pre></td><td><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #FF7B72">void</span><span style="color: #6E7681"> </span><span style="color: #D2A8FF; font-weight: bold">WalkableSurroundRule::Evaluate</span><span style="color: #E6EDF3">(</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">Tower</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">aTower,</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">FloorViolationData</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">aViolationData,</span><span style="color: #6E7681"> </span><span style="color: #FF7B72">int</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">aFloorIndex)</span>
+<span style="color: #E6EDF3">{</span>
+<span style="color: #6E7681">	</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">FloorData</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">currentFloorData</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">aTower[aFloorIndex];</span>
+
+<span style="color: #6E7681">	</span><span style="color: #FF7B72">if</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(currentFloorData.walkableBlocksMetaData.empty())</span>
+<span style="color: #6E7681">	</span><span style="color: #E6EDF3">{</span>
+<span style="color: #6E7681">		</span><span style="color: #FF7B72">return</span><span style="color: #E6EDF3">;</span>
+<span style="color: #6E7681">	</span><span style="color: #E6EDF3">}</span>
+
+<span style="color: #6E7681">	</span><span style="color: #FF7B72">for</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockCoordinate</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">walkableCoordinate</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">currentFloorData.walkableBlocksMetaData)</span>
+<span style="color: #6E7681">	</span><span style="color: #E6EDF3">{</span>
+<span style="color: #6E7681">		</span><span style="color: #FF7B72">for</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(</span><span style="color: #FF7B72">int</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">i</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">0</span><span style="color: #E6EDF3">;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">i</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">&lt;</span><span style="color: #6E7681"> </span><span style="color: #FF7B72">static_cast</span><span style="color: #FF7B72; font-weight: bold">&lt;</span><span style="color: #FF7B72">int</span><span style="color: #FF7B72; font-weight: bold">&gt;</span><span style="color: #E6EDF3">(Direction</span><span style="color: #FF7B72; font-weight: bold">::</span><span style="color: #E6EDF3">Count);</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">++</span><span style="color: #E6EDF3">i)</span>
+<span style="color: #6E7681">		</span><span style="color: #E6EDF3">{</span>
+<span style="color: #6E7681">			</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockCoordinate</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">adjacentCoordinate</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">GetAdjacentCoordinate(walkableCoordinate,</span><span style="color: #6E7681"> </span><span style="color: #FF7B72">static_cast</span><span style="color: #FF7B72; font-weight: bold">&lt;</span><span style="color: #E6EDF3">Direction</span><span style="color: #FF7B72; font-weight: bold">&gt;</span><span style="color: #E6EDF3">(i));</span>
+
+<span style="color: #6E7681">			</span><span style="color: #FF7B72">if</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(</span><span style="color: #FF7B72; font-weight: bold">!</span><span style="color: #E6EDF3">IsCoordinateWithinBounds(adjacentCoordinate))</span>
+<span style="color: #6E7681">			</span><span style="color: #E6EDF3">{</span>
+<span style="color: #6E7681">				</span><span style="color: #E6EDF3">myIsValid</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">false;</span>
+<span style="color: #6E7681">				</span><span style="color: #E6EDF3">aViolationData.hasFloorViolation</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">true;</span>
+<span style="color: #6E7681">				</span><span style="color: #FF7B72">break</span><span style="color: #E6EDF3">;</span>
+<span style="color: #6E7681">			</span><span style="color: #E6EDF3">}</span>
+
+<span style="color: #6E7681">			</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockData</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">adjacentBlockData</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">currentFloorData.blockData[adjacentCoordinate.row][adjacentCoordinate.column];</span>
+
+<span style="color: #6E7681">			</span><span style="color: #FF7B72">if</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(adjacentBlockData.blockType</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">==</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockType</span><span style="color: #FF7B72; font-weight: bold">::</span><span style="color: #E6EDF3">Void)</span>
+<span style="color: #6E7681">			</span><span style="color: #E6EDF3">{</span>
+<span style="color: #6E7681">				</span><span style="color: #FF7B72">if</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(aFloorIndex</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">==</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">0</span><span style="color: #E6EDF3">)</span>
+<span style="color: #6E7681">				</span><span style="color: #E6EDF3">{</span>
+<span style="color: #6E7681">					</span><span style="color: #E6EDF3">myIsValid</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">false;</span>
+<span style="color: #6E7681">					</span><span style="color: #E6EDF3">aViolationData.hasFloorViolation</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">true;</span>
+<span style="color: #6E7681">					</span><span style="color: #FF7B72">break</span><span style="color: #E6EDF3">;</span>
+<span style="color: #6E7681">				</span><span style="color: #E6EDF3">}</span>
+
+<span style="color: #6E7681">				</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">FloorData</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">belowFloorData</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">aTower[aFloorIndex</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">-</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">1</span><span style="color: #E6EDF3">];</span>
+<span style="color: #6E7681">				</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockData</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">adjacentBelowBlockData</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">belowFloorData.blockData[adjacentCoordinate.row][adjacentCoordinate.column];</span>
+
+<span style="color: #6E7681">				</span><span style="color: #FF7B72">if</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(adjacentBelowBlockData.blockType</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">==</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockType</span><span style="color: #FF7B72; font-weight: bold">::</span><span style="color: #E6EDF3">Stairs)</span>
+<span style="color: #6E7681">				</span><span style="color: #E6EDF3">{</span>
+<span style="color: #6E7681">					</span><span style="color: #FF7B72">continue</span><span style="color: #E6EDF3">;</span>
+<span style="color: #6E7681">				</span><span style="color: #E6EDF3">}</span>
+
+<span style="color: #6E7681">				</span><span style="color: #E6EDF3">myIsValid</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">false;</span>
+<span style="color: #6E7681">				</span><span style="color: #E6EDF3">aViolationData.hasFloorViolation</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">true;</span>
+<span style="color: #6E7681">			</span><span style="color: #E6EDF3">}</span>
+<span style="color: #6E7681">		</span><span style="color: #E6EDF3">}</span>
+<span style="color: #6E7681">	</span><span style="color: #E6EDF3">}</span>
+
+
+<span style="color: #E6EDF3">}</span>
+</pre></td></tr></table></div>
+
+        </section>
+        <section class="default-wrapper">
+          <h3>Building</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Soluta magnam quidem consequuntur. Necessitatibus obcaecati tempora optio officiis possimus omnis nobis quis iusto quisquam, praesentium, labore natus, ipsam quos. Ratione, reprehenderit.
+          </p>
+        </section>
+        <section class="default-wrapper">
+          <h3>Rules and rule validation</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta magnam quidem consequuntur. Necessitatibus obcaecati tempora optio officiis possimus omnis nobis quis iusto quisquam, praesentium, labore natus, ipsam quos. Ratione, reprehenderit.</p>
+        </section>
+        <section class="bottom-section">
+          <div class="default-wrapper">
+            <h3>Learning Outcomes</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta magnam quidem consequuntur. Necessitatibus obcaecati tempora optio officiis possimus omnis nobis quis iusto quisquam, praesentium, labore natus, ipsam quos. Ratione, reprehenderit.</p>
+          </div>
         </section>
       </article>
     </main>
