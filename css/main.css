@@ -31,11 +31,14 @@ VARIABLES
   --color-almost-black-blue: #010a2d;
   --color-navy-blue: #0024a1;
   --color-light-blue: #2E50FA;
+  --color-light-gray: #f7f8fd5d;
   --color-gray: #303C69;
   --color-yellow: #fdca30;
 
   --default-transition-time: 250ms;
 
+  --text-size-minus-4: clamp(0.3127rem, 0.6366rem + -0.4179vw, 0.5425rem);
+  --text-size-minus-3: clamp(0.4421rem, 0.7365rem + -0.3798vw, 0.651rem);
   --text-size-minus-2: clamp(0.63rem, calc(0.83rem + -0.22vw), 0.78rem);
   --text-size-minus-1: clamp(0.88rem, calc(0.95rem + -0.08vw), 0.94rem);
   --text-size-0: clamp(1.13rem, calc(1.09rem + 0.18vw), 1.25rem);
@@ -100,16 +103,26 @@ h2{
 
 h3{
   font-size: var(--text-size-2);
-  margin-bottom: var(--space-s);
+  margin-bottom: var(--space-m);
 }
 
 h4{
   font-size: var(--text-size-1);
 }
 
-em {
-  font-style: normal;
+p{
+  /* max-width: 75ch;
+  margin-inline: auto; */
+}
+
+strong{
   color: var(--color-yellow);
+}
+
+small{
+  font-style: italic;
+  font-size: var(--text-size-0);
+  color: var(--color-light-gray);
 }
 
 a {
@@ -137,6 +150,24 @@ section{
 .default-wrapper{
   width: min(100% - 3rem, 100ch);
   margin-inline: auto;
+}
+
+.spacing-small{
+  margin-bottom: var(--space-s)
+}
+
+section{
+  padding-bottom: var(--space-3xl);
+}
+
+.top-section{
+  background-image: linear-gradient(var(--color-navy-blue) -50%, var(--color-dark-blue) );
+}
+
+.bottom-section{
+  padding-bottom: var(--space-5xl);
+  background-image: linear-gradient(var(--color-dark-blue), var(--color-navy-blue) 160%);
+  margin-bottom: 0;
 }
 
 .secondary-links {
@@ -226,10 +257,10 @@ h2 {
 }
 
 .hero-section {
+  padding-bottom: 0;
   display: flex;
   align-items: center;
   height: fit-content;
-  background-image: linear-gradient(var(--color-navy-blue) -50%, var(--color-dark-blue) );
 }
 
 .hero-flex {
@@ -356,12 +387,6 @@ CALL TO ACTION SECTION
 ==============================================================
 */
 
-.call-to-action {
-  padding: var(--space-3xl) 0px;
-  background-image: linear-gradient(var(--color-dark-blue), var(--color-navy-blue) 160%);
-  margin-bottom: 0;
-}
-
 .call-to-action-container {
   display: flex;
   align-items: center;
@@ -377,12 +402,13 @@ CALL TO ACTION SECTION
   font-size: var(--text-size-1);
   padding: 12px 30px;
   background-color: var(--color-navy-blue);
-  margin-bottom: 25px;
+  margin-inline: auto;
   border-radius: 10px;
   transition: all var(--default-transition-time);
 }
 
 .call-to-action-button:hover {
+  color: var(--color-white);
   background-color: var(--color-light-blue);
   padding: 18px 40px;
   transition: all var(--default-transition-time);
@@ -449,6 +475,22 @@ footer {
 
 /* 
 ==============================================================
+PROJECT PAGE SECTION
+==============================================================
+*/
+
+.project-info-section{
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  column-gap: var(--space-s);
+  padding-top: var(--space-2xl);
+}
+
+/* 
+==============================================================
 MEDIA QUERIES
 ==============================================================
 */
@@ -459,24 +501,7 @@ MEDIA QUERIES
     margin: auto 1.5rem;
   }
 
-  .technical-experience {
-    margin-top: 75px;
-  }
-
-  .hero-section {
-    margin-top: 0;
-  }
-
   /* -------HERO------- */
-
-  .hero-flex {
-    align-content: center;
-  }
-
-  h2,
-  .hero-paragraph {
-    margin-right: 0;
-  }
 
   .featured-project-screenshot {
     width: 100%;
@@ -510,22 +535,16 @@ MEDIA QUERIES
   }
 }
 
-@media screen and (max-width: 768px) {
-  /* -------HEADER------- */
-
-  h1 {
-    margin-left: 0;
+@media screen and (max-width: 908px) {
+  .hero-flex {
+    flex-direction: column-reverse;
+    justify-content: center;
+    gap: var(--space-2xs);
   }
 
-  .logo {
-    display: none;
-  }
-
-  /* -------HERO------- */
-
-  .headshot {
-    margin: 20px;
-    height: 200px;
+  h1,
+  h2{
+    text-align: center;
   }
 
   .skills-container {
@@ -535,47 +554,20 @@ MEDIA QUERIES
     gap: var(--space-2xl);
   }
 
-  .hero-flex {
-    flex-direction: column-reverse;
-  }
-
   .hero-skill-units {
     display: inline-block;
     width: 100%;
-    max-width: 700px;
     text-wrap: wrap;
     text-align: center;
-  }
-
-  .tech-exp-unit {
-    font-size: var(--text-size-minus-1);
-  }
-  /* -------TECH EXP------- */
-
-  .tech-exp-picture {
-    display: none;
-  }
-
-  .tech-exp-paragraph {
-    max-width: none;
   }
 }
 
 @media screen and (max-width: 624px) {
   /* -------HEADER------- */
-
-  .header-left {
-    display: none;
-  }
-
   .navigation-link {
     margin-inline: auto;
     display: inline;
     margin-inline: 0;
-  }
-
-  .header-nav {
-    width: 100%;
   }
 
   .navigation-links {
@@ -583,35 +575,18 @@ MEDIA QUERIES
     flex-direction: row;
     justify-content: space-around;
   }
-  .resume-button {
-    padding: 8px 24px;
-  }
-  .navigation-link:nth-of-type(1) {
-    order: 1;
-  }
-  .navigation-link:nth-of-type(2) {
-    order: 3;
-  }
-  .navigation-link:nth-of-type(3) {
-    order: 2;
-  }
 
   /* -------HERO------- */
-
-  .backup-name,
-  .backup-title {
-    display: inline-block;
-  }
-
-  .hero-paragraph {
-    display: none;
+  .hero-skill-unit {
+    font-size: var(--text-size-minus-1);
+    padding: var(--text-size-minus-4) var(--text-size-minus-3);
   }
 
   /* -------FEATURED PROJECTS------- */
-
   .sga-prizes {
     margin-top: 5px;
   }
+  
   .sga-winner {
     width: 175px;
   }
@@ -620,61 +595,32 @@ MEDIA QUERIES
     margin-bottom: 40px;
   }
 
-  /* -------CALL TO ACTION------- */
-
-  .hire-me-button {
-    left: 50%;
-    font-size: var(--text-size-0);
-    padding: 8px 25px;
-  }
-
-  .hire-me-button:hover {
-    padding: 14px 35px;
-  }
-
   /* -------FOOTER------- */
-
   .footer-flex-container {
     flex-direction: column;
     gap: 30px;
+  }
+
+  .footer-logo{
+    display: none;
   }
 }
 
 @media screen and (max-width: 425px) {
   /* -------HEADER------- */
-
   .navigation-links {
     font-size: var(--text-size-minus-1);
   }
 
-  /* -------HERO------- */
-
-  .backup-name,
-  .backup-title {
-    font-size: var(--text-size-minus-1);
+  h1{
+    font-size: var(--text-size-3);
   }
-
   h2 {
     font-size: var(--text-size-1);
   }
 
-  .tech-exp-unit {
-    font-size: var(--text-size-minus-1);
-  }
-
   /* -------FEATURED PROJECTS------- */
-
   .sga-winner {
     width: 110px;
-  }
-
-  /* -------REFERRAL------- */
-
-  .referral-card {
-    border-radius: 20px;
-  }
-
-  .referral-padding {
-    padding: 25px;
   }
 }
