@@ -58,7 +58,7 @@
                 autoplay
                 muted
                 loop
-                src="vid/Moose-Analog_Input.mp4"
+                src="vid/Inspelning 2026-04-07 091006.mp4"
               ></video>
                 <h3>Info</h3>
                 <ul class = "piece-info-list">
@@ -74,111 +74,34 @@
         </section>
         <section class="default-wrapper">
           <h3>About</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta magnam quidem consequuntur. Necessitatibus obcaecati tempora optio officiis possimus omnis nobis quis iusto quisquam, praesentium, labore natus, ipsam quos. Ratione, reprehenderit.</p>
-          <!-- HTML generated using hilite.me --><div style="background: #0d1117; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%;"> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49</pre></td><td><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #FF7B72">void</span><span style="color: #6E7681"> </span><span style="color: #D2A8FF; font-weight: bold">WalkableSurroundRule::Evaluate</span><span style="color: #E6EDF3">(</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">Tower</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">aTower,</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">FloorViolationData</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">aViolationData,</span><span style="color: #6E7681"> </span><span style="color: #FF7B72">int</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">aFloorIndex)</span>
-<span style="color: #E6EDF3">{</span>
-<span style="color: #6E7681">	</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">FloorData</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">currentFloorData</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">aTower[aFloorIndex];</span>
-
-<span style="color: #6E7681">	</span><span style="color: #FF7B72">if</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(currentFloorData.walkableBlocksMetaData.empty())</span>
-<span style="color: #6E7681">	</span><span style="color: #E6EDF3">{</span>
-<span style="color: #6E7681">		</span><span style="color: #FF7B72">return</span><span style="color: #E6EDF3">;</span>
-<span style="color: #6E7681">	</span><span style="color: #E6EDF3">}</span>
-
-<span style="color: #6E7681">	</span><span style="color: #FF7B72">for</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockCoordinate</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">walkableCoordinate</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">:</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">currentFloorData.walkableBlocksMetaData)</span>
-<span style="color: #6E7681">	</span><span style="color: #E6EDF3">{</span>
-<span style="color: #6E7681">		</span><span style="color: #FF7B72">for</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(</span><span style="color: #FF7B72">int</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">i</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">0</span><span style="color: #E6EDF3">;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">i</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">&lt;</span><span style="color: #6E7681"> </span><span style="color: #FF7B72">static_cast</span><span style="color: #FF7B72; font-weight: bold">&lt;</span><span style="color: #FF7B72">int</span><span style="color: #FF7B72; font-weight: bold">&gt;</span><span style="color: #E6EDF3">(Direction</span><span style="color: #FF7B72; font-weight: bold">::</span><span style="color: #E6EDF3">Count);</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">++</span><span style="color: #E6EDF3">i)</span>
-<span style="color: #6E7681">		</span><span style="color: #E6EDF3">{</span>
-<span style="color: #6E7681">			</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockCoordinate</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">adjacentCoordinate</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">GetAdjacentCoordinate(walkableCoordinate,</span><span style="color: #6E7681"> </span><span style="color: #FF7B72">static_cast</span><span style="color: #FF7B72; font-weight: bold">&lt;</span><span style="color: #E6EDF3">Direction</span><span style="color: #FF7B72; font-weight: bold">&gt;</span><span style="color: #E6EDF3">(i));</span>
-
-<span style="color: #6E7681">			</span><span style="color: #FF7B72">if</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(</span><span style="color: #FF7B72; font-weight: bold">!</span><span style="color: #E6EDF3">IsCoordinateWithinBounds(adjacentCoordinate))</span>
-<span style="color: #6E7681">			</span><span style="color: #E6EDF3">{</span>
-<span style="color: #6E7681">				</span><span style="color: #E6EDF3">myIsValid</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">false;</span>
-<span style="color: #6E7681">				</span><span style="color: #E6EDF3">aViolationData.hasFloorViolation</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">true;</span>
-<span style="color: #6E7681">				</span><span style="color: #FF7B72">break</span><span style="color: #E6EDF3">;</span>
-<span style="color: #6E7681">			</span><span style="color: #E6EDF3">}</span>
-
-<span style="color: #6E7681">			</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockData</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">adjacentBlockData</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">currentFloorData.blockData[adjacentCoordinate.row][adjacentCoordinate.column];</span>
-
-<span style="color: #6E7681">			</span><span style="color: #FF7B72">if</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(adjacentBlockData.blockType</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">==</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockType</span><span style="color: #FF7B72; font-weight: bold">::</span><span style="color: #E6EDF3">Void)</span>
-<span style="color: #6E7681">			</span><span style="color: #E6EDF3">{</span>
-<span style="color: #6E7681">				</span><span style="color: #FF7B72">if</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(aFloorIndex</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">==</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">0</span><span style="color: #E6EDF3">)</span>
-<span style="color: #6E7681">				</span><span style="color: #E6EDF3">{</span>
-<span style="color: #6E7681">					</span><span style="color: #E6EDF3">myIsValid</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">false;</span>
-<span style="color: #6E7681">					</span><span style="color: #E6EDF3">aViolationData.hasFloorViolation</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">true;</span>
-<span style="color: #6E7681">					</span><span style="color: #FF7B72">break</span><span style="color: #E6EDF3">;</span>
-<span style="color: #6E7681">				</span><span style="color: #E6EDF3">}</span>
-
-<span style="color: #6E7681">				</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">FloorData</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">belowFloorData</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">aTower[aFloorIndex</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">-</span><span style="color: #6E7681"> </span><span style="color: #A5D6FF">1</span><span style="color: #E6EDF3">];</span>
-<span style="color: #6E7681">				</span><span style="color: #FF7B72">const</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockData</span><span style="color: #FF7B72; font-weight: bold">&amp;</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">adjacentBelowBlockData</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">belowFloorData.blockData[adjacentCoordinate.row][adjacentCoordinate.column];</span>
-
-<span style="color: #6E7681">				</span><span style="color: #FF7B72">if</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">(adjacentBelowBlockData.blockType</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">==</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">BlockType</span><span style="color: #FF7B72; font-weight: bold">::</span><span style="color: #E6EDF3">Stairs)</span>
-<span style="color: #6E7681">				</span><span style="color: #E6EDF3">{</span>
-<span style="color: #6E7681">					</span><span style="color: #FF7B72">continue</span><span style="color: #E6EDF3">;</span>
-<span style="color: #6E7681">				</span><span style="color: #E6EDF3">}</span>
-
-<span style="color: #6E7681">				</span><span style="color: #E6EDF3">myIsValid</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">false;</span>
-<span style="color: #6E7681">				</span><span style="color: #E6EDF3">aViolationData.hasFloorViolation</span><span style="color: #6E7681"> </span><span style="color: #FF7B72; font-weight: bold">=</span><span style="color: #6E7681"> </span><span style="color: #E6EDF3">true;</span>
-<span style="color: #6E7681">			</span><span style="color: #E6EDF3">}</span>
-<span style="color: #6E7681">		</span><span style="color: #E6EDF3">}</span>
-<span style="color: #6E7681">	</span><span style="color: #E6EDF3">}</span>
-
-
-<span style="color: #E6EDF3">}</span>
-</pre></td></tr></table></div>
-
+          <p class="spacing-small">I wanted to prove the validity of my Immediate Geometry Tool in a “real game” setting. 
+            I also wanted to create a game where you build something, 
+            since I really enjoy that style of game. 
+          </p>
+          <p>The goal of the game is to build a tower using different pieces. 
+            When a player finishes a floor, they unlock the next floor and 
+            get a new rule imposed on them. 
+            The rules will force the player to rebuild their tower as the game goes on. 
+            Floors are validated against the rules, and erroneous floors are marked, 
+            akin to the red squiggly line found in code editors.
+          </p>
         </section>
         <section class="default-wrapper">
           <h3>Building</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Soluta magnam quidem consequuntur. Necessitatibus obcaecati tempora optio officiis possimus omnis nobis quis iusto quisquam, praesentium, labore natus, ipsam quos. Ratione, reprehenderit.
+          <p class="spacing-small">
+            The player can pick between several placeable blocks using a menu created with ImGui. Each BlockType corresponds to a particular object definition.  
+          </p>
+          <p class="spacing-small">
+            Using my Geometry tool, I create an interactable grid of quads. When the player clicks a Quad, new data will be added to the current floor. Then, a visual representation of that data will be created using our custom engine's ECS.
+          </p>
+          <p class="spacing-small">
+            The player may also interact with placed blocks. For each block on the current floor, I create an interactable cuboid using my geometry tool. The cuboid may be rotated or replaced with another block.
+          </p>
+          <p class="spacing-small">
+            The player can also erase blocks; they may use either the eraser from the block menu, which is also drawn using the geometry tool, or pressing the delete key when hovering over the block.
+          </p>
+          <p class="spacing-small">
+            When the player is forced to return to a previous floor to rebuild, they may hide floors above to make it easier to see what they are currently building.
           </p>
         </section>
         <section class="default-wrapper">
@@ -187,7 +110,7 @@
         </section>
         <section class="bottom-section">
           <div class="default-wrapper">
-            <h3>Learning Outcomes</h3>
+            <h3>In Retrospect...</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta magnam quidem consequuntur. Necessitatibus obcaecati tempora optio officiis possimus omnis nobis quis iusto quisquam, praesentium, labore natus, ipsam quos. Ratione, reprehenderit.</p>
           </div>
         </section>
