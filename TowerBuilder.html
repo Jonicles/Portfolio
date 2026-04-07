@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Game programming student looking for an internship 2026! Here you can find out more about me and my projects"
+    />
+    <meta
+      name="keywords"
+      content="Game Programmer, Programmer, Portfolio, Game Developer, Developer, Programmer, Student, The Game Assembly, TGA, John Lundström, PhysX, Dx11, DirectX11, C++, C#, Unity,
+      Unity Developer, Godot, Godot Developer, GDScript"
+    />
+    <title>John Lundström - Game Programmer | Portfolio</title>
+    <link rel="stylesheet" href="css/project.css" />
+    <link rel="icon" type="img/x-icon" href="img/Jonicles_Favicon.png" />
+  </head>
+  <body>
+    <header id="top">
+      <div class= "default-wrapper header-flex">
+        <img
+          class="logo"
+          src="img/Jonicles_Favicon.png"
+          alt="Jonicles Logo"
+        />
+        <nav>
+          <ul class="navigation-links">
+            <li class="navigation-link" id="Home">
+              <a class="nav-link-content" href="index.html">Home</a>
+            </li>
+            <li class="navigation-link" id="About">
+              <a class="nav-link-content" href="index.html#about">About</a>
+            </li>
+            <li class="navigation-link" id="Resume">
+              <a
+                class="resume-button"
+                href="Resume-John_Lundström.pdf"
+                target="_blank"
+                >Resume</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <article>
+        <section class="piece-info-section top-section">
+          <div class="default-wrapper ">
+            <div>
+              <div>
+                <a href="index.html#featuredprojects">&lt; 
+                Back to Featured Projects</a>
+              </div>
+              <h1>Tower Builder & Validator</h1>
+              <video
+                autoplay
+                muted
+                loop
+                src="vid/Tower_Builder/Tower-Showcase.mp4"
+              ></video>
+                <h3>Info</h3>
+                <ul class = "piece-info-list">
+                  <li><strong>Engine:</strong> Custom Engine</li>
+                  <li><strong>Language:</strong> C++</li>
+                  <li><strong>Tools:</strong> ImGui, Immediate Mode Geometry tool</li>
+                  <li><strong>Time frame:</strong> 3 weeks</li>
+                  <li><strong>Team Size:</strong> Solo</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="default-wrapper">
+          <h3>Overview</h3>
+          <p class="spacing-small">I wanted to prove the validity of my Immediate Geometry Tool in a “real game” setting. 
+            I also wanted to create a game where you build something, 
+            since I really enjoy that style of game. 
+          </p>
+          <p>The goal of the game is to build a tower using different pieces. When a player finishes a floor, they unlock the next floor and get a new rule imposed on them. The rules will force the player to rebuild their tower as the game goes on. If a floor does not follow a rule, it gets marked with a red “outline” akin to the red squiggly line found in most IDE:s.
+          </p>
+        </section>
+        <section class="default-wrapper">
+          <h3>Building</h3>
+          <p class="spacing-small">Below are some constexpr, enums and structs that are helpful in understanding the building code that follows.</p>
+          <details class="piece-code-details spacing-large">
+            <summary>Defintions - TowerHelpers.h </summary>
+            <h4><a href="">View on GitHub ></a></h4>
+          <!-- HTML generated using hilite.me --><div class="piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">constexpr</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH{</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">7</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+<span style="color: #7686BB; font-weight: bold">constexpr</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH{</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">7</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+
+<span style="color: #7686BB; font-weight: bold">enum</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">class</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType</span>
+<span style="color: #CCC">{</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">Void,</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">Wall,</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">Floor,</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">Door,</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">Window,</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">Stairs,</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">Shrine,</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">Count</span>
+<span style="color: #CCC">};</span>
+
+<span style="color: #7686BB; font-weight: bold">enum</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">class</span><span style="color: #BBB"> </span><span style="color: #CCC">Direction</span>
+<span style="color: #CCC">{</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">North,</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">East,</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">South,</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">West,</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">Count,</span>
+<span style="color: #CCC">};</span>
+
+<span style="color: #7686BB; font-weight: bold">struct</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate</span>
+<span style="color: #CCC">{</span>
+<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">row</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">-1</span><span style="color: #CCC">;</span>
+<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">column</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">-1</span><span style="color: #CCC">;</span>
+<span style="color: #CCC">};</span>
+
+<span style="color: #7686BB; font-weight: bold">struct</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData</span>
+<span style="color: #CCC">{</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">WASD::UniqueID</span><span style="color: #BBB"> </span><span style="color: #CCC">objectID{</span><span style="color: #BBB"> </span><span style="color: #CCC">INVALID_ID</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">BlockType</span><span style="color: #BBB"> </span><span style="color: #CCC">blockType{</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType::Void</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">Direction</span><span style="color: #BBB"> </span><span style="color: #CCC">direction{</span><span style="color: #BBB"> </span><span style="color: #CCC">Direction::North</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+<span style="color: #CCC">};</span>
+
+<span style="color: #7686BB; font-weight: bold">struct</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorData</span>
+<span style="color: #CCC">{</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">std::array&lt;std::vector&lt;BlockCoordinate&gt;,</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">size_t</span><span style="color: #CCC">&gt;(BlockType::Count)&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">blockTypeMetaData;</span>
+
+<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableBlocksMetaData;</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">supportingBlocksMetaData;</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;std::vector&lt;BlockCoordinate&gt;&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableRegionMetaData;</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;std::vector&lt;BlockCoordinate&gt;&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">roomMetaData;</span>
+<span style="color: #BBB">	</span><span style="color: #CCC">std::array&lt;std::array&lt;</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH&gt;,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">roomIndexMetaData;</span>
+
+
+<span style="color: #BBB">	</span><span style="color: #CCC">std::array&lt;std::array&lt;BlockData,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH&gt;,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">blockData;</span>
+
+<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">RemoveOldMetaData</span><span style="color: #CCC">();</span>
+<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">CalculateMetaData</span><span style="color: #CCC">();</span>
+<span style="color: #CCC">};</span>
+
+<span style="color: #7686BB; font-weight: bold">using</span><span style="color: #BBB"> </span><span style="color: #CCC">Tower</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">std::vector&lt;FloorData&gt;;</span>
+</pre></div>
+          </details>
+          <p class="spacing-small">
+            Using my Geometry tool, I create an interactable grid of quads. When the player clicks a Quad, new data will be added to the current floor. Then, a visual representation of that data will be created using our custom engine's ECS.
+          </p>
+          <video class="spacing-small"
+                autoplay
+                muted
+                loop
+                src="vid/Tower_Builder/Tower-Grid.mp4"
+          ></video>
+          <details class="piece-code-details spacing-large">
+            <summary>Grid Drawing & Interactions - TowerSystems.cpp</summary>
+            <h4><a href="">View on GitHub ></a></h4>
+          <!-- HTML generated using hilite.me --><div class= "piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">TickInteractableGrid</span><span style="color: #CCC">()</span>
+<span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">InGeo::PushStyle(GRID_STYLE);</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::Vector3f</span><span style="color: #BBB"> </span><span style="color: #CCC">gridPosition</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">BUILDING_BLOCK_HALF_SIZE,</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">(BUILDING_BLOCK_HEIGHT</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">float</span><span style="color: #CCC">&gt;(locCurrentFloorIndex))</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #CCC">INTERACTABLE_GEOMETRY_PADDING,</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">BUILDING_BLOCK_HALF_SIZE</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">};</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #CCC">InGeo::BeginGrid(</span><span style="color: #51CC99">&quot;FloorGrid&quot;</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">gridPosition,</span><span style="color: #BBB"> </span><span style="color: #CCC">{},</span><span style="color: #BBB"> </span><span style="color: #CCC">FLOOR_GRID_SETTINGS);</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">++currentRow)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">++currentColumn)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentBlockData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">locTower[locCurrentFloorIndex].blockData[currentRow][currentColumn];</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(currentBlockData.objectID</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">INVALID_ID)</span><span style="color: #BBB"> </span><span style="color: #777; font-style: italic">// Tile does not have an object placed on it yet</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">Tga::Vector3f</span><span style="color: #BBB"> </span><span style="color: #CCC">newPosition</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::to_tga(InGeo::GetCurrentGridCellPosition());</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">newPosition.y</span><span style="color: #BBB"> </span><span style="color: #CCC">-=</span><span style="color: #BBB"> </span><span style="color: #CCC">INTERACTABLE_GEOMETRY_PADDING;</span><span style="color: #BBB"> </span><span style="color: #777; font-style: italic">// Ensure that geometry is created below grid to avoid Z-fighting</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">InGeo::NextGridCell(InGeo::GeometryType::Quad);</span>
+  
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(!locIsEraserActive</span><span style="color: #BBB"> </span><span style="color: #CCC">&amp;&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::IsGeometryClicked())</span><span style="color: #BBB"> </span><span style="color: #777; font-style: italic">// Initial placement of block</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">					</span><span style="color: #CCC">Tga::TRSf</span><span style="color: #BBB"> </span><span style="color: #CCC">trs;</span>
+  <span style="color: #BBB">					</span><span style="color: #CCC">trs.SetPosition(newPosition);</span>
+  
+  <span style="color: #BBB">					</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">WASD::SceneObjectData</span><span style="color: #BBB"> </span><span style="color: #CCC">sceneObjectData{</span><span style="color: #BBB"> </span><span style="color: #CCC">.trs</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">trs</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">					</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">WASD::UniqueID</span><span style="color: #BBB"> </span><span style="color: #CCC">newObjectID</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">SceneLoading::CreateRunTimeObject(to_TGO(locCurrentBlockType),</span><span style="color: #BBB"> </span><span style="color: #CCC">sceneObjectData);</span>
+  
+  <span style="color: #BBB">					</span><span style="color: #CCC">currentBlockData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">						</span><span style="color: #CCC">.objectID</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">newObjectID,</span>
+  <span style="color: #BBB">						</span><span style="color: #CCC">.blockType</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">locCurrentBlockType,</span>
+  <span style="color: #BBB">						</span><span style="color: #CCC">.direction</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">Direction::North</span>
+  <span style="color: #BBB">					</span><span style="color: #CCC">};</span>
+  
+  <span style="color: #BBB">					</span><span style="color: #CCC">locHasFloorChanged</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">else</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">InGeo::NextGridCell(InGeo::GeometryType::None);</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #CCC">InGeo::NextGridRow();</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">InGeo::EndGrid();</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">InGeo::PopStyle();</span>
+  <span style="color: #CCC">}</span>
+    </pre></div>  
+  </details>
+          <p class="spacing-small">
+            The player can pick between several placeable blocks using a menu created with ImGui. Each BlockType corresponds to a particular object definition in the custom engine.  
+          </p>
+          <video class="spacing-large"
+                autoplay
+                muted
+                loop
+                src="vid/Tower_Builder/Tower-Blocks_Placing.mp4"
+            ></video>
+          <p class="spacing-small">
+            The player may also interact with placed blocks. For each block on the current floor, I create an interactable cuboid using my geometry tool. By interacting with the cuboid geometries, the player may replace, rotate, or delete blocks.
+          </p>
+          <video class="spacing-small"
+            autoplay
+           muted
+            loop
+            src="vid/Tower_Builder/Tower-Block_Interactions.mp4"
+          ></video>
+          <details class="piece-code-details spacing-large">
+            <summary>Block Interactions - TowerSystems.cpp</summary>
+            <h4><a href="">View on GitHub ></a></h4>
+          <!-- HTML generated using hilite.me --><div class="piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(locIsEraserActive)</span>
+<span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">InGeo::PushStyle(INTERACTABLE_BLOCK_ERASER_STYLE);</span>
+  <span style="color: #CCC">}</span>
+  <span style="color: #7686BB; font-weight: bold">else</span>
+  <span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">InGeo::PushStyle(INTERACTABLE_BLOCK_STYLE);</span>
+  <span style="color: #CCC">}</span>
+  
+  <span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">++currentRow)</span>
+  <span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">++currentColumn)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentBlockData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">locTower[locCurrentFloorIndex].blockData[currentRow][currentColumn];</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">WASD::UniqueID</span><span style="color: #BBB"> </span><span style="color: #CCC">currentBlockID{</span><span style="color: #BBB"> </span><span style="color: #CCC">currentBlockData.objectID</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(currentBlockID</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">INVALID_ID)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">WASD::Entity</span><span style="color: #BBB"> </span><span style="color: #CCC">blockEntity{</span><span style="color: #BBB"> </span><span style="color: #CCC">currentBlockID</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">auto</span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">transformComponent</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">blockEntity.AccessComponent&lt;WASD::TransformComponent&gt;();</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">Tga::TRSf</span><span style="color: #BBB"> </span><span style="color: #CCC">trsCopy</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">transformComponent-&gt;GetTRS();</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::Vector3f</span><span style="color: #BBB"> </span><span style="color: #CCC">currentPosition</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::to_ingeo(trsCopy.GetPosition())</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">InGeo::Vector3f{</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.f</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_HALF_HEIGHT,</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.f</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span><span style="color: #BBB"> </span><span style="color: #777; font-style: italic">// Compensate for geometry being created AROUND position</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">constexpr</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::CuboidData</span><span style="color: #BBB"> </span><span style="color: #CCC">interactableCubeData{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">.width</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">INTERACTABLE_GEOMETRY_SIZE,</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">.depth</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">INTERACTABLE_GEOMETRY_SIZE,</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">.height</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">INTERACTABLE_GEOMETRY_HEIGHT</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">};</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #CCC">InGeo::CreateGeometry(std::to_string(currentBlockID),</span><span style="color: #BBB"> </span><span style="color: #CCC">interactableCubeData,</span><span style="color: #BBB"> </span><span style="color: #CCC">currentPosition);</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(InGeo::IsGeometryHovered())</span><span style="color: #BBB"> </span><span style="color: #777; font-style: italic">// Also sets the whole geometry to the hover color</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(InGeo::IsInputStopped(InGeo::Input::Delete))</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">blockEntity.AddTag(WASD::TAG_ID_DESTROY_ENTITY);</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">currentBlockData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData{};</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">locHasFloorChanged</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(InGeo::IsInputStopped(InGeo::Input::R))</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">auto</span><span style="color: #CCC">&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">trs</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">transformComponent-&gt;AccessTRS();</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">trs.RotateWithPitchYawRoll({</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.f</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">90.f</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.f</span><span style="color: #BBB"> </span><span style="color: #CCC">});</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">currentBlockData.direction</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">getNextDirection(currentBlockData.direction);</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">locHasFloorChanged</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(InGeo::IsGeometryClicked())</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">blockEntity.AddTag(WASD::TAG_ID_DESTROY_ENTITY);</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(locIsEraserActive)</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">currentBlockData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData{};</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">else</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">WASD::SceneObjectData</span><span style="color: #BBB"> </span><span style="color: #CCC">sceneObjectData{</span><span style="color: #BBB"> </span><span style="color: #CCC">.trs</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">trsCopy</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">WASD::UniqueID</span><span style="color: #BBB"> </span><span style="color: #CCC">newObjectID</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">SceneLoading::CreateRunTimeObject(to_TGO(locCurrentBlockType),</span><span style="color: #BBB"> </span><span style="color: #CCC">sceneObjectData);</span>
+  
+  <span style="color: #BBB">				</span><span style="color: #CCC">currentBlockData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">					</span><span style="color: #CCC">.objectID</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">newObjectID,</span>
+  <span style="color: #BBB">					</span><span style="color: #CCC">.blockType</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">locCurrentBlockType,</span>
+  <span style="color: #BBB">					</span><span style="color: #CCC">.direction</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">currentBlockData.direction</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">};</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #CCC">locHasFloorChanged</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  <span style="color: #CCC">}</span>
+  <span style="color: #CCC">InGeo::PopStyle();</span>
+  </pre></div>
+          </details>
+          <p class="spacing-small">
+            When the player is forced to return to a previous floor to rebuild, they may hide floors above to make it easier to see what they are currently building.
+          </p>
+          <video class="spacing-small"
+            autoplay
+           muted
+            loop
+            src="vid/Tower_Builder/Tower-Floor_Hiding.mp4"
+          ></video>
+          <details class="piece-code-details spacing-large">
+            <summary>Floor Hiding & Showing - TowerSystems.cpp</summary>
+            <h4><a href="">View on GitHub ></a></h4>
+          <!-- HTML generated using hilite.me --><div class="piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">HideAboveFloorBlocks</span><span style="color: #CCC">()</span>
+<span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">locCurrentFloorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">1</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">locTower.size();</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex++)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">FloorData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">locTower[floorIndex];</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">++currentRow)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">++currentColumn)</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentBlockData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData.blockData[currentRow][currentColumn];</span>
+  
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(currentBlockData.objectID</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">INVALID_ID)</span><span style="color: #BBB"> </span><span style="color: #777; font-style: italic">// No object occupies block</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">					</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">WASD::Entity</span><span style="color: #BBB"> </span><span style="color: #CCC">blockEntity{</span><span style="color: #BBB"> </span><span style="color: #CCC">currentBlockData.objectID</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">auto</span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">modelComponent</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">blockEntity.AccessComponent&lt;WASD::ModelComponent&gt;();</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">WASD::AddFlag(modelComponent-&gt;flags,</span><span style="color: #BBB"> </span><span style="color: #CCC">WASD::ModelFlag::Hidden);</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #CCC">locIsHidingGeometry</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #CCC">}</span>
+  
+  <span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">ShowAboveFloorBlocks</span><span style="color: #CCC">()</span>
+  <span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">locCurrentFloorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">1</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">locTower.size();</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex++)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">locTower[floorIndex];</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">++currentRow)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">++currentColumn)</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentBlockData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData.blockData[currentRow][currentColumn];</span>
+  
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(currentBlockData.objectID</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">INVALID_ID)</span><span style="color: #BBB">  </span><span style="color: #777; font-style: italic">// No object occupies block</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">					</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">WASD::Entity</span><span style="color: #BBB"> </span><span style="color: #CCC">blockEntity{</span><span style="color: #BBB"> </span><span style="color: #CCC">currentBlockData.objectID</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">auto</span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">modelComponent</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">blockEntity.AccessComponent&lt;WASD::ModelComponent&gt;();</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">WASD::RemoveFlag(modelComponent-&gt;flags,</span><span style="color: #BBB"> </span><span style="color: #CCC">WASD::ModelFlag::Hidden);</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #CCC">locIsHidingGeometry</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">false;</span>
+  <span style="color: #CCC">}</span>
+  </pre></div>
+        </details>  
+        </section>
+        <section class="default-wrapper">
+          <h3>Rule validation</h3>
+          <p class="spacing-small">Each time a floor changes, for example through placing a block, new metadata is calculated for that floor. </p>
+          <p class="spacing-small">If the code didn't calculate metadata, it would need to iterate through all the floor tiles, per floor, per rule. Rules would need to iterate through the whole floor every time just to find the particular blocks.</p>
+          <details class="piece-code-details spacing-large">
+          <summary>Metadata Calculation - TowerSystems.cpp</summary>
+            <h4><a href="">View on GitHub ></a></h4>
+          <!-- HTML generated using hilite.me --><div class="piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">FloorData::RemoveOldMetaData</span><span style="color: #CCC">()</span>
+<span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(std::vector&lt;BlockCoordinate&gt;&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">blockCoordinates</span><span style="color: #BBB"> </span><span style="color: #CCC">:</span><span style="color: #BBB"> </span><span style="color: #CCC">blockTypeMetaData)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">blockCoordinates.clear();</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow++)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn++)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">roomIndexMetaData[currentRow][currentColumn]</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">-1</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #CCC">walkableBlocksMetaData.clear();</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">supportingBlocksMetaData.clear();</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #CCC">walkableRegionMetaData.clear();</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">roomMetaData.clear();</span>
+  <span style="color: #CCC">}</span>
+  
+  <span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">FloorData::CalculateMetaData</span><span style="color: #CCC">()</span>
+  <span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">RemoveOldMetaData();</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">++currentRow)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH;</span><span style="color: #BBB"> </span><span style="color: #CCC">++currentColumn)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentBlockData{</span><span style="color: #BBB"> </span><span style="color: #CCC">blockData[currentRow][currentColumn]</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">blockTypeMetaData[</span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #CCC">&gt;(currentBlockData.blockType)].emplace_back(currentRow,</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn);</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(IsBlockTypeWalkable(currentBlockData.blockType))</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">walkableBlocksMetaData.emplace_back(currentRow,</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn);</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(IsBlockTypeSupporting(currentBlockData.blockType))</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">supportingBlocksMetaData.emplace_back(currentRow,</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn);</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">bool</span><span style="color: #BBB"> </span><span style="color: #CCC">visitedRegionCoordinates[GRID_DEPTH][GRID_WIDTH]</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">{};</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">auto</span><span style="color: #CCC">&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableBlock</span><span style="color: #BBB"> </span><span style="color: #CCC">:</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableBlocksMetaData)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">std::vector&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRegion;</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #CCC">std::queue&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">coordinatesToVisit;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">coordinatesToVisit.push(walkableBlock);</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">while</span><span style="color: #BBB"> </span><span style="color: #CCC">(!coordinatesToVisit.empty())</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">currentCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">coordinatesToVisit.front();</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">coordinatesToVisit.pop();</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">currentCoordinate.row;</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">currentCoordinate.column;</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(visitedRegionCoordinates[currentRow][currentColumn])</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #CCC">visitedRegionCoordinates[currentRow][currentColumn]</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">currentRegion.push_back(currentCoordinate);</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">directionIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">directionIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #CCC">&gt;(Direction::Count);</span><span style="color: #BBB"> </span><span style="color: #CCC">++directionIndex)</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">Direction</span><span style="color: #BBB"> </span><span style="color: #CCC">currentDirection</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;Direction&gt;(directionIndex);</span>
+  
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">std::optional&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">nextCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">CanWalkInDirection(*</span><span style="color: #7686BB; font-weight: bold">this</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">currentCoordinate,</span><span style="color: #BBB"> </span><span style="color: #CCC">currentDirection);</span>
+  <span style="color: #BBB">					</span><span style="color: #CCC">nextCoordinate.has_value())</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">					</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">nextCoordinateValue</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">nextCoordinate.value();</span>
+  <span style="color: #BBB">					</span><span style="color: #CCC">coordinatesToVisit.push(nextCoordinateValue);</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(currentRegion.empty())</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #CCC">walkableRegionMetaData.push_back(currentRegion);</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">bool</span><span style="color: #BBB"> </span><span style="color: #CCC">visitedRoomCoordinates[GRID_DEPTH][GRID_WIDTH]</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">{};</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">auto</span><span style="color: #CCC">&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableRegion</span><span style="color: #BBB"> </span><span style="color: #CCC">:</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableRegionMetaData)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">:</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableRegion)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableBlockData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">blockData[walkableCoordinate.row][walkableCoordinate.column];</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(walkableBlockData.blockType</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType::Door)</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">					</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #CCC">std::vector&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">roomCoordinates;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">std::queue&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">coordinatesToVisit;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">coordinatesToVisit.push(walkableCoordinate);</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">while</span><span style="color: #BBB"> </span><span style="color: #CCC">(!coordinatesToVisit.empty())</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">currentCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">coordinatesToVisit.front();</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">coordinatesToVisit.pop();</span>
+  
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentRow</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">currentCoordinate.row;</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">currentColumn</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">currentCoordinate.column;</span>
+  
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(visitedRoomCoordinates[currentRow][currentColumn])</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">					</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">				</span><span style="color: #CCC">visitedRoomCoordinates[currentRow][currentColumn]</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">roomCoordinates.push_back(currentCoordinate);</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">roomIndexMetaData[currentRow][currentColumn]</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #CCC">&gt;(roomMetaData.size());</span>
+  
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">directionIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">directionIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #CCC">&gt;(Direction::Count);</span><span style="color: #BBB"> </span><span style="color: #CCC">++directionIndex)</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">					</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">Direction</span><span style="color: #BBB"> </span><span style="color: #CCC">currentDirection</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;Direction&gt;(directionIndex);</span>
+  
+  <span style="color: #BBB">					</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">std::optional&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">nextCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">CanWalkInDirection(*</span><span style="color: #7686BB; font-weight: bold">this</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">currentCoordinate,</span><span style="color: #BBB"> </span><span style="color: #CCC">currentDirection);</span>
+  <span style="color: #BBB">						</span><span style="color: #CCC">nextCoordinate.has_value())</span>
+  <span style="color: #BBB">					</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">						</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">nextCoordinateValue</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">nextCoordinate.value();</span>
+  <span style="color: #BBB">						</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">nextCoordinateBlockData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">blockData[nextCoordinateValue.row][nextCoordinateValue.column];</span>
+  
+  <span style="color: #BBB">						</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(nextCoordinateBlockData.blockType</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType::Door)</span>
+  <span style="color: #BBB">						</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">							</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">						</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">						</span><span style="color: #CCC">coordinatesToVisit.push(nextCoordinateValue);</span>
+  <span style="color: #BBB">					</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(roomCoordinates.empty())</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #CCC">roomMetaData.push_back(roomCoordinates);</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  <span style="color: #CCC">}</span>
+  </pre></div>
+          </details>
+          <p class="spacing-small">After metadata is calculated for the current floor, the system tries to validate the tower. 
+            This means that rules are only validated when the tower changes. If the tower adheres to all rules, the next floor is unlocked
+          </p>
+          <video class="spacing-small"
+                autoplay
+                muted
+                loop
+                src="vid/Tower_Builder/Tower-Floor_Unlocking.mp4"
+          ></video>
+          <details class="piece-code-details spacing-large">
+            <summary>Tower Validation - TowerSystems.cpp</summary>
+            <h4><a href="">View on GitHub ></a></h4>
+          <!-- HTML generated using hilite.me --><div class= "piece-code-block" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">TickTowerValidation</span><span style="color: #CCC">()</span>
+<span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(!locHasFloorChanged)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">return</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #CCC">locTower[locCurrentFloorIndex].CalculateMetaData();</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">std::unique_ptr&lt;Rule&gt;&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">rule</span><span style="color: #BBB"> </span><span style="color: #CCC">:</span><span style="color: #BBB"> </span><span style="color: #CCC">locActiveRules)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">rule-&gt;SetIsValid(true);</span><span style="color: #BBB"> </span><span style="color: #777; font-style: italic">// Reset values to for reevaluation</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #CCC">locFloorViolationData.clear();</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">locTower.size();</span><span style="color: #BBB"> </span><span style="color: #CCC">++floorIndex)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">locFloorViolationData.emplace_back();</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">auto</span><span style="color: #CCC">&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">rule</span><span style="color: #BBB"> </span><span style="color: #CCC">:</span><span style="color: #BBB"> </span><span style="color: #CCC">locActiveRules)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">rule-&gt;Evaluate(locTower,</span><span style="color: #BBB"> </span><span style="color: #CCC">locFloorViolationData.back(),</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex);</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">bool</span><span style="color: #BBB"> </span><span style="color: #CCC">isTowerValid</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">std::unique_ptr&lt;Rule&gt;&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">rule</span><span style="color: #BBB"> </span><span style="color: #CCC">:</span><span style="color: #BBB"> </span><span style="color: #CCC">locActiveRules)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(!rule-&gt;IsValid())</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">isTowerValid</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">false;</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">break</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #CCC">locHasFloorChanged</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">false;</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(isTowerValid)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(locPendingRules.empty())</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">return</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #CCC">locActiveRules.push_back(std::move(locPendingRules.front()));</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">locPendingRules.pop();</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">locTower.emplace_back();</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(locIsHidingGeometry)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">ShowAboveFloorBlocks();</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #CCC">locCurrentFloorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #CCC">&gt;(locTower.size())</span><span style="color: #BBB"> </span><span style="color: #CCC">-</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">1</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">locHasFloorChanged</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span><span style="color: #BBB"> </span><span style="color: #777; font-style: italic">// Just to trigger reevaluation of rules</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  <span style="color: #CCC">}</span>
+  </pre></div>
+  </details> 
+  <p class="spacing-small">Rules themselves can be relatively small, since they have fast access to relevant data. This makes it easy to add more rules quickly.</p> 
+  <details class="piece-code-details spacing-large">
+    <summary>Support Rule - TowerRules.cpp</summary>
+    <h4><a href="">View on GitHub ></a></h4>
+  <!-- HTML generated using hilite.me --><div class="piece-code-block" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #CCC">SupportRule::SupportRule()</span>
+<span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">myDescription</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #51CC99">&quot;Each supporting piece must have a supporting piece adjacent on the floor below&quot;</span><span style="color: #CCC">_tgaid;</span>
+  <span style="color: #CCC">}</span>
+  
+  <span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #CCC">SupportRule::Evaluate(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">Tower&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">aTower,</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorViolationData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">aViolationData,</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">aFloorIndex)</span>
+  <span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(aFloorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">return</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">aTower[aFloorIndex];</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(currentFloorData.supportingBlocksMetaData.empty())</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">return</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">belowFloorData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">aTower[aFloorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">-</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">1</span><span style="color: #CCC">];</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">supportingCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">:</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData.supportingBlocksMetaData)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">bool</span><span style="color: #BBB"> </span><span style="color: #CCC">hasSupport</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">false;</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">belowBlock</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">belowFloorData.blockData[supportingCoordinate.row][supportingCoordinate.column];</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(IsBlockTypeSupporting(belowBlock.blockType))</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">hasSupport</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">i</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">i</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #CCC">&gt;(Direction::Count);</span><span style="color: #BBB"> </span><span style="color: #CCC">++i)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">adjacentCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">GetAdjacentCoordinate(supportingCoordinate,</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;Direction&gt;(i));</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(!IsCoordinateWithinBounds(adjacentCoordinate))</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">belowAdjacentBlock</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">belowFloorData.blockData[adjacentCoordinate.row][adjacentCoordinate.column];</span>
+  
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(IsBlockTypeSupporting(belowAdjacentBlock.blockType))</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">				</span><span style="color: #CCC">hasSupport</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(!hasSupport)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">myIsValid</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">false;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">aViolationData.hasFloorViolation</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  <span style="color: #CCC">}</span>
+  </pre></div>
+  </details>  
+        </section>
+        <section>
+          <div class="default-wrapper">
+            <h3>Errors</h3>
+            <p class="spacing-small">A rule's evaluation function also takes a FloorViolationData reference as an argument. If a rule finds an error, it will mark the current floor with a floor violation. This violation is later used to determine if an error highlight should be drawn. The highlight is also drawn using my Immediate Geometry Tool.</p>
+            <video class="spacing-small"
+                autoplay
+                muted
+                loop
+                src="vid/Tower_Builder/Tower-Floor_Violation.mp4"
+          ></video>
+          <details class="piece-code-details spacing-large">
+            <summary>Floor Violation Drawing - TowerSystems.cpp</summary>
+            <h4><a href="">View on GitHub ></a></h4>
+          <!-- HTML generated using hilite.me --><div class="piece-code-block style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">DrawFloorViolations</span><span style="color: #CCC">()</span>
+<span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::Style</span><span style="color: #BBB"> </span><span style="color: #CCC">errorStyle{</span><span style="color: #BBB"> </span><span style="color: #CCC">ERROR_VISIBLE_COLOR</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">InGeo::PushStyle(errorStyle);</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">i</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">i</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">locFloorViolationData.size();</span><span style="color: #BBB"> </span><span style="color: #CCC">i++)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorViolationData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">floorViolationData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">locFloorViolationData[i];</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(!floorViolationData.hasFloorViolation)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">std::string</span><span style="color: #BBB"> </span><span style="color: #CCC">errorId</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #51CC99">&quot;FloorError&quot;</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #CCC">std::to_string(i);</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">constexpr</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::CuboidData</span><span style="color: #BBB"> </span><span style="color: #CCC">xAlignedBlock{</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_SIZE</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.75f</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.25f</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.25f</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::Vector3f</span><span style="color: #BBB"> </span><span style="color: #CCC">bottomPosition{</span><span style="color: #BBB"> </span><span style="color: #CCC">(GRID_WIDTH</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_SIZE)</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.5f</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">float</span><span style="color: #CCC">&gt;(i)</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_HEIGHT,</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">-0.25f</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::Vector3f</span><span style="color: #BBB"> </span><span style="color: #CCC">topPosition{</span><span style="color: #BBB"> </span><span style="color: #CCC">(GRID_WIDTH</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_SIZE)</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.5f</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">float</span><span style="color: #CCC">&gt;(i)</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_HEIGHT,</span><span style="color: #BBB"> </span><span style="color: #CCC">(GRID_DEPTH</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_SIZE)</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.25f</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">InGeo::CreateGeometry(errorId</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #51CC99">&quot;Bottom&quot;</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">xAlignedBlock,</span><span style="color: #BBB"> </span><span style="color: #CCC">bottomPosition);</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">InGeo::CreateGeometry(errorId</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #51CC99">&quot;Top&quot;</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">xAlignedBlock,</span><span style="color: #BBB"> </span><span style="color: #CCC">topPosition);</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">constexpr</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::CuboidData</span><span style="color: #BBB"> </span><span style="color: #CCC">zAlignedBlock{</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.25f</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_SIZE</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.25f</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.25f</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::Vector3f</span><span style="color: #BBB"> </span><span style="color: #CCC">leftPosition{</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">-0.25f</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">float</span><span style="color: #CCC">&gt;(i)</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_HEIGHT,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_SIZE</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.5f</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::Vector3f</span><span style="color: #BBB"> </span><span style="color: #CCC">rightPosition{</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_SIZE</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.25f</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">float</span><span style="color: #CCC">&gt;(i)</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_HEIGHT,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #CCC">BUILDING_BLOCK_SIZE</span><span style="color: #BBB"> </span><span style="color: #CCC">*</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">0.5f</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">InGeo::CreateGeometry(errorId</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #51CC99">&quot;Left&quot;</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">zAlignedBlock,</span><span style="color: #BBB"> </span><span style="color: #CCC">leftPosition);</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">InGeo::CreateGeometry(errorId</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #51CC99">&quot;Right&quot;</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">zAlignedBlock,</span><span style="color: #BBB"> </span><span style="color: #CCC">rightPosition);</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #CCC">InGeo::PopStyle();</span>
+  <span style="color: #CCC">}</span>
+  </pre></div>
+          </details>  
+          </div>
+        </section>
+        <section class="bottom-section">
+          <div class="default-wrapper">
+            <h3>Conclusion</h3>
+            <p class="spacing-small">It was fun to push the capabilities of my Immediate Geometry Tool, and this piece did force me to rewrite code to make it more robust and flexible.</p>
+            <p class="spacing-small">I would have liked to also mark the specific blocks or coordinates where an error occured, but with the alloted time I chose to do a simpler implementation</p>
+
+          </div>
+        </section>
+      </article>
+    </main>
+    <footer>
+      <div class="default-wrapper">
+        <div class="footer-flex-container">
+          <img
+            src="img/Jonicles_Favicon.png"
+            alt="Jonicles logo"
+            class="logo footer-logo"
+          />
+          <nav class="footer-page-nav">
+            <ul class="page-list">
+              <li><a href="#top" class="footer-link">Back to top</a></li>
+              <li>
+                <a href="#featuredprojects" class="footer-link"
+                  >Featured projects</a
+                >
+              </li>
+              <li><a href="#about" class="footer-link">About me</a></li>
+            </ul>
+          </nav>
+          <!-- <nav class="footer-website-nav">
+            <ul class="website-list"></ul>
+          </nav> -->
+          <div class="social-media">
+            <nav class="socials-nav">
+              <ul class="socials-list">
+                <li>
+                  <a
+                    href="https://github.com/Jonicles"
+                    target="_blank"
+                    class="social-link"
+                    ><img
+                      class="social-icon"
+                      src="img/Misc/Logo-Github.png"
+                      alt="Github logo"
+                  /></a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/johnlundstrom/"
+                    target="_blank"
+                    class="social-link"
+                    ><img
+                      class="social-icon"
+                      src="img/Misc/Logo-Linkedin.png"
+                      alt="Linkedin logo"
+                  /></a>
+                </li>
+                <li>
+                  <a
+                    href="https://sir-jonicles.itch.io/"
+                    target="_blank"
+                    class="social-link"
+                    ><img
+                      class="social-icon"
+                      src="img/Misc/Logo-Itch.io.png"
+                      alt="Itch.io logo"
+                  /></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright default-wrapper">
+        <span class="no-break">© 2026 John Lundström.</span>
+        <span class="no-break">All rights reserved</span>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -28,10 +28,10 @@
         <nav>
           <ul class="navigation-links">
             <li class="navigation-link" id="Home">
-              <a class="nav-link-content" href="./">Home</a>
+              <a class="nav-link-content" href="index.html">Home</a>
             </li>
             <li class="navigation-link" id="About">
-              <a class="nav-link-content" href="#about">About</a>
+              <a class="nav-link-content" href="index.html#about">About</a>
             </li>
             <li class="navigation-link" id="Resume">
               <a
@@ -50,21 +50,21 @@
           <div class="default-wrapper ">
             <div>
               <div>
-                <a href="./#featuredprojects">&lt; 
+                <a href="index.html#featuredprojects">&lt; 
                 Back to Featured Projects</a>
               </div>
-              <h1>Tower Builder/Validator</h1>
-              <video class="spacing-small"
+              <h1>Tower Builder & Validator</h1>
+              <video
                 autoplay
                 muted
                 loop
-                src="vid/Inspelning 2026-04-07 091006.mp4"
+                src="vid/Tower-Showcase.mp4"
               ></video>
                 <h3>Info</h3>
                 <ul class = "piece-info-list">
-                  <li><strong>Engine:</strong> Custom C++ Engine</li>
+                  <li><strong>Engine:</strong> Custom Engine</li>
                   <li><strong>Language:</strong> C++</li>
-                  <li><strong>Tools:</strong> None</li>
+                  <li><strong>Tools:</strong> ImGui, Immediate Mode Geometry tool</li>
                   <li><strong>Time frame:</strong> 3 weeks</li>
                   <li><strong>Team Size:</strong> Solo</li>
                 </ul>
@@ -73,8 +73,8 @@
           </div>
         </section>
         <section class="default-wrapper">
-          <h3>About</h3>
-          <p class="spacing-small">I wanted to prove the validity of my Immediate Geometry Tool in a “real game” setting. 
+          <h3>Overview</h3>
+          <p>I wanted to prove the validity of my Immediate Geometry Tool in a “real game” setting. 
             I also wanted to create a game where you build something, 
             since I really enjoy that style of game. 
           </p>
@@ -88,19 +88,55 @@
         </section>
         <section class="default-wrapper">
           <h3>Building</h3>
-          <p class="spacing-small">
+          <p>
             The player can pick between several placeable blocks using a menu created with ImGui. Each BlockType corresponds to a particular object definition.  
           </p>
-          <p class="spacing-small">
+          
+          <h4><a href="">TowerRules.cpp ></a></h4>
+          <!-- HTML generated using hilite.me --><div class="piece-code-block" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span>  <span style="color: #CCC">HoleRule::HoleRule()</span>
+  <span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">myDescription</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #51CC99">&quot;No floor may have holes in the roof&quot;</span><span style="color: #CCC">_tgaid;</span>
+  <span style="color: #CCC">}</span>
+  
+  <span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #CCC">HoleRule::Evaluate(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">Tower&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">aTower,</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorViolationData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">aViolationData,</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">aFloorIndex)</span>
+  <span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(aFloorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">aTower.size()</span><span style="color: #BBB"> </span><span style="color: #CCC">-</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">1</span><span style="color: #CCC">)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">return</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">aTower[aFloorIndex];</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">aboveFloorData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">aTower[aFloorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">1</span><span style="color: #CCC">];</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">:</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData.walkableBlocksMetaData)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableBlock</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData.blockData[walkableCoordinate.row][walkableCoordinate.column];</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(walkableBlock.blockType</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType::Door)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">aboveBlock</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">aboveFloorData.blockData[walkableCoordinate.row][walkableCoordinate.column];</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(aboveBlock.blockType</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType::Void)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">myIsValid</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">false;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">aViolationData.hasFloorViolation</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  <span style="color: #CCC">}</span>
+  </pre></div>  
+          <p>
             Using my Geometry tool, I create an interactable grid of quads. When the player clicks a Quad, new data will be added to the current floor. Then, a visual representation of that data will be created using our custom engine's ECS.
           </p>
-          <p class="spacing-small">
+          <p>
             The player may also interact with placed blocks. For each block on the current floor, I create an interactable cuboid using my geometry tool. The cuboid may be rotated or replaced with another block.
           </p>
-          <p class="spacing-small">
+          <p>
             The player can also erase blocks; they may use either the eraser from the block menu, which is also drawn using the geometry tool, or pressing the delete key when hovering over the block.
           </p>
-          <p class="spacing-small">
+          <p>
             When the player is forced to return to a previous floor to rebuild, they may hide floors above to make it easier to see what they are currently building.
           </p>
         </section>
@@ -110,7 +146,7 @@
         </section>
         <section class="bottom-section">
           <div class="default-wrapper">
-            <h3>In Retrospect...</h3>
+            <h3>Conclusion</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta magnam quidem consequuntur. Necessitatibus obcaecati tempora optio officiis possimus omnis nobis quis iusto quisquam, praesentium, labore natus, ipsam quos. Ratione, reprehenderit.</p>
           </div>
         </section>
@@ -139,7 +175,6 @@
             <ul class="website-list"></ul>
           </nav> -->
           <div class="social-media">
-            <h4 class="socials-title">Socials</h4>
             <nav class="socials-nav">
               <ul class="socials-list">
                 <li>

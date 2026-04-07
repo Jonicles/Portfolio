@@ -5,6 +5,7 @@ IMPORTS
 */
 @import url("https://fonts.googleapis.com/css2?family=Days+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Intel+One+Mono:ital,wght@0,300..700;1,300..700&display=swap');
 /*
 ============================================================== 
 RESET 
@@ -84,7 +85,6 @@ body {
 h1,
 h2,
 h3,
-h4,
 h5,
 h6 {
   font-family: "Days One", sans-serif;
@@ -103,11 +103,11 @@ h2{
 
 h3{
   font-size: var(--text-size-2);
-  /* margin-bottom: var(--space-m); */
 }
 
 h4{
-  font-size: var(--text-size-1);
+  font-size: var(--text-size-0);
+  font-family: "Intel One Mono", monospace;
 }
 
 strong{
@@ -152,6 +152,14 @@ section{
   margin-bottom: var(--space-s)
 }
 
+.spacing-medium{
+  margin-bottom: var(--space-m)
+}
+
+.spacing-large{
+  margin-bottom: var(--space-xl)
+}
+
 section{
   margin-bottom: var(--space-2xl);
 }
@@ -187,7 +195,7 @@ header{
   padding: var(--space-2xs);
   display: flex;
   align-items: center;
-  background-color: var(--color-header-footer);
+  background-color: var(--color-dark-blue);
   width: 100%;
 }
 
@@ -212,6 +220,7 @@ header{
 }
 
 .nav-link-content {
+  text-decoration: none;
   transition: all var(--default-transition-time);
   padding: var(--space-xs);
 }
@@ -287,98 +296,6 @@ h2 {
 
 /* 
 ==============================================================
-FEATURED PROJECTS SECTION
-==============================================================
-*/
-
-.project-list {
-  list-style: none;
-}
-
-.project {
-  position: relative;
-  margin-bottom: 25px;
-  transition: all var(--default-transition-time);
-  .project-info {
-    transition: all var(--default-transition-time);
-  }
-}
-
-.moose {
-  margin-bottom: 75px;
-}
-
-.project:hover {
-  outline: 5px dashed var(--color-navy-blue);
-  transition: all var(--default-transition-time);
-  scale: 1.03;
-  .project-info {
-    background-color: var(--color-light-blue);
-    transition: all var(--default-transition-time);
-    top: 0;
-    left: 0;
-  }
-}
-
-.project-info {
-  padding: 10px 16px;
-  padding-right: 32px;
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  background-color: var(--color-navy-blue);
-  border-width: 10px;
-  border-bottom-style: solid;
-  border-right-style: solid;
-  border-color: var(--color-dark-blue);
-  border-bottom-right-radius: 60px;
-}
-
-.project-tools {
-  color: var(--color-text-emphasis);
-}
-
-.sga-prizes {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-}
-
-.sga-winners {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  gap: 115px;
-}
-
-.sga-nominees {
-  display: flex;
-  justify-content: space-between;
-}
-
-.sga-winner,
-.sga-nominee {
-  display: inline-block;
-  width: 250px;
-  background-image: radial-gradient(
-    var(--color-light-blue),
-    var(--color-dark-blue) 70%
-  );
-}
-
-.sga-nominee {
-  width: 200px;
-}
-
-.featured-project-video {
-  width: var(--max-width);
-  object-fit: cover;
-  overflow: hidden;
-}
-
-/* 
-==============================================================
 CALL TO ACTION SECTION
 ==============================================================
 */
@@ -417,7 +334,7 @@ FOOTER
 */
 
 footer {
-  background-color: var(--color-header-footer);
+  background-color: var(--color-dark-blue);
   bottom: 0;
 }
 
@@ -489,8 +406,22 @@ PORTFOLIO PIECE SECTION
 }
 
 .piece-code-block{
-    font-family: Consolas, Monaco, 'Courier New', monospace;
+    font-size: var(--text-size-minus-1);
+    border-radius: var(--border-radius);
+    max-width: 100%;
     font-size: 14px;
+}
+
+.piece-code-block pre{
+  font-size: var(--text-size-minus-2);
+  font-family: "Intel One Mono", monospace;  
+}
+
+.piece-code-details{
+  background: #232629;
+  padding: var(--space-xs);
+  border-radius: var(--border-radius);
+  overflow: auto;
 }
 /* 
 ==============================================================
@@ -510,6 +441,11 @@ MEDIA QUERIES
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+  }
+
+  /* -------PIECE------- */
+  .piece-code-block{
+    font-size: var(--text-size-minus-2);
   }
 
   /* -------FOOTER------- */

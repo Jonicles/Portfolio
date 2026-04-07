@@ -110,11 +110,6 @@ h4{
   font-size: var(--text-size-1);
 }
 
-p{
-  /* max-width: 75ch;
-  margin-inline: auto; */
-}
-
 strong{
   color: var(--color-yellow);
 }
@@ -154,6 +149,14 @@ section{
 
 .spacing-small{
   margin-bottom: var(--space-s)
+}
+
+.spacing-medium{
+  margin-bottom: var(--space-m)
+}
+
+.spacing-large{
+  margin-bottom: var(--space-l)
 }
 
 section{
@@ -300,83 +303,36 @@ FEATURED PROJECTS SECTION
 }
 
 .project {
-  position: relative;
   margin-bottom: 25px;
   transition: all var(--default-transition-time);
-  .project-info {
+  
+  .project-info{
     transition: all var(--default-transition-time);
   }
-}
-
-.moose {
-  margin-bottom: 75px;
 }
 
 .project:hover {
   outline: 5px dashed var(--color-navy-blue);
   transition: all var(--default-transition-time);
   scale: 1.03;
+  
   .project-info {
     background-color: var(--color-light-blue);
     transition: all var(--default-transition-time);
-    top: 0;
-    left: 0;
+    color: var(--color-white);
   }
 }
 
 .project-info {
-  padding: 10px 16px;
-  padding-right: 32px;
-  position: absolute;
-  top: 0;
-  left: 0;
-
   background-color: var(--color-navy-blue);
-  border-width: 10px;
-  border-bottom-style: solid;
-  border-right-style: solid;
-  border-color: var(--color-dark-blue);
-  border-bottom-right-radius: 60px;
+  padding: var(--space-xs);
+  border-bottom-right-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
 }
 
-.project-tools {
-  color: var(--color-text-emphasis);
-}
-
-.sga-prizes {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-}
-
-.sga-winners {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  gap: 115px;
-}
-
-.sga-nominees {
-  display: flex;
-  justify-content: space-between;
-}
-
-.sga-winner,
-.sga-nominee {
-  display: inline-block;
-  width: 250px;
-  background-image: radial-gradient(
-    var(--color-light-blue),
-    var(--color-dark-blue) 70%
-  );
-}
-
-.sga-nominee {
-  width: 200px;
-}
-
-.featured-project-video {
-  width: var(--max-width);
+.project-video {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
   object-fit: cover;
   overflow: hidden;
 }
