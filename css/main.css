@@ -318,7 +318,6 @@ FEATURED PROJECTS SECTION
 }
 
 .project {
-  margin-bottom: 25px;
   transition: all var(--default-transition-time);
 
   .project-info {
