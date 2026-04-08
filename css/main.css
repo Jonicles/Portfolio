@@ -384,7 +384,6 @@ ABOUT SECTION
 .call-to-action-button:hover {
   color: var(--color-white);
   background-color: var(--color-light-blue);
-  padding: 18px 40px;
   transition: all var(--default-transition-time);
 }
 
