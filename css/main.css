@@ -30,9 +30,9 @@ VARIABLES
   --color-dark-blue: #000e40;
   --color-almost-black-blue: #010a2d;
   --color-navy-blue: #0024a1;
-  --color-light-blue: #2E50FA;
+  --color-light-blue: #2e50fa;
   --color-light-gray: #f7f8fd5d;
-  --color-gray: #303C69;
+  --color-gray: #303c69;
   --color-yellow: #fdca30;
 
   --default-transition-time: 250ms;
@@ -93,28 +93,28 @@ h6 {
   line-height: 1.1;
 }
 
-h1{
+h1 {
   font-size: var(--text-size-4);
 }
 
-h2{
+h2 {
   font-size: var(--text-size-3);
 }
 
-h3{
+h3 {
   font-size: var(--text-size-2);
   margin-bottom: var(--space-m);
 }
 
-h4{
+h4 {
   font-size: var(--text-size-1);
 }
 
-strong{
+strong {
   color: var(--color-yellow);
 }
 
-small{
+small {
   font-style: italic;
   font-size: var(--text-size-0);
   color: var(--color-light-gray);
@@ -126,50 +126,62 @@ a {
   transition: all var(--default-transition-time);
 }
 
-a:hover{
+a:hover {
   transition: all var(--default-transition-time);
   color: var(--color-gray);
 }
 
 img,
-video{
+video {
   max-width: 100%;
   display: block;
   border-radius: var(--border-radius);
 }
 
-section{
+section {
   margin-bottom: var(--space-2xl);
 }
 
-.default-wrapper{
+.default-wrapper {
   width: min(100% - 3rem, 100ch);
   margin-inline: auto;
 }
 
-.spacing-small{
-  margin-bottom: var(--space-s)
+.spacing-small {
+  margin-bottom: var(--space-s);
 }
 
-.spacing-medium{
-  margin-bottom: var(--space-m)
+.spacing-medium {
+  margin-bottom: var(--space-m);
 }
 
-.spacing-large{
-  margin-bottom: var(--space-l)
+.spacing-large {
+  margin-bottom: var(--space-l);
 }
 
-section{
+.center-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section {
   padding-bottom: var(--space-3xl);
 }
 
-.top-section{
-  background-image: linear-gradient(var(--color-navy-blue) -50%, var(--color-dark-blue) );
+.top-section {
+  background-image: linear-gradient(
+    var(--color-navy-blue) -50%,
+    var(--color-dark-blue)
+  );
 }
 
-.bottom-section{
+.bottom-section {
   padding-bottom: var(--space-5xl);
-  background-image: linear-gradient(var(--color-dark-blue), var(--color-navy-blue) 160%);
+  background-image: linear-gradient(
+    var(--color-dark-blue),
+    var(--color-navy-blue) 160%
+  );
   margin-bottom: 0;
 }
 
@@ -183,13 +195,12 @@ section{
   transition: all var(--default-transition-time);
 }
 
-
 /*
 ============================================================== 
 HEADER 
 ==============================================================
 */
-header{
+header {
   height: fit-content;
   padding: var(--space-2xs);
   display: flex;
@@ -198,13 +209,13 @@ header{
   width: 100%;
 }
 
-.header-flex{
+.header-flex {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 .logo {
-  display:inline;
+  display: inline;
   height: var(--text-size-3);
 }
 
@@ -305,8 +316,8 @@ FEATURED PROJECTS SECTION
 .project {
   margin-bottom: 25px;
   transition: all var(--default-transition-time);
-  
-  .project-info{
+
+  .project-info {
     transition: all var(--default-transition-time);
   }
 }
@@ -315,7 +326,7 @@ FEATURED PROJECTS SECTION
   outline: 5px dashed var(--color-navy-blue);
   transition: all var(--default-transition-time);
   scale: 1.03;
-  
+
   .project-info {
     background-color: var(--color-light-blue);
     transition: all var(--default-transition-time);
@@ -324,6 +335,9 @@ FEATURED PROJECTS SECTION
 }
 
 .project-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
   background-color: var(--color-navy-blue);
   padding: var(--space-xs);
   border-bottom-right-radius: var(--border-radius);
@@ -471,7 +485,7 @@ MEDIA QUERIES
   }
 
   h1,
-  h2{
+  h2 {
     text-align: center;
   }
 
@@ -514,7 +528,7 @@ MEDIA QUERIES
   .sga-prizes {
     margin-top: 5px;
   }
-  
+
   .sga-winner {
     width: 175px;
   }
@@ -529,7 +543,7 @@ MEDIA QUERIES
     gap: 30px;
   }
 
-  .footer-logo{
+  .footer-logo {
     display: none;
   }
 }
@@ -540,7 +554,7 @@ MEDIA QUERIES
     font-size: var(--text-size-minus-1);
   }
 
-  h1{
+  h1 {
     font-size: var(--text-size-3);
   }
   h2 {
