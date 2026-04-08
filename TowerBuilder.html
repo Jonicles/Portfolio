@@ -86,7 +86,7 @@
           <p class="spacing-small">Below are some constexpr, enums and structs that are helpful in understanding the building code that follows.</p>
           <details class="piece-code-details spacing-large">
             <summary>Defintions - TowerHelpers.h </summary>
-            <h4><a href="">View on GitHub ></a></h4>
+            <h4><a target="_blank" href="https://github.com/Jonicles/Tower_Builder/blob/main/TowerHelpers.h">View on GitHub ></a></h4>
           <!-- HTML generated using hilite.me --><div class="piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">constexpr</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH{</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">7</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
 <span style="color: #7686BB; font-weight: bold">constexpr</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH{</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">7</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
 
@@ -155,7 +155,7 @@
           ></video>
           <details class="piece-code-details spacing-large">
             <summary>Grid Drawing & Interactions - TowerSystems.cpp</summary>
-            <h4><a href="">View on GitHub ></a></h4>
+            <h4><a target="_blank" href="https://github.com/Jonicles/Tower_Builder/blob/main/TowerSystems.cpp">View on GitHub ></a></h4>
           <!-- HTML generated using hilite.me --><div class= "piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">TickInteractableGrid</span><span style="color: #CCC">()</span>
 <span style="color: #CCC">{</span>
   <span style="color: #BBB">	</span><span style="color: #CCC">InGeo::PushStyle(GRID_STYLE);</span>
@@ -229,7 +229,7 @@
           ></video>
           <details class="piece-code-details spacing-large">
             <summary>Block Interactions - TowerSystems.cpp</summary>
-            <h4><a href="">View on GitHub ></a></h4>
+            <h4><a target="_blank" href="https://github.com/Jonicles/Tower_Builder/blob/main/TowerSystems.cpp">View on GitHub ></a></h4>
           <!-- HTML generated using hilite.me --><div class="piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(locIsEraserActive)</span>
 <span style="color: #CCC">{</span>
   <span style="color: #BBB">	</span><span style="color: #CCC">InGeo::PushStyle(INTERACTABLE_BLOCK_ERASER_STYLE);</span>
@@ -325,7 +325,7 @@
           ></video>
           <details class="piece-code-details spacing-large">
             <summary>Floor Hiding & Showing - TowerSystems.cpp</summary>
-            <h4><a href="">View on GitHub ></a></h4>
+            <h4><a target="_blank" href="https://github.com/Jonicles/Tower_Builder/blob/main/TowerSystems.cpp">View on GitHub ></a></h4>
           <!-- HTML generated using hilite.me --><div class="piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">HideAboveFloorBlocks</span><span style="color: #CCC">()</span>
 <span style="color: #CCC">{</span>
   <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">locCurrentFloorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">1</span><span style="color: #CCC">;</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">&lt;</span><span style="color: #BBB"> </span><span style="color: #CCC">locTower.size();</span><span style="color: #BBB"> </span><span style="color: #CCC">floorIndex++)</span>
@@ -387,8 +387,8 @@
           <p class="spacing-small">Each time a floor changes, for example through placing a block, new metadata is calculated for that floor. </p>
           <p class="spacing-small">If the code didn't calculate metadata, it would need to iterate through all the floor tiles, per floor, per rule. Rules would need to iterate through the whole floor every time just to find the particular blocks.</p>
           <details class="piece-code-details spacing-large">
-          <summary>Metadata Calculation - TowerSystems.cpp</summary>
-            <h4><a href="">View on GitHub ></a></h4>
+          <summary>Metadata Calculation - TowerHelpers.cpp</summary>
+            <h4><a target="_blank" href="https://github.com/Jonicles/Tower_Builder/blob/main/TowerHelpers.cpp">View on GitHub ></a></h4>
           <!-- HTML generated using hilite.me --><div class="piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">FloorData::RemoveOldMetaData</span><span style="color: #CCC">()</span>
 <span style="color: #CCC">{</span>
   <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(std::vector&lt;BlockCoordinate&gt;&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">blockCoordinates</span><span style="color: #BBB"> </span><span style="color: #CCC">:</span><span style="color: #BBB"> </span><span style="color: #CCC">blockTypeMetaData)</span>
@@ -555,7 +555,7 @@
           ></video>
           <details class="piece-code-details spacing-large">
             <summary>Tower Validation - TowerSystems.cpp</summary>
-            <h4><a href="">View on GitHub ></a></h4>
+            <h4><a target="_blank" href="https://github.com/Jonicles/Tower_Builder/blob/main/TowerSystems.cpp">View on GitHub ></a></h4>
           <!-- HTML generated using hilite.me --><div class= "piece-code-block" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">TickTowerValidation</span><span style="color: #CCC">()</span>
 <span style="color: #CCC">{</span>
   <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(!locHasFloorChanged)</span>
@@ -619,7 +619,7 @@
   <p class="spacing-small">Rules themselves can be relatively small, since they have fast access to relevant data. This makes it easy to add more rules quickly.</p> 
   <details class="piece-code-details spacing-large">
     <summary>Support Rule - TowerRules.cpp</summary>
-    <h4><a href="">View on GitHub ></a></h4>
+    <h4><a target="_blank" href="https://github.com/Jonicles/Tower_Builder/blob/main/TowerRules.cpp">View on GitHub ></a></h4>
   <!-- HTML generated using hilite.me --><div class="piece-code-block" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #CCC">SupportRule::SupportRule()</span>
 <span style="color: #CCC">{</span>
   <span style="color: #BBB">	</span><span style="color: #CCC">myDescription</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #51CC99">&quot;Each supporting piece must have a supporting piece adjacent on the floor below&quot;</span><span style="color: #CCC">_tgaid;</span>
@@ -689,7 +689,7 @@
           ></video>
           <details class="piece-code-details spacing-large">
             <summary>Floor Violation Drawing - TowerSystems.cpp</summary>
-            <h4><a href="">View on GitHub ></a></h4>
+            <h4><a target="_blank" href="https://github.com/Jonicles/Tower_Builder/blob/main/TowerSystems.cpp">View on GitHub ></a></h4>
           <!-- HTML generated using hilite.me --><div class="piece-code-block style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">DrawFloorViolations</span><span style="color: #CCC">()</span>
 <span style="color: #CCC">{</span>
   <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">InGeo::Style</span><span style="color: #BBB"> </span><span style="color: #CCC">errorStyle{</span><span style="color: #BBB"> </span><span style="color: #CCC">ERROR_VISIBLE_COLOR</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
