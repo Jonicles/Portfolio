@@ -143,21 +143,41 @@ section{
   margin-bottom: var(--space-l);
 }
 
+li{
+  list-style: none;;
+}
+
 .default-wrapper{
   width: min(100% - 3rem, 100ch);
   margin-inline: auto;
 }
 
-.spacing-small{
-  margin-bottom: var(--space-s)
+.spacing-3X-small{
+  margin-bottom: var(--space-3xs);
 }
 
-.spacing-medium{
-  margin-bottom: var(--space-m)
+.spacing-2X-small{
+  margin-bottom: var(--space-2xs);
 }
 
-.spacing-large{
-  margin-bottom: var(--space-xl)
+.spacing-X-small{
+  margin-bottom: var(--space-xs);
+}
+
+.spacing-small {
+  margin-bottom: var(--space-s);
+}
+
+.spacing-medium {
+  margin-bottom: var(--space-m);
+}
+
+.spacing-large {
+  margin-bottom: var(--space-l);
+}
+
+.spacing-3X-large {
+  margin-bottom: var(--space-3xl);
 }
 
 section{

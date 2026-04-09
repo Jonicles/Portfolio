@@ -53,7 +53,7 @@
                 <a href="index.html#featuredprojects">&lt; 
                 Back to Featured Projects</a>
               </div>
-              <h1>Tower Builder & Validator</h1>
+              <h1>Pettson's Inventions 4</h1>
               <video class = "spacing-small"
                 autoplay
                 muted
@@ -76,80 +76,48 @@
           <h3>Overview</h3>
           <p class="spacing-small">During my internship at Filimundus AB, I primarily contributed to the development of Pettson's Inventions 4, a commercially released puzzle game aimed at children. 
           </p>
+          <p class="spacing-small">
+            The game is about Findus and the player fixing up Pettson's Santa Machine. 
+            To do this, the player must build contraptions to help the lovable Muckles, who lend a hand in return. 
+          </p>
           <p>
-            The game's codebase builds on previous titles in the series. My fellow programming intern, <a href="https://www.linkedin.com/in/bavodevos/">Bavo Devos</a>, and I worked closely together to adapt legacy systems and develop new features.
+            The game's codebase builds on previous titles in the series. 
+            My fellow programming intern, <a href="https://www.linkedin.com/in/bavodevos/">Bavo Devos</a>, and I worked closely together to adapt legacy systems and develop new features on top of them.
           </p>
         </section>
         <section class="default-wrapper">
-          <h3>Building</h3>
-          <p class="spacing-small">Below are some constexpr, enums and structs that are helpful in understanding the building code that follows.</p>
-          <details class="piece-code-details spacing-large">
-            <summary>Defintions - TowerHelpers.h </summary>
-            <h4><a target="_blank" href="https://github.com/Jonicles/Tower_Builder/blob/main/TowerHelpers.h">View on GitHub ></a></h4>
-          <!-- HTML generated using hilite.me --><div class="piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">constexpr</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH{</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">7</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
-<span style="color: #7686BB; font-weight: bold">constexpr</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH{</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">7</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">enum</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">class</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType</span>
-<span style="color: #CCC">{</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Void,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Wall,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Floor,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Door,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Window,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Stairs,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Shrine,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Count</span>
-<span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">enum</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">class</span><span style="color: #BBB"> </span><span style="color: #CCC">Direction</span>
-<span style="color: #CCC">{</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">North,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">East,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">South,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">West,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Count,</span>
-<span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">struct</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate</span>
-<span style="color: #CCC">{</span>
-<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">row</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">-1</span><span style="color: #CCC">;</span>
-<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">column</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">-1</span><span style="color: #CCC">;</span>
-<span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">struct</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData</span>
-<span style="color: #CCC">{</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">WASD::UniqueID</span><span style="color: #BBB"> </span><span style="color: #CCC">objectID{</span><span style="color: #BBB"> </span><span style="color: #CCC">INVALID_ID</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">BlockType</span><span style="color: #BBB"> </span><span style="color: #CCC">blockType{</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType::Void</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Direction</span><span style="color: #BBB"> </span><span style="color: #CCC">direction{</span><span style="color: #BBB"> </span><span style="color: #CCC">Direction::North</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
-<span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">struct</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorData</span>
-<span style="color: #CCC">{</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">std::array&lt;std::vector&lt;BlockCoordinate&gt;,</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">size_t</span><span style="color: #CCC">&gt;(BlockType::Count)&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">blockTypeMetaData;</span>
-
-<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableBlocksMetaData;</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">supportingBlocksMetaData;</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;std::vector&lt;BlockCoordinate&gt;&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableRegionMetaData;</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;std::vector&lt;BlockCoordinate&gt;&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">roomMetaData;</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">std::array&lt;std::array&lt;</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH&gt;,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">roomIndexMetaData;</span>
-
-
-<span style="color: #BBB">	</span><span style="color: #CCC">std::array&lt;std::array&lt;BlockData,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH&gt;,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">blockData;</span>
-
-<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">RemoveOldMetaData</span><span style="color: #CCC">();</span>
-<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">CalculateMetaData</span><span style="color: #CCC">();</span>
-<span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">using</span><span style="color: #BBB"> </span><span style="color: #CCC">Tower</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">std::vector&lt;FloorData&gt;;</span>
-</pre></div>
-          </details>
+          <h3>Contributions</h3>
+          <ul>
+            <li>&#x25BA Design and documentation of our new trunk-based branching strategy using Git.</li>
+            <li>&#x25BA Tool shed / HUB swipe and zoom navigation with parallax effect.</li>
+            <li>&#x25BA Drag and drop Santa dressup minigame.</li>
+            <li>&#x25BA Data-driven cutscene creator / manager.</li>
+            <li>&#x25BA Optimization using Unity's Profiler.</li>
+            <li>&#x25BA Game save system and progression between sessions.</li>
+            <li>&#x25BA Managing of game builds for Android and iOS</li>
+            <li>&#x25BA Management of game builds for Android and iOS</li>
+            <li>&#x25BA Localization using XML.</li>
+          </ul>
         </section>
         <section class="bottom-section">
           <div class="default-wrapper">
-            <h3>Conclusion</h3>
-            <p class="spacing-small">It was fun to push the capabilities of my Immediate Geometry Tool, and this piece did force me to rewrite code to make it more robust and flexible.</p>
-            <p class="spacing-small">I would have liked to also mark the specific blocks or coordinates where an error occured, but with the alloted time I chose to do a simpler implementation</p>
-
+            <h3>Reflections</h3>
+            <p class="spacing-small">
+              It was amazing working on a full-fledged production! 
+              I had a lot of freedom to explore and learn different tools and processes during this project. Specifically, 
+              I really deepened my knowledge in version control, profiling, and mobile development as a whole. 
+            </p>
+            <p class="spacing-small">
+              I wish however that I could have gone more in-depth into the localization process. 
+              I only had time to scratch the surface here and would love to explore it further in future projects.
+            </p>
+            <p class="spacing-small">
+              I'm very proud of the project and the development team at Filimunds AB. 
+              We put our all into making this project with the skills we had. 
+              We also created such a positive and supportive work environment together. 
+              I miss you all dearly!
+            </p>
+            
           </div>
         </section>
       </article>
