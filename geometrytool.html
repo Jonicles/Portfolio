@@ -13,7 +13,7 @@
       content="Game Programmer, Programmer, Portfolio, Game Developer, Developer, Programmer, Student, The Game Assembly, TGA, John Lundström, PhysX, Dx11, DirectX11, C++, C#, Unity,
       Unity Developer, Godot, Godot Developer, GDScript"
     />
-    <title>John Lundström - Pettson's Inventions 4</title>
+    <title>John Lundström - Immediate mode geometry tool</title>
     <link rel="stylesheet" href="css/project.css" />
     <link rel="icon" type="img/x-icon" href="img/Jonicles_Favicon.png" />
   </head>
@@ -53,7 +53,7 @@
                 <a href="index.html#featuredprojects">&lt; 
                 Back to featured projects</a>
               </div>
-              <h1>Pettson's Inventions 4</h1>
+              <h1>Immediate mode geometry tool</h1>
               <video class = "spacing-small"
                 autoplay
                 muted
@@ -62,11 +62,9 @@
               ></video>
                 <h3>Info</h3>
                 <ul class = "piece-info-list">
-                  <li><strong>Engine:</strong> Unity</li>
-                  <li><strong>Languages:</strong> C#, XML</li>
-                  <li><strong>Platform:</strong> Android, iOS</li>
-                  <li><strong>Time frame:</strong> 15 weeks</li>
-                  <li><strong>Team Size:</strong> 6</li>
+                  <li><strong>Languages:</strong> C++</li>
+                  <li><strong>Time frame:</strong> 4 weeks</li>
+                  <li><strong>Team Size:</strong> Solo</li>
                 </ul>
               </div>
             </div>
@@ -75,73 +73,96 @@
         <section class="default-wrapper">
           <h3>Overview</h3>
           <p class="spacing-small"> 
-            During my internship at Filimundus AB, I primarily contributed to the 
-            development of Pettson's Inventions 4, a commercially released 
-            puzzle game aimed at children.
+            Inspired by the simplicity and beauty of ImGui, 
+            I wanted to create a tool with an immediate mode API. 
+            I had recently played a lot of Townscaper, a casual city builder 
+            where players place building blocks on a grid. 
+            I decided to mash the two together and develop an immediate mode grid tool.
           </p>
           <p class="spacing-small">
-            The game follows Findus and the player as they work together 
-            to repair Pettson's Santa Machine. Along the way, players 
-            build inventions to help the lovable Muckles, who assist 
-            them in return.
-          </p>
-          <p>
-            I worked closely alongside my fellow programming intern, 
-            <a href="https://www.linkedin.com/in/bavodevos/">Bavo Devos</a>, 
-            adapting and extending systems from earlier titles in the series. 
-            This meant working within an established codebase while still contributing new features and improvements.
+            As the project took shape, its scope grew.
+            Instead of just handling grid interactions, it turned into a tool for creating, 
+            styling, and interacting with various geometries (including grids!). 
           </p>
         </section>
         <section class="default-wrapper">
-          <h3>Contributions</h3>
+          <h3>Key achievements</h3>
           <ul>
             <li>
-              &#9679; Helped define and document a new trunk-based Git branching strategy for the team.
+              &#9679; Built a backend-agnostic geometry tool for easy engine integration.
             </li>
             <li>
-              &#9679; Built swipe and zoom navigation for the tool shed / HUB area with a parallax effect.
+              &#9679; Developed standalone input handling for Win32 and geometry rendering using DirectX11.
             </li>
             <li>
-              &#9679; Developed a drag-and-drop Santa dress-up minigame.
+              &#9679; Implemented an ID system with push/pop functionality and retained geometry state.
             </li>
             <li>
-              &#9679; Created a data-driven cutscene creation and management tool.
+              &#9679; Added geometry interaction through picking (hover, click, etc.).
             </li>
             <li>
-              &#9679; Profiled and optimized performance using Unity's Profiler.
+              &#9679; Enabled arbitrary data storage and querying directly on geometry.
             </li>
             <li>
-              &#9679; Implemented save and progression systems across play sessions.
-            </li>
-            <li>
-              &#9679; Managed and maintained game builds for Android and iOS.
-            </li>
-            <li>
-              &#9679; Worked with XML-based localization systems.
+              &#9679; Built an immediate mode interaction API with ID-based state querying.
             </li>
           </ul>
+        </section>
+        <section class="default-wrapper">
+          <h3>Immediate and retained data</h3>
+          <p class="spacing-small">
+            Immediate Mode is an architectural pattern in which elements are defined within every frame, 
+            rather than being stored and updated as persistent objects. However, interactions such as 
+            drag start/stop, hover enter/stay/exit, and arbitrary data storing and retrieval require 
+            retained state. Solving this was one of the main challenges of the project.
+          </p> 
+          <p class="spacing-small">
+            Inspired by ImGui, I implemented an ID system that lets developers push and pop IDs to uniquely 
+            identify geometry. Geometry draw calls are rebuilt every frame, while interaction and custom 
+            data are stored in an unordered map keyed by ID. This made it possible to query geometry state 
+            through a simple immediate mode API while keeping the rendering stateless. The geometry state 
+            is updated once per frame using 3D picking. 
+          </p> 
+        </section>
+        <section class="default-wrapper">
+          <h3>Layout and grids</h3>
+          <p class="spacing-small">
+            A core goal of the tool was to make interactive grid creation simple. To support this, 
+            I built a layout system that automatically positioned and generated geometry based on 
+            developer-defined grid settings.
+          </p> 
+          <p class="spacing-small">
+            This made it easy to build interactive grid-based systems while still allowing developers 
+            to query individual geometry interactions. 
+          </p> 
+        </section>
+        <section class="default-wrapper">
+          <h3>Backend agnostic setup</h3>
+          <p class="spacing-small">
+            Like ImGui, I wanted the tool to be easy to integrate into different engines and rendering pipelines.
+          </p> 
+          <p class="spacing-small">
+            To support this, the tool stores abstracted input/output state, while backend implementations 
+            translate platform-specific data into that format. For example, the Win32 backend uses WndProc to 
+            process Windows messages and update the input state.
+          </p> 
         </section>
         <section class="bottom-section">
           <div class="default-wrapper">
             <h3>Take aways</h3>
             <p class="spacing-small">
-             Working on a commercially released game was an invaluable experience. 
-             It was my first time working inside an existing production pipeline, 
-             and it quickly taught me that a lot of development is about working with what's 
-             already there rather than starting from scratch.
-            </p>
+              This project pushed me into a type of programming I had never worked with before, 
+              which made it both challenging and very rewarding.
+            </p> 
             <p class="spacing-small">
-              If I had to pick one area I wish I could have gone deeper into, 
-              it would be localization. I only got a small glimpse into that pipeline, 
-              but it's something I'd definitely like to explore more in future projects.
-            </p>
+              One area I would improve is the geometry creation itself. Right now, the system 
+              only supports hardcoded quads and cuboids, which limits its flexibility. Ideally, 
+              I would extend it to support arbitrary meshes, making any type of geometry interactive.
+            </p> 
             <p class="spacing-small">
-              I'm very proud of both the project and the development team at Filimundus AB.
-              We put a lot of effort into building the game with the skills we had at 
-              the time, and we also fostered a very positive and supportive working 
-              environment throughout development. 
-            </p>
-            
+              You can see the tool applied in my other project, 
+              <a href="towerbuilder.html">Tower Builder & Validator</a>
+            </p> 
           </div>
         </section>
       </article>
