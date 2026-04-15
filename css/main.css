@@ -113,12 +113,6 @@ strong {
   color: var(--color-yellow);
 }
 
-small {
-  font-style: italic;
-  font-size: var(--text-size-0);
-  color: var(--color-light-gray);
-}
-
 a {
   text-decoration: none;
   color: var(--color-white);
@@ -127,7 +121,7 @@ a {
 
 a:hover {
   transition: all var(--default-transition-time);
-  color: var(--color-gray);
+  color: var(--color-light-gray);
 }
 
 img,
@@ -238,7 +232,8 @@ header {
 }
 
 .nav-link-content:hover {
-  color: #565d81;
+  text-decoration: none;
+  color: var(--color-light-gray);
   transition: all var(--default-transition-time);
 }
 
@@ -434,22 +429,27 @@ footer {
 }
 
 .footer-link {
+  color: var(--color-white);
   transition: all var(--default-transition-time);
 }
 
 .footer-link:hover {
-  color: var(--color-gray);
+  text-decoration: none;
+  color: var(--color-light-gray);
+  transition: all var(--default-transition-time);
+}
+
+.social-link {
   transition: all var(--default-transition-time);
 }
 
 .social-link:hover {
-  filter: invert(37%) sepia(43%) saturate(359%) hue-rotate(192deg)
-    brightness(87%) contrast(87%);
+  filter: brightness(0) saturate(100%) invert(39%) sepia(16%) saturate(631%) hue-rotate(191deg) brightness(92%) contrast(88%);
   transition: all var(--default-transition-time);
 }
 
 .footer-copyright {
-  color: var(--color-gray);
+  color: var(--color-yellow);
   text-align: center;
   padding-bottom: 40px;
 }

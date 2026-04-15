@@ -62,11 +62,11 @@
               ></video>
                 <h3>Info</h3>
                 <ul class = "piece-info-list">
-                  <li><strong>Engine:</strong> Custom Engine</li>
-                  <li><strong>Language:</strong> C++</li>
-                  <li><strong>Tools:</strong> ImGui, Immediate Mode Geometry tool</li>
-                  <li><strong>Time frame:</strong> 3 weeks</li>
-                  <li><strong>Team Size:</strong> Solo</li>
+                  <li><strong class ="project-info">Engine:</strong> Custom C++ Engine (Spare Parts)</li>
+                  <li><strong class ="project-info">Language:</strong> C++</li>
+                  <li><strong class ="project-info">Tools:</strong> ImGui, Immediate Mode Geometry tool</li>
+                  <li><strong class ="project-info">Time frame:</strong> 3 weeks</li>
+                  <li><strong class ="project-info">Team Size:</strong> Solo</li>
                 </ul>
               </div>
             </div>
@@ -74,8 +74,8 @@
         </section>
         <section class="default-wrapper">
           <h3>Overview</h3>
-          <p class="spacing-small">I wanted to test the usefulness of my Immediate Mode Geometry Tool in a 
-            real gameplay setting while also creating a grid-based building game.
+          <p class="spacing-small">I wanted to test the usefulness of my <a href="geometrytool.html">Immediate Mode Geometry Tool</a> in a 
+            real gameplay setting while also creating a <strong>grid-based building game</strong>.
           </p>
           <p class="spacing-small">
             The game challenges players to build a tower floor by floor using different block types. 
@@ -83,8 +83,8 @@
             forcing players to adapt and sometimes rebuild earlier floors.
           </p>
           <p>
-            To support this, I built systems for building, 
-            rule validation, and error highlighting in our custom ECS-based engine.
+            To support this, I built systems for <strong>building, 
+            rule validation, and error highlighting</strong> in our <em>custom ECS-based engine</em>.
           </p>
         </section>
         <section class="default-wrapper">
@@ -92,28 +92,28 @@
           <ul>
             <li>
               &#9679; Built an interactive tower-building system using my 
-              Immediate Mode Geometry Tool integrated with ECS.
+              <strong>Immediate Mode Geometry Tool</strong> integrated with <em>ECS</em>.
             </li>
             <li>
-              &#9679; Developed a rule validation system for floor-based building constraints.
+              &#9679; Developed a <strong>rule validation</strong> system for floor-based building constraints.
             </li>
             <li>
-              &#9679; Optimized tower validation using metadata to reduce unnecessary iteration and recalculation.
+              &#9679; Optimized tower validation using <strong>metadata</strong> to reduce unnecessary iteration and recalculation.
             </li>
             <li>
-              &#9679; Built a modular rule system for easily adding new building constraints.
+              &#9679; Built a <strong>modular rule system</strong> for easily adding new building constraints.
             </li>
             <li>
-              &#9679; Implemented error highlighting and floor visibility tools to improve usability.
+              &#9679; Implemented <strong>error highlighting</strong> and floor visibility tools to improve usability.
             </li>
           </ul>
         </section>
         <section class="default-wrapper">
           <h3>Building</h3>
           <p class="spacing-small">
-            I used my Immediate Mode Geometry Tool to generate an interactive grid 
+            I used my <strong>Immediate Mode Geometry Tool</strong> to generate an interactive grid 
             for each floor. Clicking on a grid cell updates the floor's block data, 
-            which then spawns or updates the corresponding ECS objects in the world.
+            which then spawns or updates the corresponding <em>ECS</em> components in the world.
           </p>
           <video class="spacing-small"
                 autoplay
@@ -178,7 +178,7 @@
     </pre></div>  
   </details>
   <p class="spacing-small">
-    Players can choose between different block types through an ImGui menu, 
+    Players can choose between different block types through an <em>ImGui</em> menu, 
     with each block mapped to a specific object definition.
   </p>
           <video class="spacing-large"
@@ -357,16 +357,16 @@
         <section class="default-wrapper">
           <h3>Rule validation</h3>
           <p class="spacing-small">
-            A core challenge of the project was efficiently validating tower rules as the structure changed. 
+            A core challenge of the project was <strong>efficiently validating tower rules</strong> as the structure changed. 
             Some rules only affect a single floor, while others depend on relationships between multiple floors. 
             This meant that changing one floor could affect the validity of floors above and below it.
           </p>
           <p class="spacing-small">
             To avoid repeatedly iterating over every tile for every rule, 
-            I store floor metadata that is recalculated only when a floor changes. 
+            I store floor <strong>metadata</strong> that is recalculated only when a floor changes. 
             This metadata stores useful information such as block coordinates by type, 
             connected room regions, and walkability data. 
-            This allowed rule checks to query precomputed data instead of reprocessing the full floor every time.  
+            This allowed rule checks to <strong>query precomputed data</strong> instead of reprocessing the full floor every time.  
           </p>
           <details class="piece-code-details spacing-large">
           <summary>Metadata Calculation - TowerHelpers.cpp</summary>
@@ -664,13 +664,13 @@
           <div class="default-wrapper">
             <h3>Error visualization</h3>
             <p class="spacing-small">
-              To make rule violations easy to understand, I implemented an error highlighting system 
-              inspired by the red squiggly line commonly seen in IDEs.  
+              To make rule violations easy to understand, I implemented an <strong>error highlighting</strong> system 
+              inspired by the red squiggly line commonly seen in <em>IDEs</em>.  
             </p>
             <p class="spacing-small">
               Each floor stores its own error state, which is then used to generate error geometry 
-              through my Immediate Mode Geometry Tool. This gives players clear feedback on which 
-              floors need to be rebuilt while keeping the error system lightweight and easy to extend. 
+              through my <strong>Immediate Mode Geometry Tool</strong>. This gives players clear feedback on which 
+              floors need to be rebuilt while keeping the error system <strong>lightweight and easy to extend</strong>. 
             </p>
             <video class="spacing-small"
                 autoplay
@@ -720,7 +720,7 @@
           <div class="default-wrapper">
             <h3>Take aways</h3>
             <p class="spacing-small">
-              This project was a great way to test and improve my Immediate Mode Geometry Tool. 
+              This project was a great way to test and improve my <a href="geometrytool.html">Immediate Mode Geometry Tool</a>. 
               It exposed flaws in the interaction system that helped me refine the tool further.  
             </p>
             <p class="spacing-small">
@@ -744,11 +744,11 @@
             <ul class="page-list">
               <li><a href="#top" class="footer-link">Back to top</a></li>
               <li>
-                <a href="#featuredprojects" class="footer-link"
+                <a href="index.html#featuredprojects" class="footer-link"
                   >Featured projects</a
                 >
               </li>
-              <li><a href="#about" class="footer-link">About me</a></li>
+              <li><a href="index.html#about" class="footer-link">About me</a></li>
             </ul>
           </nav>
           <!-- <nav class="footer-website-nav">

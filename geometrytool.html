@@ -62,9 +62,9 @@
               ></video>
                 <h3>Info</h3>
                 <ul class = "piece-info-list">
-                  <li><strong>Languages:</strong> C++</li>
-                  <li><strong>Time frame:</strong> 4 weeks</li>
-                  <li><strong>Team Size:</strong> Solo</li>
+                  <li><strong class ="project-info">Languages:</strong> C++</li>
+                  <li><strong class ="project-info">Time frame:</strong> 4 weeks</li>
+                  <li><strong class ="project-info">Team Size:</strong> Solo</li>
                 </ul>
               </div>
             </div>
@@ -73,62 +73,62 @@
         <section class="default-wrapper">
           <h3>Overview</h3>
           <p class="spacing-small"> 
-            Inspired by the simplicity and beauty of ImGui, 
-            I wanted to create a tool with an immediate mode API. 
-            I had recently played a lot of Townscaper, a casual city builder 
+            Inspired by the simplicity and beauty of <em>ImGui</em>, 
+            I wanted to create a tool with an <strong>immediate mode API</strong>. 
+            I had recently played a lot of <em>Townscaper</em>, a casual city builder 
             where players place building blocks on a grid. 
-            I decided to mash the two together and develop an immediate mode grid tool.
+            I decided to mash the two together and develop an <strong>immediate mode grid tool</strong>.
           </p>
           <p class="spacing-small">
             As the project took shape, its scope grew.
-            Instead of just handling grid interactions, it turned into a tool for creating, 
-            styling, and interacting with various geometries (including grids!). 
+            Instead of just handling grid interactions, it turned into a tool for <strong>creating, 
+            styling, and interacting</strong> with various geometries (including grids!). 
           </p>
         </section>
         <section class="default-wrapper">
           <h3>Key achievements</h3>
           <ul>
             <li>
-              &#9679; Built a backend-agnostic geometry tool for easy engine integration.
+              &#9679; Built a <strong>backend-agnostic</strong> geometry tool for easy engine integration.
             </li>
             <li>
-              &#9679; Developed standalone input handling for Win32 and geometry rendering using DirectX11.
+              &#9679; Developed standalone input handling for <em>Win32</em> and geometry rendering using <em>DirectX11</em>.
             </li>
             <li>
-              &#9679; Implemented an ID system with push/pop functionality and retained geometry state.
+              &#9679; Implemented an <strong>ID system</strong> with push/pop functionality and retained geometry state.
             </li>
             <li>
-              &#9679; Added geometry interaction through picking (hover, click, etc.).
+              &#9679; Added <strong>geometry interaction through picking</strong> (hover, click, etc.).
             </li>
             <li>
-              &#9679; Enabled arbitrary data storage and querying directly on geometry.
+              &#9679; Enabled <strong>arbitrary data storage and querying</strong> directly on geometry.
             </li>
             <li>
-              &#9679; Built an immediate mode interaction API with ID-based state querying.
+              &#9679; Built an <strong>immediate mode interaction API</strong> with ID-based state querying.
             </li>
           </ul>
         </section>
         <section class="default-wrapper">
           <h3>Immediate and retained data</h3>
           <p class="spacing-small">
-            Immediate Mode is an architectural pattern in which elements are defined within every frame, 
+            Immediate Mode is an <strong>architectural pattern</strong> in which elements are defined within every frame, 
             rather than being stored and updated as persistent objects. However, interactions such as 
             drag start/stop, hover enter/stay/exit, and arbitrary data storing and retrieval require 
-            retained state. Solving this was one of the main challenges of the project.
+            <strong>retained state</strong>. Solving this was one of the main challenges of the project.
           </p> 
           <p class="spacing-small">
-            Inspired by ImGui, I implemented an ID system that lets developers push and pop IDs to uniquely 
+            Inspired by <em>ImGui</em>, I implemented an ID system that lets developers push and pop IDs to uniquely 
             identify geometry. Geometry draw calls are rebuilt every frame, while interaction and custom 
             data are stored in an unordered map keyed by ID. This made it possible to query geometry state 
-            through a simple immediate mode API while keeping the rendering stateless. The geometry state 
-            is updated once per frame using 3D picking. 
+            through a simple <strong>immediate mode API</strong> while keeping the rendering stateless. The geometry state 
+            is updated once per frame using <strong>3D picking</strong>. 
           </p> 
         </section>
         <section class="default-wrapper">
           <h3>Layout and grids</h3>
           <p class="spacing-small">
             A core goal of the tool was to make interactive grid creation simple. To support this, 
-            I built a layout system that automatically positioned and generated geometry based on 
+            I built a <strong>layout system</strong> that automatically positioned and generated geometry based on 
             developer-defined grid settings.
           </p> 
           <p class="spacing-small">
@@ -139,12 +139,13 @@
         <section class="default-wrapper">
           <h3>Backend agnostic setup</h3>
           <p class="spacing-small">
-            Like ImGui, I wanted the tool to be easy to integrate into different engines and rendering pipelines.
+            Like <em>ImGui</em>, I wanted the tool to be easy to integrate into different engines and rendering pipelines.
           </p> 
           <p class="spacing-small">
-            To support this, the tool stores abstracted input/output state, while backend implementations 
-            translate platform-specific data into that format. For example, the Win32 backend uses WndProc to 
-            process Windows messages and update the input state.
+            To support this, the tool maintains an <strong>abstract IO layer and a draw commands</strong>, which backend 
+            implementations translate between platform-specific input/output systems and rendering <em>APIs</em>. For 
+            example, the <em>Win32</em> backend handles input via <em>WndProc</em> and updates the IO state, while the 
+            <em>DirectX 11</em> backend converts draw commands into GPU draw calls.
           </p> 
         </section>
         <section class="bottom-section">
@@ -179,11 +180,11 @@
             <ul class="page-list">
               <li><a href="#top" class="footer-link">Back to top</a></li>
               <li>
-                <a href="#featuredprojects" class="footer-link"
+                <a href="index.html#featuredprojects" class="footer-link"
                   >Featured projects</a
                 >
               </li>
-              <li><a href="#about" class="footer-link">About me</a></li>
+              <li><a href="index.html#about" class="footer-link">About me</a></li>
             </ul>
           </nav>
           <!-- <nav class="footer-website-nav">
