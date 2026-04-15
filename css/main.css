@@ -4,7 +4,7 @@ IMPORTS
 ==============================================================
 */
 @import url("https://fonts.googleapis.com/css2?family=Days+One&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 /*
 ============================================================== 
 RESET 
@@ -103,21 +103,10 @@ h2 {
 
 h3 {
   font-size: var(--text-size-2);
-  margin-bottom: var(--space-m);
 }
 
 h4 {
   font-size: var(--text-size-1);
-}
-
-strong {
-  color: var(--color-yellow);
-}
-
-small {
-  font-style: italic;
-  font-size: var(--text-size-0);
-  color: var(--color-light-gray);
 }
 
 a {
@@ -128,7 +117,7 @@ a {
 
 a:hover {
   transition: all var(--default-transition-time);
-  color: var(--color-gray);
+  color: var(--color-light-gray);
 }
 
 img,
@@ -239,7 +228,8 @@ header {
 }
 
 .nav-link-content:hover {
-  color: #565d81;
+  text-decoration: none;
+  color: var(--color-light-gray);
   transition: all var(--default-transition-time);
 }
 
@@ -307,22 +297,39 @@ h2 {
   margin: var(--space-3xs) var(--space-4xs);
 }
 
+.hero-highlight{
+  color: var(--color-yellow);
+}
+
 /* 
 ==============================================================
 FEATURED PROJECTS SECTION
 ==============================================================
 */
 
-.project-list {
-  list-style: none;
+.projects-flex {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-m);
+  align-items: stretch;
 }
 
 .project {
+  display: block;
+  width: 100%;
+  height: 100%;
+
   transition: all var(--default-transition-time);
 
   .project-info {
     transition: all var(--default-transition-time);
   }
+}
+
+.project a{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .project:hover {
@@ -345,6 +352,7 @@ FEATURED PROJECTS SECTION
   padding: var(--space-xs);
   border-bottom-right-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
+  flex: 1;
 }
 
 .project-video {
@@ -421,22 +429,27 @@ footer {
 }
 
 .footer-link {
+  color: var(--color-white);
   transition: all var(--default-transition-time);
 }
 
 .footer-link:hover {
-  color: var(--color-gray);
+  text-decoration: none;
+  color: var(--color-light-gray);
+  transition: all var(--default-transition-time);
+}
+
+.social-link {
   transition: all var(--default-transition-time);
 }
 
 .social-link:hover {
-  filter: invert(37%) sepia(43%) saturate(359%) hue-rotate(192deg)
-    brightness(87%) contrast(87%);
+  filter: brightness(0) saturate(100%) invert(39%) sepia(16%) saturate(631%) hue-rotate(191deg) brightness(92%) contrast(88%);
   transition: all var(--default-transition-time);
 }
 
 .footer-copyright {
-  color: var(--color-gray);
+  color: var(--color-yellow);
   text-align: center;
   padding-bottom: 40px;
 }
@@ -461,16 +474,7 @@ MEDIA QUERIES
   .project-info {
     border-width: 8px;
   }
-
-  .sga-winners {
-    gap: 0;
-    justify-content: space-evenly;
-  }
-
-  .sga-nominee {
-    display: none;
-  }
-
+  
   /* -------CALL TO ACTION------- */
 
   .call-to-action-pic {
@@ -480,6 +484,8 @@ MEDIA QUERIES
 }
 
 @media screen and (max-width: 908px) {
+
+    /* -------HERO------- */
   .hero-flex {
     flex-direction: column-reverse;
     justify-content: center;
@@ -504,6 +510,34 @@ MEDIA QUERIES
     text-wrap: wrap;
     text-align: center;
   }
+
+  /* -------FEATURED PROJECTS------- */
+  .projects-flex {
+    grid-template-columns: 1fr; 
+    align-items: start;         
+  }
+
+  .project {
+    height: auto;
+  }
+
+  .project a {
+    display: block;
+    height: auto;
+  }
+
+  .project-info {
+    flex: unset;    
+    height: auto;
+    border-width: 8px;
+  }
+
+  .project-video {
+    flex: unset;    
+    width: 100%;
+    height: auto;
+  }
+
 }
 
 @media screen and (max-width: 624px) {
@@ -524,19 +558,6 @@ MEDIA QUERIES
   .hero-skill-unit {
     font-size: var(--text-size-minus-1);
     padding: var(--text-size-minus-4) var(--text-size-minus-3);
-  }
-
-  /* -------FEATURED PROJECTS------- */
-  .sga-prizes {
-    margin-top: 5px;
-  }
-
-  .sga-winner {
-    width: 175px;
-  }
-
-  .moose {
-    margin-bottom: 40px;
   }
 
   /* -------FOOTER------- */
