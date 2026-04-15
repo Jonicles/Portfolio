@@ -13,7 +13,7 @@
       content="Game Programmer, Programmer, Portfolio, Game Developer, Developer, Programmer, Student, The Game Assembly, TGA, John Lundström, PhysX, Dx11, DirectX11, C++, C#, Unity,
       Unity Developer, Godot, Godot Developer, GDScript"
     />
-    <title>John Lundström - Pettson's Inventions 4</title>
+    <title>John Lundström - Game Programmer | Portfolio</title>
     <link rel="stylesheet" href="css/project.css" />
     <link rel="icon" type="img/x-icon" href="img/Jonicles_Favicon.png" />
   </head>
@@ -53,12 +53,12 @@
                 <a href="index.html#featuredprojects">&lt; 
                 Back to Featured Projects</a>
               </div>
-              <h1>Tower builder & validator</h1>
-              <video class = "spacing-small"
+              <h1>Tower Builder & Validator</h1>
+              <video
                 autoplay
                 muted
                 loop
-                src="vid/Tower_Builder/Tower-Showcase.mp4"
+                src="vid/Tower-Showcase.mp4"
               ></video>
                 <h3>Info</h3>
                 <ul class = "piece-info-list">
@@ -74,81 +74,80 @@
         </section>
         <section class="default-wrapper">
           <h3>Overview</h3>
-          <p class="spacing-small">I wanted to prove the validity of my Immediate Geometry Tool in a “real game” setting. 
+          <p>I wanted to prove the validity of my Immediate Geometry Tool in a “real game” setting. 
             I also wanted to create a game where you build something, 
             since I really enjoy that style of game. 
+          </p>
+          <p>The goal of the game is to build a tower using different pieces. 
+            When a player finishes a floor, they unlock the next floor and 
+            get a new rule imposed on them. 
+            The rules will force the player to rebuild their tower as the game goes on. 
+            Floors are validated against the rules, and erroneous floors are marked, 
+            akin to the red squiggly line found in code editors.
           </p>
         </section>
         <section class="default-wrapper">
           <h3>Building</h3>
-          <p class="spacing-small">Below are some constexpr, enums and structs that are helpful in understanding the building code that follows.</p>
-          <details class="piece-code-details spacing-large">
-            <summary>Defintions - TowerHelpers.h </summary>
-            <h4><a target="_blank" href="https://github.com/Jonicles/Tower_Builder/blob/main/TowerHelpers.h">View on GitHub ></a></h4>
-          <!-- HTML generated using hilite.me --><div class="piece-code-block spacing-large" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #7686BB; font-weight: bold">constexpr</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH{</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">7</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
-<span style="color: #7686BB; font-weight: bold">constexpr</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH{</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">7</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">enum</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">class</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType</span>
-<span style="color: #CCC">{</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Void,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Wall,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Floor,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Door,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Window,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Stairs,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Shrine,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Count</span>
-<span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">enum</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">class</span><span style="color: #BBB"> </span><span style="color: #CCC">Direction</span>
-<span style="color: #CCC">{</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">North,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">East,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">South,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">West,</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Count,</span>
-<span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">struct</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate</span>
-<span style="color: #CCC">{</span>
-<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">row</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">-1</span><span style="color: #CCC">;</span>
-<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">column</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">-1</span><span style="color: #CCC">;</span>
-<span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">struct</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData</span>
-<span style="color: #CCC">{</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">WASD::UniqueID</span><span style="color: #BBB"> </span><span style="color: #CCC">objectID{</span><span style="color: #BBB"> </span><span style="color: #CCC">INVALID_ID</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">BlockType</span><span style="color: #BBB"> </span><span style="color: #CCC">blockType{</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType::Void</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">Direction</span><span style="color: #BBB"> </span><span style="color: #CCC">direction{</span><span style="color: #BBB"> </span><span style="color: #CCC">Direction::North</span><span style="color: #BBB"> </span><span style="color: #CCC">};</span>
-<span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">struct</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorData</span>
-<span style="color: #CCC">{</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">std::array&lt;std::vector&lt;BlockCoordinate&gt;,</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">static_cast</span><span style="color: #CCC">&lt;</span><span style="color: #7686BB; font-weight: bold">size_t</span><span style="color: #CCC">&gt;(BlockType::Count)&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">blockTypeMetaData;</span>
-
-<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableBlocksMetaData;</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;BlockCoordinate&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">supportingBlocksMetaData;</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;std::vector&lt;BlockCoordinate&gt;&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableRegionMetaData;</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">std::vector&lt;std::vector&lt;BlockCoordinate&gt;&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">roomMetaData;</span>
-<span style="color: #BBB">	</span><span style="color: #CCC">std::array&lt;std::array&lt;</span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #CCC">,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH&gt;,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">roomIndexMetaData;</span>
-
-
-<span style="color: #BBB">	</span><span style="color: #CCC">std::array&lt;std::array&lt;BlockData,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_DEPTH&gt;,</span><span style="color: #BBB"> </span><span style="color: #CCC">GRID_WIDTH&gt;</span><span style="color: #BBB"> </span><span style="color: #CCC">blockData;</span>
-
-<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">RemoveOldMetaData</span><span style="color: #CCC">();</span>
-<span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #6A6AFF">CalculateMetaData</span><span style="color: #CCC">();</span>
-<span style="color: #CCC">};</span>
-
-<span style="color: #7686BB; font-weight: bold">using</span><span style="color: #BBB"> </span><span style="color: #CCC">Tower</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">std::vector&lt;FloorData&gt;;</span>
-</pre></div>
-          </details>
+          <p>
+            The player can pick between several placeable blocks using a menu created with ImGui. Each BlockType corresponds to a particular object definition.  
+          </p>
+          
+          <h4><a href="">TowerRules.cpp ></a></h4>
+          <!-- HTML generated using hilite.me --><div class="piece-code-block" style="background: #232629; overflow:auto;width:auto;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span>  <span style="color: #CCC">HoleRule::HoleRule()</span>
+  <span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">myDescription</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #51CC99">&quot;No floor may have holes in the roof&quot;</span><span style="color: #CCC">_tgaid;</span>
+  <span style="color: #CCC">}</span>
+  
+  <span style="color: #7686BB; font-weight: bold">void</span><span style="color: #BBB"> </span><span style="color: #CCC">HoleRule::Evaluate(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">Tower&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">aTower,</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorViolationData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">aViolationData,</span><span style="color: #BBB"> </span><span style="color: #7686BB; font-weight: bold">int</span><span style="color: #BBB"> </span><span style="color: #CCC">aFloorIndex)</span>
+  <span style="color: #CCC">{</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(aFloorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">aTower.size()</span><span style="color: #BBB"> </span><span style="color: #CCC">-</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">1</span><span style="color: #CCC">)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">return</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">aTower[aFloorIndex];</span>
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">FloorData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">aboveFloorData</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">aTower[aFloorIndex</span><span style="color: #BBB"> </span><span style="color: #CCC">+</span><span style="color: #BBB"> </span><span style="color: #4FB8CC">1</span><span style="color: #CCC">];</span>
+  
+  <span style="color: #BBB">	</span><span style="color: #7686BB; font-weight: bold">for</span><span style="color: #BBB"> </span><span style="color: #CCC">(</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockCoordinate&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableCoordinate</span><span style="color: #BBB"> </span><span style="color: #CCC">:</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData.walkableBlocksMetaData)</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">walkableBlock</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">currentFloorData.blockData[walkableCoordinate.row][walkableCoordinate.column];</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(walkableBlock.blockType</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType::Door)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #7686BB; font-weight: bold">continue</span><span style="color: #CCC">;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockData&amp;</span><span style="color: #BBB"> </span><span style="color: #CCC">aboveBlock</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">aboveFloorData.blockData[walkableCoordinate.row][walkableCoordinate.column];</span>
+  
+  <span style="color: #BBB">		</span><span style="color: #7686BB; font-weight: bold">if</span><span style="color: #BBB"> </span><span style="color: #CCC">(aboveBlock.blockType</span><span style="color: #BBB"> </span><span style="color: #CCC">==</span><span style="color: #BBB"> </span><span style="color: #CCC">BlockType::Void)</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">{</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">myIsValid</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">false;</span>
+  <span style="color: #BBB">			</span><span style="color: #CCC">aViolationData.hasFloorViolation</span><span style="color: #BBB"> </span><span style="color: #CCC">=</span><span style="color: #BBB"> </span><span style="color: #CCC">true;</span>
+  <span style="color: #BBB">		</span><span style="color: #CCC">}</span>
+  <span style="color: #BBB">	</span><span style="color: #CCC">}</span>
+  <span style="color: #CCC">}</span>
+  </pre></div>  
+          <p>
+            Using my Geometry tool, I create an interactable grid of quads. When the player clicks a Quad, new data will be added to the current floor. Then, a visual representation of that data will be created using our custom engine's ECS.
+          </p>
+          <p>
+            The player may also interact with placed blocks. For each block on the current floor, I create an interactable cuboid using my geometry tool. The cuboid may be rotated or replaced with another block.
+          </p>
+          <p>
+            The player can also erase blocks; they may use either the eraser from the block menu, which is also drawn using the geometry tool, or pressing the delete key when hovering over the block.
+          </p>
+          <p>
+            When the player is forced to return to a previous floor to rebuild, they may hide floors above to make it easier to see what they are currently building.
+          </p>
+        </section>
+        <section class="default-wrapper">
+          <h3>Rules and rule validation</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta magnam quidem consequuntur. Necessitatibus obcaecati tempora optio officiis possimus omnis nobis quis iusto quisquam, praesentium, labore natus, ipsam quos. Ratione, reprehenderit.</p>
         </section>
         <section class="bottom-section">
           <div class="default-wrapper">
             <h3>Conclusion</h3>
-            <p class="spacing-small">It was fun to push the capabilities of my Immediate Geometry Tool, and this piece did force me to rewrite code to make it more robust and flexible.</p>
-            <p class="spacing-small">I would have liked to also mark the specific blocks or coordinates where an error occured, but with the alloted time I chose to do a simpler implementation</p>
-
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta magnam quidem consequuntur. Necessitatibus obcaecati tempora optio officiis possimus omnis nobis quis iusto quisquam, praesentium, labore natus, ipsam quos. Ratione, reprehenderit.</p>
           </div>
         </section>
       </article>
