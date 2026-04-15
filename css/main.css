@@ -4,7 +4,7 @@ IMPORTS
 ==============================================================
 */
 @import url("https://fonts.googleapis.com/css2?family=Days+One&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 /*
 ============================================================== 
 RESET 
@@ -107,10 +107,6 @@ h3 {
 
 h4 {
   font-size: var(--text-size-1);
-}
-
-strong {
-  color: var(--color-yellow);
 }
 
 a {
@@ -299,6 +295,10 @@ h2 {
   border-color: var(--color-gray);
   padding: var(--text-size-minus-2) var(--text-size-minus-1);
   margin: var(--space-3xs) var(--space-4xs);
+}
+
+.hero-highlight{
+  color: var(--color-yellow);
 }
 
 /* 

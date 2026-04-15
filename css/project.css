@@ -135,10 +135,6 @@ video{
   border-radius: var(--border-radius);
 }
 
-section{
-  margin-bottom: var(--space-l);
-}
-
 li{
   list-style: none;;
 }
@@ -170,6 +166,10 @@ li{
 
 .spacing-large {
   margin-bottom: var(--space-l);
+}
+
+.spacing-2X-large {
+  margin-bottom: var(--space-2xl);
 }
 
 .spacing-3X-large {
@@ -281,7 +281,7 @@ HERO SECTION
 
 h2 {
   font-size: var(--text-size-3);
-  margin-bottom: var(--space-s);
+  margin-bottom: var(--space-2xs);
   text-wrap: balance;
 }
 
@@ -438,7 +438,7 @@ PORTFOLIO PIECE SECTION
     font-size: var(--text-size-minus-1);
     border-radius: var(--border-radius);
     max-width: 100%;
-    font-size: 14px;
+    font-size: var(--text-size-4);
 }
 
 .piece-code-block pre{

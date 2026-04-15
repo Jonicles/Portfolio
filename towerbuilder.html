@@ -46,25 +46,25 @@
     </header>
     <main>
       <article>
-        <section class="piece-info-section top-section">
+        <section class ="piece-info-section top-section">
           <div class="default-wrapper ">
             <div>
               <div>
                 <a href="index.html#featuredprojects">&lt; 
                 Back to featured projects</a>
               </div>
-              <h1>Tower builder & validator</h1>
+              <h1 class="spacing-2X-small">Tower builder & validator</h1>
               <video class = "spacing-small"
                 autoplay
                 muted
                 loop
                 src="vid/Tower_Builder/Tower-Showcase.mp4"
               ></video>
-                <h3>Info</h3>
+                <h3 class="spacing-2X-small">Info</h3>
                 <ul class = "piece-info-list">
                   <li><strong class ="project-info">Engine:</strong> Custom C++ Engine (Spare Parts)</li>
                   <li><strong class ="project-info">Language:</strong> C++</li>
-                  <li><strong class ="project-info">Tools:</strong> ImGui, Immediate Mode Geometry tool</li>
+                  <li><strong class ="project-info">Tools:</strong> ImGui, Immediate mode geometry tool</li>
                   <li><strong class ="project-info">Time frame:</strong> 3 weeks</li>
                   <li><strong class ="project-info">Team Size:</strong> Solo</li>
                 </ul>
@@ -73,8 +73,8 @@
           </div>
         </section>
         <section class="default-wrapper">
-          <h3>Overview</h3>
-          <p class="spacing-small">I wanted to test the usefulness of my <a href="geometrytool.html">Immediate Mode Geometry Tool</a> in a 
+          <h3 class="spacing-2X-small">Overview</h3>
+          <p class="spacing-small">I wanted to test the usefulness of my <a href="geometrytool.html">immediate mode geometry tool</a> in a 
             real gameplay setting while also creating a <strong>grid-based building game</strong>.
           </p>
           <p class="spacing-small">
@@ -88,11 +88,11 @@
           </p>
         </section>
         <section class="default-wrapper">
-          <h3>Key achievements</h3>
+          <h3 class="spacing-2X-small">Key achievements</h3>
           <ul>
             <li>
               &#9679; Built an interactive tower-building system using my 
-              <strong>Immediate Mode Geometry Tool</strong> integrated with <em>ECS</em>.
+              <strong>Immediate mode geometry tool</strong> integrated with <em>ECS</em>.
             </li>
             <li>
               &#9679; Developed a <strong>rule validation</strong> system for floor-based building constraints.
@@ -109,9 +109,9 @@
           </ul>
         </section>
         <section class="default-wrapper">
-          <h3>Building</h3>
+          <h3 class="spacing-2X-small">Building</h3>
           <p class="spacing-small">
-            I used my <strong>Immediate Mode Geometry Tool</strong> to generate an interactive grid 
+            I used my <strong>immediate mode geometry tool</strong> to generate an interactive grid 
             for each floor. Clicking on a grid cell updates the floor's block data, 
             which then spawns or updates the corresponding <em>ECS</em> components in the world.
           </p>
@@ -355,7 +355,7 @@
         </details>  
         </section>
         <section class="default-wrapper">
-          <h3>Rule validation</h3>
+          <h3 class="spacing-2X-small">Rule validation</h3>
           <p class="spacing-small">
             A core challenge of the project was <strong>efficiently validating tower rules</strong> as the structure changed. 
             Some rules only affect a single floor, while others depend on relationships between multiple floors. 
@@ -662,14 +662,14 @@
         </section>
         <section>
           <div class="default-wrapper">
-            <h3>Error visualization</h3>
+            <h3 class="spacing-2X-small">Error visualization</h3>
             <p class="spacing-small">
               To make rule violations easy to understand, I implemented an <strong>error highlighting</strong> system 
               inspired by the red squiggly line commonly seen in <em>IDEs</em>.  
             </p>
             <p class="spacing-small">
               Each floor stores its own error state, which is then used to generate error geometry 
-              through my <strong>Immediate Mode Geometry Tool</strong>. This gives players clear feedback on which 
+              through my <strong>immediate mode geometry tool</strong>. This gives players clear feedback on which 
               floors need to be rebuilt while keeping the error system <strong>lightweight and easy to extend</strong>. 
             </p>
             <video class="spacing-small"
@@ -718,12 +718,12 @@
         </section>
         <section class="bottom-section">
           <div class="default-wrapper">
-            <h3>Take aways</h3>
+            <h3 class="spacing-2X-small">Take aways</h3>
             <p class="spacing-small">
-              This project was a great way to test and improve my <a href="geometrytool.html">Immediate Mode Geometry Tool</a>. 
+              This project was a great way to test and improve my <a href="geometrytool.html">immediate mode geometry tool</a>. 
               It exposed flaws in the interaction system that helped me refine the tool further.  
             </p>
-            <p class="spacing-small">
+            <p>
               One feature I wanted to implement was error highlights at specific coordinates. 
               While I made it functional, the visual result was not as clear as I wanted, 
               so I chose not to include it in the final version.
