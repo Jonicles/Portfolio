@@ -4,7 +4,7 @@ IMPORTS
 ==============================================================
 */
 @import url("https://fonts.googleapis.com/css2?family=Days+One&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Intel+One+Mono:ital,wght@0,300..700;1,300..700&display=swap');
 /*
 ============================================================== 
@@ -110,11 +110,6 @@ h4{
   font-family: "Intel One Mono", monospace;
 }
 
-strong{
-  color: var(--color-yellow);
-  font-style: normal;
-}
-
 small{
   font-style: italic;
   font-size: var(--text-size-0);
@@ -123,13 +118,14 @@ small{
 
 a {
   text-decoration: none;
-  color: var(--color-white);
+  color: var(--color-light-gray);
   transition: all var(--default-transition-time);
 }
 
 a:hover{
+  text-decoration: underline;
   transition: all var(--default-transition-time);
-  color: var(--color-gray);
+  color: var(--color-light-gray);
 }
 
 img,
@@ -139,8 +135,8 @@ video{
   border-radius: var(--border-radius);
 }
 
-section{
-  margin-bottom: var(--space-l);
+li{
+  list-style: none;;
 }
 
 .default-wrapper{
@@ -148,16 +144,36 @@ section{
   margin-inline: auto;
 }
 
-.spacing-small{
-  margin-bottom: var(--space-s)
+.spacing-3X-small{
+  margin-bottom: var(--space-3xs);
 }
 
-.spacing-medium{
-  margin-bottom: var(--space-m)
+.spacing-2X-small{
+  margin-bottom: var(--space-2xs);
 }
 
-.spacing-large{
-  margin-bottom: var(--space-xl)
+.spacing-X-small{
+  margin-bottom: var(--space-xs);
+}
+
+.spacing-small {
+  margin-bottom: var(--space-s);
+}
+
+.spacing-medium {
+  margin-bottom: var(--space-m);
+}
+
+.spacing-large {
+  margin-bottom: var(--space-l);
+}
+
+.spacing-2X-large {
+  margin-bottom: var(--space-2xl);
+}
+
+.spacing-3X-large {
+  margin-bottom: var(--space-3xl);
 }
 
 section{
@@ -182,6 +198,10 @@ section{
 .secondary-links:hover {
   color: var(--color-navy-blue);
   transition: all var(--default-transition-time);
+}
+
+.project-info{
+  color: var(--color-yellow);
 }
 
 
@@ -220,13 +240,15 @@ header{
 }
 
 .nav-link-content {
+  color: var(--color-white);
   text-decoration: none;
   transition: all var(--default-transition-time);
   padding: var(--space-xs);
 }
 
 .nav-link-content:hover {
-  color: #565d81;
+  text-decoration: none;
+  color: var(--color-light-gray);
   transition: all var(--default-transition-time);
 }
 
@@ -237,6 +259,7 @@ header{
 }
 
 .resume-button {
+  color: var(--color-white);
   background-color: var(--color-navy-blue);
   border-radius: 6px;
   padding: 11px 32px;
@@ -244,6 +267,7 @@ header{
 }
 
 .resume-button:hover {
+  text-decoration: none;
   background-color: var(--color-light-blue);
   color: var(--color-white);
   transition: all var(--default-transition-time);
@@ -257,7 +281,7 @@ HERO SECTION
 
 h2 {
   font-size: var(--text-size-3);
-  margin-bottom: var(--space-s);
+  margin-bottom: var(--space-2xs);
   text-wrap: balance;
 }
 
@@ -362,22 +386,27 @@ footer {
 }
 
 .footer-link {
+  color: var(--color-white);
   transition: all var(--default-transition-time);
 }
 
 .footer-link:hover {
-  color: var(--color-gray);
+  text-decoration: none;
+  color: var(--color-light-gray);
+  transition: all var(--default-transition-time);
+}
+
+.social-link {
   transition: all var(--default-transition-time);
 }
 
 .social-link:hover {
-  filter: invert(37%) sepia(43%) saturate(359%) hue-rotate(192deg)
-    brightness(87%) contrast(87%);
+  filter: brightness(0) saturate(100%) invert(39%) sepia(16%) saturate(631%) hue-rotate(191deg) brightness(92%) contrast(88%);
   transition: all var(--default-transition-time);
 }
 
 .footer-copyright {
-  color: var(--color-gray);
+  color: var(--color-yellow);
   text-align: center;
   padding-bottom: 40px;
 }
@@ -409,7 +438,7 @@ PORTFOLIO PIECE SECTION
     font-size: var(--text-size-minus-1);
     border-radius: var(--border-radius);
     max-width: 100%;
-    font-size: 14px;
+    font-size: var(--text-size-4);
 }
 
 .piece-code-block pre{
