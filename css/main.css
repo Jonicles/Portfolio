@@ -179,13 +179,15 @@ section {
 }
 
 .secondary-links {
-  color: #565d81;
+  text-decoration: none;
+  color: var(--color-light-gray);
   transition: all var(--default-transition-time);
 }
 
 .secondary-links:hover {
-  color: var(--color-navy-blue);
+  text-decoration: underline;
   transition: all var(--default-transition-time);
+  color: var(--color-light-gray);
 }
 
 /*
