@@ -128,12 +128,16 @@ video {
 }
 
 section {
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-3xl);
 }
 
 .default-wrapper {
   width: min(100% - 3rem, 100ch);
   margin-inline: auto;
+}
+
+.spacing-X-small {
+  margin-bottom: var(--space-xs);
 }
 
 .spacing-small {
@@ -148,18 +152,10 @@ section {
   margin-bottom: var(--space-l);
 }
 
-.spacing-3X-large {
-  margin-bottom: var(--space-3xl);
-}
-
 .center-block {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-section {
-  padding-bottom: var(--space-3xl);
 }
 
 .top-section {
@@ -267,7 +263,7 @@ h2 {
 }
 
 .hero-section {
-  padding-bottom: 0;
+  margin-bottom: 0;
   display: flex;
   align-items: center;
   height: fit-content;
